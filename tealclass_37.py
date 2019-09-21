@@ -283,10 +283,32 @@ class App:
 
         #response = requests.post('http://localhost:3000/physics', data=payload)
 
-        
-        mpld3.save_html(plt.figure(1),'testOut.html')
+
         
 
+        mpld3.save_html(plt.figure(1),'testOut.html')
+
+
+        ########################
+
+        #** Kelvin: Just TESTING out some stuff below **
+
+        '''
+            Note:
+
+            The number, n, inside figure(n) corresponds to the figure number.
+            Each time you click on calculate, the figure number increases, starting from n=1.
+        '''
+
+        ## save_json saves entire graph into JSON obj:
+        # mpld3.save_json(plt.figure(1), 'test.json')
+
+        ## opens up a webpage to view figure, probably not what we want though. 
+        # mpld3.show(plt.figure(1))
+
+        ########################
+
+       
         App.ClearFrame(self.framed1)
         App.ClearFrame(self.framepic)
         self.refreshDataFrame()
