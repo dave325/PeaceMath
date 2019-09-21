@@ -85,6 +85,7 @@ click on ORIGINAL on the initial conditions input
 -----------------------------------------------------------------------------   
 """
 
+import mpld3
 import tkinter as tk
 import data
 import numpy as np
@@ -96,6 +97,8 @@ from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 #from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
 
+#TODO remove this, just for testing out matplotlibjs
+import requests
 
 #Defines the textboxes that will scale to the size of the variables x(i)
 class TextBox:
@@ -272,6 +275,18 @@ class App:
         #set z[0]=z[-1] for the NEXT iteration
         pass_data.z[0]=pass_data.z[-1]
         #CLEAR and REFRESH DATA and PIC frames
+        
+        #TODO make the api call to the frontend
+        #plt.exportToFrontend()
+
+        payload = {}
+
+        #response = requests.post('http://localhost:3000/physics', data=payload)
+
+        
+        mpld3.save_html(plt.figure(1),'testOut.html')
+        
+
         App.ClearFrame(self.framed1)
         App.ClearFrame(self.framepic)
         self.refreshDataFrame()
@@ -293,7 +308,7 @@ class App:
             ytext=pass_data.z[-1,i]
             varis=str(i) #first variable is 0
             plt.text(xtext,ytext,varis)
-            xtext=xtext-1    
+            xtext=xtext-1  
         programname='teal.py, tealclass.py, data.py   '+localtime
         param1='\n   input files= '+str(pass_data.fnamec)+'    '    +str(pass_data.fnameb)+'    '+str(pass_data.fnamem) +'    '+str(pass_data.fnamebtextbxy) + '     dt='+str(pass_data.dt)
         start=App.displayinput(pass_data.z[0],75)
@@ -303,7 +318,7 @@ class App:
         titlelsl=programname+param1 + param2
         plt.title(titlelsl, fontsize=8)
         plt.show(block=False) #IMPORTANT: to SHOW graph but NOT stop execution
-      
+        
         
     #rounds numbers for x(start), x(final) in the title of plot x(i) vs. time
     def displayinput(vector1,number):
