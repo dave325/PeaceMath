@@ -162,6 +162,7 @@ class ArrowObject:
 class App:
     #constructor
     def __init__(self):
+        self.nums = 0
         self.data=data
         self.fewarrows=0
         self.MakeWindow()
@@ -172,7 +173,7 @@ class App:
 
 
     #makes frames and frames within frames needed for correct display
-    def MakeWindow (self):
+    def MakeWindow (self):      
         self.root=tk.Tk()
         self.root.wm_title("Data Input and Graphical Output")
         self.outsideframed1=tk.Frame(self.root,width=300, height=800)
@@ -190,7 +191,7 @@ class App:
 
     
     #makes the plot: boxes and the (fancy) arrows connecting them
-    def createBoxGraph(self):
+    def createBoxGraph(self):     
         TextBox.list_box=[]  #CLEAR ALL PREVIOUS!!!
         f = plt.figure(facecolor = 'white')
         f.set_size_inches(8,10)
@@ -227,7 +228,9 @@ class App:
 
     
     #used to scale the sizes of the textboxes
-    def scalebox(vector):
+    def scalebox(vector):   
+        print('Vector')
+        print(vector)
         data2=[0 for i in range(len(vector))]
         minbox,maxbox=2,30
         minb,maxb=min(vector),max(vector)
@@ -241,6 +244,8 @@ class App:
 
     #Euler numerical integration of the ordinary differential equations
     def recalculate(self,pass_data):
+        print('pass data')
+        print(pass_data.numdata)
         #UGLY FIX FOR ENTRIES/ENTRIESIJ----------------------------------------
         if self.fixent==1:
             self.data.z[0]=[eval((self.entries[i][1].get())) for i in range(len(self.entries))]
@@ -294,6 +299,7 @@ class App:
         start=App.displayinput(pass_data.z[0],75)
         finish=App.displayinput(pass_data.z[-1],75)
         param2='\nstart=  ' + start + '\nfinish=  ' + finish
+        print(param2)
         titlelsl=programname+param1 + param2
         plt.title(titlelsl, fontsize=8)
         plt.show(block=False) #IMPORTANT: to SHOW graph but NOT stop execution
@@ -301,10 +307,14 @@ class App:
         
     #rounds numbers for x(start), x(final) in the title of plot x(i) vs. time
     def displayinput(vector1,number):
+        
+        
         #creates string to print from np.array(vector1)
         #that is approximately number characters per line
         c=''
         v1=vector1.tolist()
+        print('v1')
+        print(v1)
         v2=[round(v1[i],6) for i in range (len(v1))]
         a=str(v2)
         a2=a.replace(' ','')
@@ -371,6 +381,8 @@ class App:
     
     #redraw the textboxes and the arrows connecting them
     def refreshPicFrame(self):
+        
+        
         #UGLY FIX FOR ENTRIES/ENTRIESIJ----------------------------------------
         if self.fixent==1:
             self.data.z[0]=[eval((self.entries[i][1].get())) for i in range(len(self.entries))]
