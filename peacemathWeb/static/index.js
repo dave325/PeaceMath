@@ -22,13 +22,13 @@ const inputValues = {...defaultInputValues};
 // Sidebar Buttons
 const initialConditionsBtn = document.querySelector('.btn_intial-conditions');
 initialConditionsBtn.addEventListener('click', function(){
-	// revert back to default initial condtions of input values
-	setSideBarValues(defaultInputValues);
+
 });
 
 const originalBtn = document.querySelector('.btn_original');
 originalBtn.addEventListener('click', function(){
-	
+	// revert back to default initial condtions of input values
+	setSideBarValues(defaultInputValues);
 });
 
 const calculateBtn = document.querySelector('.btn_calculate');
