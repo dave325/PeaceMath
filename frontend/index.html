@@ -1,83 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Peace Math Frontend</title>
+	<title>Peace Math</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="./index.css">
 
 	<!-- ASYNC SCRIPT LOADERS -->
+	<script type="text/javascript" async src="./index.js"></script>
 	<script async src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script async src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script async src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-	<style>
-		.sidebar {
-			background: red;
-			border: 3px solid black;
-			min-height: 700px;
-		}
-
-		.main_figure {
-			background: blue;
-			border: 3px solid black;
-			min-height: 700px;
-		}
-
-		input {
-			display: block;
-		}
-
-		button {
-			display: block;
-			text-align: center;
-		}
-
-
-	</style>
+	<script async src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script async src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </head>
 <body>
 	<div class="container-fluid">
 		<div class="row">
 			<div class="sidebar col-3">
-
 				<button class="btn_intial-conditions">Initial conditions</button>
 				<button class="btn_original">Original</button>
 				<button class="btn_calculate">Calculate</button>
 				<button class="btn_enter">Enter</button>
-
 				<hr>
-
 				<label for="add_mem">+ Mem</label>
 				<input type="text" name="add_mem" id="add_mem" value="1.0">
-
 				<label for="sub_mem">- Mem</label>
 				<input type="text" name="sub_mem" id="sub_mem" value="1.0">
-
-				
 				<label for="add_expect">+ Expect</label>
 				<input type="text" name="add_expect" id="add_expect" value="1.0">
-
-				
 				<label for="sub_expect">- Expect</label>
 				<input type="text" name="sub_expect" id="sub_expect" value="1.0">
-
-				
 				<label for="pir">PIR</label>
 				<input type="text" name="pir" id="pir" value="1.0">
-
-				
 				<label for="nir">NIR</label>
 				<input type="text" name="nir" id="nir" value="1.0">
-
 			</div>
 			<div class="main_figure col-9">
 				<div class="row justify-content-between">
 					<button class="btn_add-mem col-2">+ mem</button>
 					<button class="btn_add-expect col-2">+ expect</button>
 				</div>
-				<div class="row">
+				<div class="row justify-content-center">
 					<button class="btn_pir col-2">PIR</button>
 				</div>
-				<div class="row">
+				<div class="row justify-content-center">
 					<button class="btn_nir col-2">NIR</button>
 				</div>
 				<div class="row justify-content-between">
