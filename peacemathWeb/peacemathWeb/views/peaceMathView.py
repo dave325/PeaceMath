@@ -7,5 +7,4 @@ from django.shortcuts import render, get_object_or_404, redirect
 
 
 def mainView(request):
-    template = Template("My name is {{ my_name }}.")
-    return render(request,'/static_frontPage_index.html',{})
+    return render(request,'index.html',{})
