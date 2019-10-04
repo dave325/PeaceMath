@@ -1,19 +1,15 @@
 """
 HELLO, I am teal.py
-
 -------------------------------------------------------------------------------
 MIT License Copyright (c) 2017 Larry S. Liebovitch
-
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
 to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:
-
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
-
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -22,11 +18,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 -------------------------------------------------------------------------------
-
 GUI to integrate ordinary differential equations (ODEs)
 Display the results
 Change the initial conditions or interactions between variables
-
 ODEs: dx(i)/dt = m(i)x(i) + b(i) + SUM(j)[c(i,j)tanh(x(j)]
     x(i) = system variables
     m(i) = decay time scale
@@ -39,7 +33,6 @@ SCRIPTS: PYTHON 3.4.1 (later 3.6.1) with Tkinter
 data.py
 teal.py
 tealclass.py
-
 DATAFILES (# = 8, 105, 111, 202)
 m#.txt = m(i)
 b#.txt = b(i)
@@ -49,7 +42,6 @@ btextbxy#.txt =
     variable name, color, (x,y) from upper left corner, height, width
     
 -----------------------------------------------------------------------------   
-
 FIRST RUN THE SCRIPTS:
     data.py
     tealclass.py
@@ -64,24 +56,18 @@ THEN RUN THE SCRIPT:
             202 <RETURN>
         When asked for "Want to CHANGE parameters (y/n), def=n"
             type: <RETURN>
-
 TO CHANGE INITIAL CONDITIONS:
 use the left hand entry widgets and click on ENTER
-
 TO CHANGE THE CONNECTION MATRIX:
 click on a textbox, use the left hand entry widget, and click ENTER
 (this will also show only the links into and out of that textbox,
 click on  ALL Cij to show all the links)
-
 TO RUN THE CALCULATION:
 click CALCULATE
-
 TO SWITCH FROM THE LINKS TO THE INITIAL CONDITIONS:
 click on IC on the links input
-
 TO RESTORE THE ORIGINAL INITIAL CONDITIONS:
 click on ORIGINAL on the initial conditions input
-
 -----------------------------------------------------------------------------   
 """
 
@@ -92,14 +78,12 @@ import numpy as np
 import random
 import time
 import data as pass_data
-from tealclass_37_stripped import * #import the METHODS from tealclass.py
+from tealclass_37 import * #import the METHODS from tealclass.py
 
 
 #START OF DEFINED FUNCTIONS----------------------------------------------------
 #read text string in a file
-
 def filein (fname):
-    print('Reading in text file')
     numlines=0
     xin=[]
     f=open(fname,'r')
@@ -113,7 +97,6 @@ def filein (fname):
 #not used
 #writes text string to file
 def fileout (filename,filedata):
-    print('Outputting data to out file')
     f2=open(filename,'w')
     f2.write(filedata)
     f2.close()
@@ -123,7 +106,6 @@ def fileout (filename,filedata):
 #x,y separated by a TAB
 #rows separated by a RETURN
 def getxy (fname):
-    print('Parsing text tables with two cols')
     data,numlines=filein(fname)
     x=['0' for i in range(numlines)]
     y=['0' for i in range(numlines)]
@@ -138,7 +120,6 @@ def getxy (fname):
 
 #parse files m#.txt, b#.txt, c#.txt
 def getx (fname):
-    print('Parsing files with .txt')
     data,numlines=filein(fname)
     #print ('\ndata\n',data,'\nlines',numlines)
     x=['0' for i in range(numlines)]
@@ -152,7 +133,6 @@ def getx (fname):
 #elements in a row separated by a TAB
 #rows separated by a RETURN
 def getxn(fname):
-    print('Reading text with n cols')
     data,numlines=filein(fname)
     dataline=['0' for i in range(numlines)]
     for i in range(numlines):
@@ -176,7 +156,6 @@ def getxn(fname):
 #parse file btextbxy#.txt
 def getxnsecondstring(fname):   #get n inputs from each line
 #variable name, color, (x,y) from upper left corner, height, width
-    print('Getting n inputs')
     data,numlines=filein(fname)
     dataline=['0' for i in range(numlines)]
     for i in range(numlines):
@@ -199,7 +178,6 @@ def getxnsecondstring(fname):   #get n inputs from each line
 
 #fancy way to easily change input values
 def lslin(invars,invar):
-    print('Changing input values')
     print('\ncurrent value of ',invars,' is= ',invar)
     outvars=input('\nchange to (def=no change)')
     if (outvars==''):
@@ -339,7 +317,5 @@ pass_data.boxcolor=[btextbxydata[i][1] for i in range(numvar)]
 
 
 #call the classes----------------------------------------------
-def getBasePlot():
-    a = App()
-    return a.recalculateAndReturnPlot() 
+zzz=App()
 #call the classes----------------------------------------------

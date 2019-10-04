@@ -1,19 +1,15 @@
 """
 HELLO, I am tealclass.py
-
 -------------------------------------------------------------------------------
 MIT License Copyright (c) 2017 Larry S. Liebovitch
-
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
 to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:
-
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
-
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -22,11 +18,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 -------------------------------------------------------------------------------
-
 GUI to integrate ordinary differential equations (ODEs)
 Display the results
 Change the initial conditions or interactions between variables
-
 ODEs: dx(i)/dt = m(i)x(i) + b(i) + SUM(j)[c(i,j)tanh(x(j)]
     x(i) = system variables
     m(i) = decay time scale
@@ -39,7 +33,6 @@ SCRIPTS: PYTHON 3.4.1 (later 3.6.1) with Tkinter
 data.py
 teal.py
 tealclass.py
-
 DATAFILES (# = 8, 105, 111, 202)
 m#.txt = m(i)
 b#.txt = b(i)
@@ -49,7 +42,6 @@ btextbxy#.txt =
     variable name, color, (x,y) from upper left corner, height, width
     
 -----------------------------------------------------------------------------   
-
 FIRST RUN THE SCRIPTS:
     data.py
     tealclass.py
@@ -64,28 +56,21 @@ THEN RUN THE SCRIPT:
             202 <RETURN>
         When asked for "Want to CHANGE parameters (y/n), def=n"
             type: <RETURN>
-
 TO CHANGE INITIAL CONDITIONS:
 use the left hand entry widgets and click on ENTER
-
 TO CHANGE THE CONNECTION MATRIX:
 click on a textbox, use the left hand entry widget, and click ENTER
 (this will also show only the links into and out of that textbox,
 click on  ALL Cij to show all the links)
-
 TO RUN THE CALCULATION:
 click CALCULATE
-
 TO SWITCH FROM THE LINKS TO THE INITIAL CONDITIONS:
 click on IC on the links input
-
 TO RESTORE THE ORIGINAL INITIAL CONDITIONS:
 click on ORIGINAL on the initial conditions input
-
 -----------------------------------------------------------------------------   
 """
 
-import mpld3
 import tkinter as tk
 import data
 import numpy as np
@@ -97,8 +82,6 @@ from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 #from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
 
-#TODO remove this, just for testing out matplotlibjs
-import requests
 
 #Defines the textboxes that will scale to the size of the variables x(i)
 class TextBox:
@@ -164,21 +147,18 @@ class ArrowObject:
 #MAIN CLASS THAT DOES MOST OF THE WORK
 class App:
     #constructor
-    
     def __init__(self):
-        self.nums = 0
         self.data=data
         self.fewarrows=0
-        #self.MakeWindow()
-        #self.refreshDataFrame()
-        #self.refreshPicFrame()
-        #self.fixent=1 #UGLY FIX FOR ENTRIES/ENTRIESIJ
-        #self.root.mainloop() # -maybe needed for Windows OS
+        self.MakeWindow()
+        self.refreshDataFrame()
+        self.refreshPicFrame()
+        self.fixent=1 #UGLY FIX FOR ENTRIES/ENTRIESIJ
+        # self.root.mainloop() -maybe needed for Windows OS
 
 
     #makes frames and frames within frames needed for correct display
-    def MakeWindow (self):   
-        print('Make window')  
+    def MakeWindow (self):
         self.root=tk.Tk()
         self.root.wm_title("Data Input and Graphical Output")
         self.outsideframed1=tk.Frame(self.root,width=300, height=800)
@@ -196,9 +176,7 @@ class App:
 
     
     #makes the plot: boxes and the (fancy) arrows connecting them
-    #PLOT ONLY
-    def createBoxGraph(self):  
-        print('Creating box graph')     
+    def createBoxGraph(self):
         TextBox.list_box=[]  #CLEAR ALL PREVIOUS!!!
         f = plt.figure(facecolor = 'white')
         f.set_size_inches(8,10)
@@ -235,10 +213,7 @@ class App:
 
     
     #used to scale the sizes of the textboxes
-    def scalebox(vector):  
-        print('Making vector') 
-        print('Vector')
-        print(vector)
+    def scalebox(vector):
         data2=[0 for i in range(len(vector))]
         minbox,maxbox=2,30
         minb,maxb=min(vector),max(vector)
@@ -252,8 +227,6 @@ class App:
 
     #Euler numerical integration of the ordinary differential equations
     def recalculate(self,pass_data):
-        print('Passing data')
-        print(pass_data.numdata)
         #UGLY FIX FOR ENTRIES/ENTRIESIJ----------------------------------------
         if self.fixent==1:
             self.data.z[0]=[eval((self.entries[i][1].get())) for i in range(len(self.entries))]
@@ -280,44 +253,14 @@ class App:
         #set z[0]=z[-1] for the NEXT iteration
         pass_data.z[0]=pass_data.z[-1]
         #CLEAR and REFRESH DATA and PIC frames
-        
-        #TODO make the api call to the frontend
-        #plt.exportToFrontend()
-
-        payload = {}
-
-        #response = requests.post('http://localhost:3000/physics', data=payload)
-
-        #mpld3.save_html(plt.figure(1),'testOut.html')
-
-
-        ########################
-
-        #** Kelvin: Just TESTING out some stuff below **
-
-        '''
-            Note:
-
-            The number, n, inside figure(n) corresponds to the figure number.
-            Each time you click on calculate, the figure number increases, starting from n=1.
-        '''
-
-        ## save_json saves entire graph into JSON obj:
-        # mpld3.save_json(plt.figure(1), 'test.json')
-
-        ## opens up a webpage to view figure, probably not what we want though. 
-        # mpld3.show(plt.figure(1))
-
-        ########################
-        #App.ClearFrame(self.framed1)
-        #App.ClearFrame(self.framepic)
+        App.ClearFrame(self.framed1)
+        App.ClearFrame(self.framepic)
         self.refreshDataFrame()
         self.refreshPicFrame()        
      
         
     #makes plot of x(i) vs. time
     def MakePlot(pass_data):
-        print('Make New Plot')
         print('\nYour plot is ready')
         localtime = time.asctime( time.localtime(time.time()) )
         x_start=pass_data.z[0]
@@ -331,29 +274,23 @@ class App:
             ytext=pass_data.z[-1,i]
             varis=str(i) #first variable is 0
             plt.text(xtext,ytext,varis)
-            xtext=xtext-1  
+            xtext=xtext-1    
         programname='teal.py, tealclass.py, data.py   '+localtime
         param1='\n   input files= '+str(pass_data.fnamec)+'    '    +str(pass_data.fnameb)+'    '+str(pass_data.fnamem) +'    '+str(pass_data.fnamebtextbxy) + '     dt='+str(pass_data.dt)
         start=App.displayinput(pass_data.z[0],75)
         finish=App.displayinput(pass_data.z[-1],75)
         param2='\nstart=  ' + start + '\nfinish=  ' + finish
-        print(param2)
         titlelsl=programname+param1 + param2
         plt.title(titlelsl, fontsize=8)
         plt.show(block=False) #IMPORTANT: to SHOW graph but NOT stop execution
-        
+      
         
     #rounds numbers for x(start), x(final) in the title of plot x(i) vs. time
     def displayinput(vector1,number):
-        print('Displaying input')
-        
-        
         #creates string to print from np.array(vector1)
         #that is approximately number characters per line
         c=''
         v1=vector1.tolist()
-        print('v1')
-        print(v1)
         v2=[round(v1[i],6) for i in range (len(v1))]
         a=str(v2)
         a2=a.replace(' ','')
@@ -372,7 +309,6 @@ class App:
     
     #clear and refresh ONLY the left initial condition dataframe
     def refreshDataFrame(self):
-        print('Refreshing data frame')
         self.fixent=1 #UGLY FIX FOR ENTRIES/ENTRIESIJ
         App.ClearFrame(self.framed1)
         #frame and buttons on top
@@ -380,20 +316,11 @@ class App:
         newframe.pack(side=tk.TOP,pady=0)
         tk.Label(newframe,text='initial conditions',fg='blue').pack(side=tk.LEFT,padx=30,pady=5)
         tk.Button(newframe,text='original',command= self.resetIC).pack(side=tk.RIGHT,padx=30,pady=5)
-      
         newframe2=tk.Frame(self.framed1)
         newframe2.pack(side=tk.TOP,pady=0)
-
-        #NOTE                                                       PLOT CALL HERE
         cal1=tk.Button(newframe2,text='CALCULATE',command=(lambda: self.recalculate(data)))
-
-
         cal1.pack(side=tk.LEFT,padx=30,pady=5)
-
-        #NOTE                                                                PLOT CALL
         tk.Button(newframe2,text='ENTER',command=self.refreshPicFrame).pack(side=tk.LEFT,padx=30,pady=5)      
-        
-        
         #frame for entry widgets for initial conditions
         self.framecanvas=tk.Frame(self.framed1)
         self.framecanvas.pack(side=tk.BOTTOM,pady=0)
@@ -430,9 +357,6 @@ class App:
     
     #redraw the textboxes and the arrows connecting them
     def refreshPicFrame(self):
-        print('Refreshing pic frame')
-        
-        
         #UGLY FIX FOR ENTRIES/ENTRIESIJ----------------------------------------
         if self.fixent==1:
             self.data.z[0]=[eval((self.entries[i][1].get())) for i in range(len(self.entries))]
@@ -455,7 +379,6 @@ class App:
     
     #clear and refresh ONLY the left cij adjacency matrix dataframe
     def refreshCIJFrame(self):
-        print('Refreshing CIJ Frame')
         self.fixent=2 #UGLY FIX FOR ENTRIES/ENTRIESIJ
         App.ClearFrame(self.framed1)
         fromto='FROM    '+data.labels[self.box_id]+'    TO'
@@ -505,7 +428,6 @@ class App:
 
     #return the textbox id that was clicked
     def onclick(self,event):
-        print('onclick')
         for box in TextBox.list_box:
             contains, attrd = box.text.contains(event)
             if(contains):
@@ -524,21 +446,18 @@ class App:
     
     #reset the initial conditions to the input data ic(i) default values
     def resetIC(self):
-        print('Refreshing Initial conditions')
         self.data.z[-1]=[self.data.ica[i] for i in range(len(self.data.z[0]))]
         self.refreshDataFrame()
     
     
     #not used
     def FullrefreshPicFrame(self):
-        print('Full Refreshing Pic frame')
         self.fewarrows=0
         self.refreshPicFrame()
     
     
     #not used, but nice to have to end execution
     def myquit(self):
-        print('Quitting')
         print ('\n I did press CLOSE!')
         self.root.destroy()
         
@@ -546,7 +465,6 @@ class App:
     #removes ALL widgets in frame
     #seemed a better option than forget
     def ClearFrame(frame):
-        print('Clearing frame')
         for widget in frame.winfo_children():
             widget.destroy()
         # frame.pack_forget()

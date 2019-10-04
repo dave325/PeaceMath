@@ -1,19 +1,15 @@
 """
 HELLO, I am tealclass.py
-
 -------------------------------------------------------------------------------
 MIT License Copyright (c) 2017 Larry S. Liebovitch
-
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
 to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:
-
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
-
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -22,11 +18,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 -------------------------------------------------------------------------------
-
 GUI to integrate ordinary differential equations (ODEs)
 Display the results
 Change the initial conditions or interactions between variables
-
 ODEs: dx(i)/dt = m(i)x(i) + b(i) + SUM(j)[c(i,j)tanh(x(j)]
     x(i) = system variables
     m(i) = decay time scale
@@ -39,7 +33,6 @@ SCRIPTS: PYTHON 3.4.1 (later 3.6.1) with Tkinter
 data.py
 teal.py
 tealclass.py
-
 DATAFILES (# = 8, 105, 111, 202)
 m#.txt = m(i)
 b#.txt = b(i)
@@ -49,7 +42,6 @@ btextbxy#.txt =
     variable name, color, (x,y) from upper left corner, height, width
     
 -----------------------------------------------------------------------------   
-
 FIRST RUN THE SCRIPTS:
     data.py
     tealclass.py
@@ -64,24 +56,18 @@ THEN RUN THE SCRIPT:
             202 <RETURN>
         When asked for "Want to CHANGE parameters (y/n), def=n"
             type: <RETURN>
-
 TO CHANGE INITIAL CONDITIONS:
 use the left hand entry widgets and click on ENTER
-
 TO CHANGE THE CONNECTION MATRIX:
 click on a textbox, use the left hand entry widget, and click ENTER
 (this will also show only the links into and out of that textbox,
 click on  ALL Cij to show all the links)
-
 TO RUN THE CALCULATION:
 click CALCULATE
-
 TO SWITCH FROM THE LINKS TO THE INITIAL CONDITIONS:
 click on IC on the links input
-
 TO RESTORE THE ORIGINAL INITIAL CONDITIONS:
 click on ORIGINAL on the initial conditions input
-
 -----------------------------------------------------------------------------   
 """
 
@@ -490,5 +476,3 @@ class App:
     # when all widgets are in canvas
 #         self.canvas=canvas
         canvas.configure(scrollregion=canvas.bbox('all'))
-        
-        
