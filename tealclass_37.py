@@ -176,7 +176,8 @@ class App:
 
 
     #makes frames and frames within frames needed for correct display
-    def MakeWindow (self):      
+    def MakeWindow (self):   
+        print('Make window')  
         self.root=tk.Tk()
         self.root.wm_title("Data Input and Graphical Output")
         self.outsideframed1=tk.Frame(self.root,width=300, height=800)
@@ -194,7 +195,8 @@ class App:
 
     
     #makes the plot: boxes and the (fancy) arrows connecting them
-    def createBoxGraph(self):     
+    def createBoxGraph(self):  
+        print('Creating box graph')     
         TextBox.list_box=[]  #CLEAR ALL PREVIOUS!!!
         f = plt.figure(facecolor = 'white')
         f.set_size_inches(8,10)
@@ -231,7 +233,8 @@ class App:
 
     
     #used to scale the sizes of the textboxes
-    def scalebox(vector):   
+    def scalebox(vector):  
+        print('Making vector') 
         print('Vector')
         print(vector)
         data2=[0 for i in range(len(vector))]
@@ -247,7 +250,7 @@ class App:
 
     #Euler numerical integration of the ordinary differential equations
     def recalculate(self,pass_data):
-        print('pass data')
+        print('Passing data')
         print(pass_data.numdata)
         #UGLY FIX FOR ENTRIES/ENTRIESIJ----------------------------------------
         if self.fixent==1:
@@ -317,6 +320,7 @@ class App:
         
     #makes plot of x(i) vs. time
     def MakePlot(pass_data):
+        print('Make New Plot')
         print('\nYour plot is ready')
         localtime = time.asctime( time.localtime(time.time()) )
         x_start=pass_data.z[0]
@@ -344,6 +348,7 @@ class App:
         
     #rounds numbers for x(start), x(final) in the title of plot x(i) vs. time
     def displayinput(vector1,number):
+        print('Displaying input')
         
         
         #creates string to print from np.array(vector1)
@@ -370,6 +375,7 @@ class App:
     
     #clear and refresh ONLY the left initial condition dataframe
     def refreshDataFrame(self):
+        print('Refreshing data frame')
         self.fixent=1 #UGLY FIX FOR ENTRIES/ENTRIESIJ
         App.ClearFrame(self.framed1)
         #frame and buttons on top
@@ -418,6 +424,7 @@ class App:
     
     #redraw the textboxes and the arrows connecting them
     def refreshPicFrame(self):
+        print('Refreshing pic frame')
         
         
         #UGLY FIX FOR ENTRIES/ENTRIESIJ----------------------------------------
@@ -442,6 +449,7 @@ class App:
     
     #clear and refresh ONLY the left cij adjacency matrix dataframe
     def refreshCIJFrame(self):
+        print('Refreshing CIJ Frame')
         self.fixent=2 #UGLY FIX FOR ENTRIES/ENTRIESIJ
         App.ClearFrame(self.framed1)
         fromto='FROM    '+data.labels[self.box_id]+'    TO'
@@ -491,6 +499,7 @@ class App:
 
     #return the textbox id that was clicked
     def onclick(self,event):
+        print('onclick')
         for box in TextBox.list_box:
             contains, attrd = box.text.contains(event)
             if(contains):
@@ -509,18 +518,21 @@ class App:
     
     #reset the initial conditions to the input data ic(i) default values
     def resetIC(self):
+        print('Refreshing Initial conditions')
         self.data.z[-1]=[self.data.ica[i] for i in range(len(self.data.z[0]))]
         self.refreshDataFrame()
     
     
     #not used
     def FullrefreshPicFrame(self):
+        print('Full Refreshing Pic frame')
         self.fewarrows=0
         self.refreshPicFrame()
     
     
     #not used, but nice to have to end execution
     def myquit(self):
+        print('Quitting')
         print ('\n I did press CLOSE!')
         self.root.destroy()
         
@@ -528,6 +540,7 @@ class App:
     #removes ALL widgets in frame
     #seemed a better option than forget
     def ClearFrame(frame):
+        print('Clearing frame')
         for widget in frame.winfo_children():
             widget.destroy()
         # frame.pack_forget()

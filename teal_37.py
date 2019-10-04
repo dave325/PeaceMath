@@ -98,6 +98,7 @@ from tealclass_37 import * #import the METHODS from tealclass.py
 #START OF DEFINED FUNCTIONS----------------------------------------------------
 #read text string in a file
 def filein (fname):
+    print('Reading in text file')
     numlines=0
     xin=[]
     f=open(fname,'r')
@@ -111,6 +112,7 @@ def filein (fname):
 #not used
 #writes text string to file
 def fileout (filename,filedata):
+    print('Outputting data to out file')
     f2=open(filename,'w')
     f2.write(filedata)
     f2.close()
@@ -120,6 +122,7 @@ def fileout (filename,filedata):
 #x,y separated by a TAB
 #rows separated by a RETURN
 def getxy (fname):
+    print('Parsing text tables with two cols')
     data,numlines=filein(fname)
     x=['0' for i in range(numlines)]
     y=['0' for i in range(numlines)]
@@ -134,6 +137,7 @@ def getxy (fname):
 
 #parse files m#.txt, b#.txt, c#.txt
 def getx (fname):
+    print('Parsing files with .txt')
     data,numlines=filein(fname)
     #print ('\ndata\n',data,'\nlines',numlines)
     x=['0' for i in range(numlines)]
@@ -147,6 +151,7 @@ def getx (fname):
 #elements in a row separated by a TAB
 #rows separated by a RETURN
 def getxn(fname):
+    print('Reading text with n cols')
     data,numlines=filein(fname)
     dataline=['0' for i in range(numlines)]
     for i in range(numlines):
@@ -170,6 +175,7 @@ def getxn(fname):
 #parse file btextbxy#.txt
 def getxnsecondstring(fname):   #get n inputs from each line
 #variable name, color, (x,y) from upper left corner, height, width
+    print('Getting n inputs')
     data,numlines=filein(fname)
     dataline=['0' for i in range(numlines)]
     for i in range(numlines):
@@ -192,6 +198,7 @@ def getxnsecondstring(fname):   #get n inputs from each line
 
 #fancy way to easily change input values
 def lslin(invars,invar):
+    print('Changing input values')
     print('\ncurrent value of ',invars,' is= ',invar)
     outvars=input('\nchange to (def=no change)')
     if (outvars==''):
