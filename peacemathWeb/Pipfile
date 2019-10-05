@@ -7,6 +7,12 @@ verify_ssl = true
 
 [packages]
 django = "*"
+numpy = "*"
+matplotlib = "*"
+scipy = "*"
+requests = "*"
+mpld3 = "*"
+jinja2 = "*"
 
 [requires]
 python_version = "3.7"
