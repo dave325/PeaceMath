@@ -189,7 +189,14 @@ def lslin(invars,invar):
 
 
 #START DATA INPUT
-fast=input('\n ONLY NUMBER n and I will find cn.txt, etc. (#/a, Def=a)')
+
+
+#fast=input('\n ONLY NUMBER n and I will find cn.txt, etc. (#/a, Def=a)')
+#TODO TEMP SETTING fast TO HARD CODED VALUE SO THE SERVER CAN CALL IT WITHOUT COMMAND PROMPT
+fast='8'
+
+
+
 #give it just a number # and RETURN and it will read files:
 # m#.txt, b#.txt, ic#.txt, c#.txt, and btextbxy#.txt
 if fast.isdigit():
@@ -236,7 +243,10 @@ print ('\nba= ',ba)
 print ('\nma= ',ma)
 print ('\nica= ',ica)
 
-change=input('\nWant to CHANGE parameters (y/n), def=n')
+#TODO HARD CODING change VALUE SO THE SERVER 
+#change=input('\nWant to CHANGE parameters (y/n), def=n')
+change='n'
+
 if (change=='y' or change=='Y'):
     c=lslin('c',c)
     b=lslin('b',b)
