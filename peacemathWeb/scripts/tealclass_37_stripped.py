@@ -71,8 +71,8 @@ click on ORIGINAL on the initial conditions input
 -----------------------------------------------------------------------------   
 """
 
-import tkinter as tk
-import data
+#import tkinter as tk
+import peacemathWeb.scripts.data as data
 import numpy as np
 from decimal import *
 import matplotlib.patches as patches
@@ -80,6 +80,7 @@ import matplotlib.pyplot as plt
 import time
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from mpld3 import fig_to_html
 #from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
 
 
@@ -150,16 +151,17 @@ class App:
     def __init__(self):
         self.data=data
         self.fewarrows=0
-        self.MakeWindow()
-        self.refreshDataFrame()
-        self.refreshPicFrame()
+        self.fixent=1 #UGLY FIX FOR ENTRIES/ENTRIESIJ
+        #self.MakeWindow()
+        #self.refreshDataFrame()
+        #self.refreshPicFrame()
         self.fixent=1 #UGLY FIX FOR ENTRIES/ENTRIESIJ
         # self.root.mainloop() -maybe needed for Windows OS
 
 
     #makes frames and frames within frames needed for correct display
     def MakeWindow (self):
-        self.root=tk.Tk()
+        #self.root=tk.Tk()
         self.root.wm_title("Data Input and Graphical Output")
         self.outsideframed1=tk.Frame(self.root,width=300, height=800)
         self.outsideframepic=tk.Frame(self.root,width=675, height=800)
@@ -171,7 +173,7 @@ class App:
         self.framed1.pack(side=tk.LEFT,fill=None,expand=False)
         self.framepic=tk.Frame(self.outsideframepic,borderwidth=5,relief=tk.RIDGE)
         self.framepic.pack(side=tk.TOP,fill=tk.BOTH,expand=1) #BIG-BAD
-        self.refreshDataFrame()
+       # self.refreshDataFrame()
         self.refreshPicFrame()
 
     
@@ -203,13 +205,13 @@ class App:
                 if i!=j and data.a[i][j]!=0:
                     arrow=ArrowObject(a,i,j,id)
                     id=id+1
-        plt.show(block=False)
+        #plt.show(block=False)
         #coding trick to close extra figures accidentally created in canvas----
         openfigs=plt.get_fignums()
         last=openfigs[-1]
         plt.close(last)
         #coding trick to close extra figures accidentally created in canvas----
-        return f
+        return fig_to_html(f)
 
     
     #used to scale the sizes of the textboxes
@@ -255,7 +257,7 @@ class App:
         #CLEAR and REFRESH DATA and PIC frames
         App.ClearFrame(self.framed1)
         App.ClearFrame(self.framepic)
-        self.refreshDataFrame()
+        #self.refreshDataFrame()
         self.refreshPicFrame()        
      
         
@@ -282,7 +284,9 @@ class App:
         param2='\nstart=  ' + start + '\nfinish=  ' + finish
         titlelsl=programname+param1 + param2
         plt.title(titlelsl, fontsize=8)
-        plt.show(block=False) #IMPORTANT: to SHOW graph but NOT stop execution
+        # Removed to return plot as html instead
+        # TODO return this info
+        # plt.show(block=False) #IMPORTANT: to SHOW graph but NOT stop execution
       
         
     #rounds numbers for x(start), x(final) in the title of plot x(i) vs. time
@@ -308,6 +312,8 @@ class App:
 
     
     #clear and refresh ONLY the left initial condition dataframe
+
+    # Used to fill left side of screen
     def refreshDataFrame(self):
         self.fixent=1 #UGLY FIX FOR ENTRIES/ENTRIESIJ
         App.ClearFrame(self.framed1)
@@ -351,18 +357,18 @@ class App:
             self.entries=entries
         #TRANSFORM ALL ENTRIES INTO STARTING VALUES FOR COMPUTATION
         self.data.z[0]=[eval((entries[i][1].get())) for i in range(len(entries))]
-        self.outsideframed1.pack(expand=1)  #KEEPING THIS FOR THE MOMENT HERE
+        #self.outsideframed1.pack(expand=1)  #KEEPING THIS FOR THE MOMENT HERE
         return
         
     
     #redraw the textboxes and the arrows connecting them
     def refreshPicFrame(self):
         #UGLY FIX FOR ENTRIES/ENTRIESIJ----------------------------------------
-        if self.fixent==1:
+        """       if self.fixent==1:
             self.data.z[0]=[eval((self.entries[i][1].get())) for i in range(len(self.entries))]
         if self.fixent==2:
             column=[eval((self.entriesIJ[i][1].get())) for i in range(len(self.entriesIJ))]
-            self.data.ca[:,self.box_id]=column
+            self.data.ca[:,self.box_id]=column """
         #UGLY FIX FOR ENTRIES/ENTRIESIJ----------------------------------------        
         #scale b's from z[0] - NOT Z[-1] like in A NEW CALCULATION
         vector=data.z[0]
@@ -439,7 +445,7 @@ class App:
                 # self.update_dataFrame(id)
                 self.box_id=id
                 self.fewarrows=1
-                self.refreshCIJFrame()
+                #self.refreshCIJFrame()
                 # TextBox.selected_box_id=id
                 return;
                 
@@ -447,7 +453,7 @@ class App:
     #reset the initial conditions to the input data ic(i) default values
     def resetIC(self):
         self.data.z[-1]=[self.data.ica[i] for i in range(len(self.data.z[0]))]
-        self.refreshDataFrame()
+        #self.refreshDataFrame()
     
     
     #not used

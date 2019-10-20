@@ -77,8 +77,9 @@ from scipy import stats
 import numpy as np
 import random
 import time
-import data as pass_data
-from tealclass_37 import * #import the METHODS from tealclass.py
+import os
+import peacemathWeb.scripts.data as pass_data
+from peacemathWeb.scripts.tealclass_37_stripped import * #import the METHODS from tealclass.py
 
 
 #START OF DEFINED FUNCTIONS----------------------------------------------------
@@ -86,7 +87,8 @@ from tealclass_37 import * #import the METHODS from tealclass.py
 def filein (fname):
     numlines=0
     xin=[]
-    f=open(fname,'r')
+    module_dir = os.path.dirname(__file__)  # get current directory
+    f=open(os.path.join(module_dir,fname),'r')
     for line in f:
         #print (line, end='')
         xin.append(line)
@@ -327,5 +329,9 @@ pass_data.boxcolor=[btextbxydata[i][1] for i in range(numvar)]
 
 
 #call the classes----------------------------------------------
-zzz=App()
+
+
+def getFid():
+    zzz=App()
+    return zzz.createBoxGraph()
 #call the classes----------------------------------------------
