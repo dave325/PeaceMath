@@ -168,7 +168,7 @@ class App:
         self.refreshDataFrame()
         self.refreshPicFrame()
         self.fixent=1 #UGLY FIX FOR ENTRIES/ENTRIESIJ
-        # self.root.mainloop() -maybe needed for Windows OS
+        self.root.mainloop() #maybe needed for Windows OS
 
 
     #makes frames and frames within frames needed for correct display
