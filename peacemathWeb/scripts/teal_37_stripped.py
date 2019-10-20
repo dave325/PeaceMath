@@ -326,12 +326,13 @@ pass_data.b=ica
 pass_data.labels=[btextbxydata[i][0] for i in range(numvar)]
 #ADDING BOX COLORS
 pass_data.boxcolor=[btextbxydata[i][1] for i in range(numvar)]
-
+print("Pass Data")
+print(pass_data.ma)
 
 #call the classes----------------------------------------------
 
 
 def getFid():
     zzz=App()
-    return zzz.createBoxGraph()
+    return (pass_data.ma,zzz.createBoxGraph())
 #call the classes----------------------------------------------

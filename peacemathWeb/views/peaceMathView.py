@@ -7,5 +7,6 @@ from peacemathWeb.scripts.teal_37_stripped import getFid
 
 
 def mainView(request):
-    fig = getFid()
-    return render(request,'index.html',{'a':fig,'b':'hi'})
+    b, fig = getFid()
+    b = b.tolist()
+    return render(request,'index.html',{'a':fig,'b':b})
