@@ -62,6 +62,15 @@ const inputValues = {...defaultInputValues};
 // Sidebar Buttons
 const initialConditionsBtn = document.querySelector('.btn_intial-conditions');
 initialConditionsBtn.addEventListener('click', function(){
+	axios.post('http://localhost:8000/physics/setInitialConditions/', {
+  	'values': defaultInputValues
+  })
+  .then(function (response) {
+    // console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
 
 });
 

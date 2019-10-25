@@ -28,7 +28,13 @@ def sendInitialParameterValue(request):
     return HttpResponse(f'Value sent was {value}')
   return HttpResponseNotFound('Wrong hitpoint')
 
-
+# Side Bar Buttons
+@csrf_exempt 
+def setInitialConditions(request):
+  if request.method == "POST":
+    data = json.loads(request.body)["values"]
+    return HttpResponse('Success')
+  return HttpResponseNotFound('Wrong hitpoint')
 
 
   
