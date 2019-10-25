@@ -25,6 +25,5 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('physics/',peaceMathView.mainView),
-    path('physics/home/',peaceMathView.homeView),
     path('physics/chart/',peaceMathView.chartView)
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

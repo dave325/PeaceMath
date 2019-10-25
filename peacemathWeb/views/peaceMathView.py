@@ -12,9 +12,6 @@ def mainView(request):
   b = b.tolist()
   return render(request,'index.html',{'a':fig,'b':b})
 
-def homeView(request):
-  return render(request, 'home.html')
-
 @csrf_exempt 
 def chartView(request):
   if request.method == "POST":
