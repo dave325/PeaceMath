@@ -157,12 +157,15 @@ class TextboxPlugin(plugins.PluginBase):  # inherit from PluginBase
         mpld3.register_plugin("textboxplugin", TextboxPlugin);
         TextboxPlugin.prototype = Object.create(mpld3.Plugin.prototype);
         TextboxPlugin.prototype.constructor = TextboxPlugin;
+         TextboxPlugin.prototype.requiredProps = ["box_colors"];
+
         function TextboxPlugin(fig, props){
             mpld3.Plugin.call(this, fig, props);
+
         };
+
         
         TextboxPlugin.prototype.draw = function(){
-            console.log(this.fig.canvas);
       
         let ctx = this.fig.canvas[0][0];
 		let textBoxes = ctx.getElementsByClassName("mpld3-text");
@@ -177,7 +180,7 @@ class TextboxPlugin(plugins.PluginBase):  # inherit from PluginBase
 			rect.setAttribute("y", SVGRect.y);
 			rect.setAttribute("width", SVGRect.width);
 			rect.setAttribute("height", SVGRect.height);
-			rect.setAttribute("fill", "yellow");
+			rect.setAttribute("fill", this.props.box_colors[i]);
 			rect.setAttribute("stroke","black");
 			rect.setAttribute("stroke-width",0.5);
 
@@ -196,8 +199,8 @@ class TextboxPlugin(plugins.PluginBase):  # inherit from PluginBase
 
         }
         """
-        def __init__(self):
-            self.dict_ = {"type": "textboxplugin"}
+        def __init__(self,box_colors):
+            self.dict_ = {"type": "textboxplugin","box_colors":box_colors}
 
 
 #MAIN CLASS THAT DOES MOST OF THE WORK
@@ -269,7 +272,7 @@ class App:
                     arrow=ArrowObject(a,i,j,id)
                     id=id+1
         #plt.show(block=False)
-        plugins.connect(f, TextboxPlugin())
+        plugins.connect(f, TextboxPlugin(colorDictionary))
         return (fig_to_html(f),colorDictionary)
         #coding trick to close extra figures accidentally created in canvas----
         openfigs=plt.get_fignums()
