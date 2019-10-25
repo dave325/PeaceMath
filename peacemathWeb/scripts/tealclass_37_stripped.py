@@ -81,6 +81,8 @@ import time
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from mpld3 import fig_to_html
+from mpld3 import plugins
+
 #from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
 
 
@@ -97,6 +99,7 @@ class TextBox:
         self.id = id
         self.boxcolor=boxcolor #adding color
         print(s)
+                                                                                                        #CHANGES THE FONT SIZE ON THE RENDER
         self.text=ax13.text(x, y, t, style='italic',horizontalalignment='center',verticalalignment='center',size=s, color='k',transform=ax13.transAxes,bbox={'facecolor':self.colors[0], 'pad':10})
         self.text.set_bbox(dict(facecolor=boxcolor,alpha=0.2,edgecolor='black'))
         self.list_box.append(self)
@@ -146,6 +149,32 @@ class ArrowObject:
         ax13.add_patch(self.arrow)
         
 
+
+class TextboxPlugin(plugins.PluginBase):  # inherit from PluginBase
+        """TextboxPlugin plugin"""
+        JAVASCRIPT = """
+
+        mpld3.register_plugin("textboxplugin", TextboxPlugin);
+        TextboxPlugin.prototype = Object.create(mpld3.Plugin.prototype);
+        TextboxPlugin.prototype.constructor = TextboxPlugin;
+        function TextboxPlugin(fig, props){
+            mpld3.Plugin.call(this, fig, props);
+        };
+        
+        TextboxPlugin.prototype.draw = function(){
+            this.fig.canvas.append("text")
+                .text("hello world")
+                .style("font-size", 72)
+                .style("opacity", 0.3)
+                .style("text-anchor", "middle")
+                .attr("x", this.fig.width / 2)
+                .attr("y", this.fig.height / 2)
+        }
+        """
+        def __init__(self):
+            self.dict_ = {"type": "textboxplugin"}
+
+
 #MAIN CLASS THAT DOES MOST OF THE WORK
 class App:
     #constructor
@@ -185,13 +214,17 @@ class App:
         f.set_size_inches(8,10)
         a = f.add_subplot(111)
         a.axis('off')
+        colorDictionary = []
         for index in range(len(data.b)):
             xy=data.bxy[index]
-            print(data.labels[index])
-            print(data.b[index])
-            print(a)
+            #print(data.labels[index])
+            #print(data.b[index])
+            colorDictionary.append(data.boxcolor[index])
             # Need to change data.b[index] - sets size of font to 1, not sure why this doesn't work for web
-            TextBox(a,xy[0],xy[1],data.b[index],index,data.labels[index],data.boxcolor[index])
+            #TextBox(a,xy[0],xy[1],data.b[index],index,data.labels[index],data.boxcolor[index])
+            bbox_props = {'facecolor':data.boxcolor[index][0], 'pad':10}
+            a.text(xy[0], xy[1], data.labels[index], style='italic',horizontalalignment='center',verticalalignment='center',size=20, color='k',transform=a.transAxes,bbox=bbox_props)
+            
         id=0
         if (self.fewarrows==0):
             for i in range(len(data.b)):
@@ -211,7 +244,8 @@ class App:
                     arrow=ArrowObject(a,i,j,id)
                     id=id+1
         #plt.show(block=False)
-        return fig_to_html(f)
+        plugins.connect(f, TextboxPlugin())
+        return (fig_to_html(f),colorDictionary)
         #coding trick to close extra figures accidentally created in canvas----
         openfigs=plt.get_fignums()
         last=openfigs[-1]

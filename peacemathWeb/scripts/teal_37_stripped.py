@@ -195,7 +195,7 @@ def lslin(invars,invar):
 
 #fast=input('\n ONLY NUMBER n and I will find cn.txt, etc. (#/a, Def=a)')
 #TODO TEMP SETTING fast TO HARD CODED VALUE SO THE SERVER CAN CALL IT WITHOUT COMMAND PROMPT
-fast='202'
+fast='8'
 
 
 
@@ -332,7 +332,11 @@ print(pass_data.ma)
 #call the classes----------------------------------------------
 
 
-def getFid():
+
+
+        
+def getFig():
     zzz=App()
-    return (pass_data.ma,zzz.createBoxGraph())
+    box,box_colors = zzz.createBoxGraph()
+    return (box,box_colors)
 #call the classes----------------------------------------------

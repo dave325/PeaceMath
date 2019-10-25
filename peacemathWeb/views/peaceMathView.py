@@ -3,14 +3,13 @@ from django.http import HttpResponse
 from django.template import Template
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.csrf import csrf_exempt
-from peacemathWeb.scripts.teal_37_stripped import getFid
+from peacemathWeb.scripts.teal_37_stripped import getFig
 
 
 
 def mainView(request):
-  b, fig = getFid()
-  b = b.tolist()
-  return render(request,'index.html',{'a':fig,'b':b})
+  box_graph,box_colors = getFig()
+  return render(request,'index.html',{'box_graph':box_graph,'box_colors':box_colors})
 
 def homeView(request):
   return render(request, 'home.html')

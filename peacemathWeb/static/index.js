@@ -1,7 +1,7 @@
 'use strict';
 
 window.onload = function(){
-	setSideBarValues(defaultInputValues);
+	//setSideBarValues(defaultInputValues);
 };	
 
 // Do not change the default values

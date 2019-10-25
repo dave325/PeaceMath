@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>Peace Math</title>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 	{% load staticfiles %}
 	<link rel="stylesheet" type="text/css" href="{% static 'index.css' %}">
@@ -10,14 +12,21 @@
 
 	<!-- ASYNC SCRIPT LOADERS -->
 	<script type="text/javascript" async src="{% static 'index.js' %}"></script>
-	<script async src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script async src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-	<script async src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script async src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script async src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script async src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
 </head>
+
 <body>
 	<div class="container-fluid">
 		<div class="row">
-			
+
 			<div class="sidebar col-3">
 				<button class="btn_intial-conditions">Initial conditions</button>
 				<button class="btn_original">Original</button>
@@ -25,19 +34,19 @@
 				<button class="btn_enter">Enter</button>
 				<hr>
 				<form>
-				<label for="add_mem">+ Mem</label>
-				<input type="text" name="add_mem" id="add_mem" value="{{b.0}}">
-				<label for="sub_mem">- Mem</label>
-				<input type="text" name="sub_mem" id="sub_mem" value="{{b.1}}">
-				<label for="add_expect">+ Expect</label>
-				<input type="text" name="add_expect" id="add_expect" value="{{b.2}}">
-				<label for="sub_expect">- Expect</label>
-				<input type="text" name="sub_expect" id="sub_expect" value="{{b.3}}">
-				<label for="pir">PIR</label>
-				<input type="text" name="pir" id="pir" value="{{b.4}}">
-				<label for="nir">NIR</label>
-				<input type="text" name="nir" id="nir" value="{{b.5}}">
-			</form>
+					<label for="add_mem">+ Mem</label>
+					<input type="text" name="add_mem" id="add_mem" value="{{b.0}}">
+					<label for="sub_mem">- Mem</label>
+					<input type="text" name="sub_mem" id="sub_mem" value="{{b.1}}">
+					<label for="add_expect">+ Expect</label>
+					<input type="text" name="add_expect" id="add_expect" value="{{b.2}}">
+					<label for="sub_expect">- Expect</label>
+					<input type="text" name="sub_expect" id="sub_expect" value="{{b.3}}">
+					<label for="pir">PIR</label>
+					<input type="text" name="pir" id="pir" value="{{b.4}}">
+					<label for="nir">NIR</label>
+					<input type="text" name="nir" id="nir" value="{{b.5}}">
+				</form>
 			</div>
 			<div class="main_figure col-9">
 				<div class="row justify-content-between">
@@ -54,9 +63,66 @@
 					<button class="btn_sub-mem col-2">- mem</button>
 					<button class="btn_sub-expect col-2">- expect</button>
 				</div>
-				{{a | safe}}
+				{{box_graph | safe}}
+				<br>
 			</div>
 		</div>
 	</div>
 </body>
+
+
+<script type="text/javascript">
+
+	let colors = {{ box_colors | safe}};
+
+
+	/*
+	window.onload = function () {
+
+
+		let ctx = document.getElementsByClassName("mpld3-figure").item(0);
+		let textBoxes = ctx.getElementsByClassName("mpld3-text");
+
+
+		for (let i = 0; i < textBoxes.length; i++) {
+			let textBox = textBoxes.item(i);
+			SVGRect = textBox.getBBox();
+
+			var rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+			rect.setAttribute("x", SVGRect.x);
+			rect.setAttribute("y", SVGRect.y);
+			rect.setAttribute("width", SVGRect.width);
+			rect.setAttribute("height", SVGRect.height);
+			rect.setAttribute("fill", colors[i]);
+			rect.setAttribute("stroke","black");
+			rect.setAttribute("stroke-width",0.5);
+
+
+
+			let g = ctx.getElementsByTagName('g').item(0);
+
+			g.insertBefore(rect, textBox);
+
+
+
+
+		}
+
+
+	}
+
+			*/
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
 </html>
