@@ -177,7 +177,7 @@ class TextboxPlugin(plugins.PluginBase):  # inherit from PluginBase
 			rect.setAttribute("y", SVGRect.y);
 			rect.setAttribute("width", SVGRect.width);
 			rect.setAttribute("height", SVGRect.height);
-			rect.setAttribute("fill", colors[i]);
+			rect.setAttribute("fill", "yellow");
 			rect.setAttribute("stroke","black");
 			rect.setAttribute("stroke-width",0.5);
 
