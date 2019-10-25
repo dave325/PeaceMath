@@ -24,6 +24,12 @@ inputParameters.forEach(value => {
 	});
 });
 
+/**
+ * Makes POST request to set input parameter values of either:
+ * 	8, 105, 111, 202
+ * 
+ * @param {*} inputParamValue 
+ */
 function _sendInputParams(inputParamValue=8){
 	axios.post('http://localhost:8000/physics/sendInitialParameterValue/', {
     'value': inputParamValue
