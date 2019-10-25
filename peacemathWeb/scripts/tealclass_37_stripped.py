@@ -162,6 +162,7 @@ class TextboxPlugin(plugins.PluginBase):  # inherit from PluginBase
         };
         
         TextboxPlugin.prototype.draw = function(){
+            console.log(this.fig.canvas);
             this.fig.canvas.append("text")
                 .text("hello world")
                 .style("font-size", 72)
