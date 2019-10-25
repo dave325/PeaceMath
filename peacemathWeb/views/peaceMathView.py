@@ -1,5 +1,5 @@
 # pages/views.py
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotFound
 from django.template import Template
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.csrf import csrf_exempt
@@ -17,7 +17,10 @@ def homeView(request):
 
 @csrf_exempt 
 def chartView(request):
-  return HttpResponse('YOU HAVE HIT THE CHART POST REQUEST')
+  if request.method == "POST":
+    message = 'You have hit the chart post request'
+    return HttpResponse(message)
+  return HttpResponseNotFound('404: Wrong hitpoint')
 
 
 
