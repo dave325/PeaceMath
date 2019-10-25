@@ -163,13 +163,37 @@ class TextboxPlugin(plugins.PluginBase):  # inherit from PluginBase
         
         TextboxPlugin.prototype.draw = function(){
             console.log(this.fig.canvas);
-            this.fig.canvas.append("text")
-                .text("hello world")
-                .style("font-size", 72)
-                .style("opacity", 0.3)
-                .style("text-anchor", "middle")
-                .attr("x", this.fig.width / 2)
-                .attr("y", this.fig.height / 2)
+      
+        let ctx = this.fig.canvas[0][0];
+		let textBoxes = ctx.getElementsByClassName("mpld3-text");
+
+
+		for (let i = 0; i < textBoxes.length; i++) {
+			let textBox = textBoxes.item(i);
+			SVGRect = textBox.getBBox();
+
+			var rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+			rect.setAttribute("x", SVGRect.x);
+			rect.setAttribute("y", SVGRect.y);
+			rect.setAttribute("width", SVGRect.width);
+			rect.setAttribute("height", SVGRect.height);
+			rect.setAttribute("fill", colors[i]);
+			rect.setAttribute("stroke","black");
+			rect.setAttribute("stroke-width",0.5);
+
+
+
+			let g = ctx.getElementsByTagName('g').item(0);
+
+			g.insertBefore(rect, textBox);
+
+
+
+
+		}
+
+
+
         }
         """
         def __init__(self):

@@ -2,14 +2,10 @@
 
 
 window.onload = function(){
-<<<<<<< HEAD
-	//setSideBarValues(defaultInputValues);
-=======
 	setSideBarValues(defaultInputValues);
 	
 	// make initial call to set param input value to 8
 	_sendInputParams(inputParamValue);
->>>>>>> f9d3bee2502fb81d54a716b73a54ab81dd2eace5
 };	
 
 const inputParameters = [8, 105, 111, 202];
