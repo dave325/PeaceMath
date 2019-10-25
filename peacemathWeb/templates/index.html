@@ -11,34 +11,50 @@
 
 	<!-- ASYNC SCRIPT LOADERS -->
 	<script type="text/javascript" async src="{% static 'index.js' %}"></script>
-	<script async src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script async src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-	<script async src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	
+
+	
 </head>
 <body>
 	<div class="container-fluid">
 		<div class="row">
-			
 			<div class="sidebar col-3">
-				<button class="btn_intial-conditions">Initial conditions</button>
-				<button class="btn_original">Original</button>
-				<button class="btn_calculate">Calculate</button>
-				<button class="btn_enter">Enter</button>
+					<div>
+						Input Value: <span id="dropdown_input-value"></span>
+					</div>
+					<div class="btn-group dropright">
+							<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+								Select your input value
+							</button>
+							<div class="dropdown-menu dropdown-menu-right">
+								<button class="dropdown-item input-value_8" type="button">8</button>
+								<button class="dropdown-item input-value_105" type="button">105</button>
+								<button class="dropdown-item input-value_111" type="button">111</button>
+								<button class="dropdown-item input-value_202" type="button">202</button>
+							</div>
+						</div>
 				<hr>
-				<form>
-				<label for="add_mem">+ Mem</label>
-				<input type="text" name="add_mem" id="add_mem" value="{{b.0}}">
-				<label for="sub_mem">- Mem</label>
-				<input type="text" name="sub_mem" id="sub_mem" value="{{b.1}}">
-				<label for="add_expect">+ Expect</label>
-				<input type="text" name="add_expect" id="add_expect" value="{{b.2}}">
-				<label for="sub_expect">- Expect</label>
-				<input type="text" name="sub_expect" id="sub_expect" value="{{b.3}}">
-				<label for="pir">PIR</label>
-				<input type="text" name="pir" id="pir" value="{{b.4}}">
-				<label for="nir">NIR</label>
-				<input type="text" name="nir" id="nir" value="{{b.5}}">
-			</form>
+				<div class="input-menu">
+					<button class="btn_intial-conditions">Initial conditions</button>
+					<button class="btn_original">Original</button>
+					<button class="btn_calculate">Calculate</button>
+					<button class="btn_enter">Enter</button>
+					<hr>
+					<form>
+						<label for="add_mem">+ Mem</label>
+						<input type="text" name="add_mem" id="add_mem" value="{{b.0}}">
+						<label for="sub_mem">- Mem</label>
+						<input type="text" name="sub_mem" id="sub_mem" value="{{b.1}}">
+						<label for="add_expect">+ Expect</label>
+						<input type="text" name="add_expect" id="add_expect" value="{{b.2}}">
+						<label for="sub_expect">- Expect</label>
+						<input type="text" name="sub_expect" id="sub_expect" value="{{b.3}}">
+						<label for="pir">PIR</label>
+						<input type="text" name="pir" id="pir" value="{{b.4}}">
+						<label for="nir">NIR</label>
+						<input type="text" name="nir" id="nir" value="{{b.5}}">
+					</form>
+				</div>
 			</div>
 			<div class="main_figure col-9">
 				<div class="row justify-content-between">
@@ -59,5 +75,12 @@
 			</div>
 		</div>
 	</div>
+
+
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </body>
 </html>

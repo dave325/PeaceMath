@@ -1,8 +1,41 @@
 'use strict';
 
+
 window.onload = function(){
 	setSideBarValues(defaultInputValues);
+	
+	// make initial call to set param input value to 8
+	_sendInputParams(inputParamValue);
 };	
+
+const inputParameters = [8, 105, 111, 202];
+
+const dropdownInputSpan = document.querySelector("#dropdown_input-value");
+
+// Set initial parameter input value of 8 
+let inputParamValue = inputParameters[0];
+dropdownInputSpan.innerHTML = inputParamValue;
+
+inputParameters.forEach(value => {
+	document.querySelector(`.input-value_${value}`).addEventListener('click', function(){
+		dropdownInputSpan.innerHTML = value;
+		inputParamValue = value;
+		_sendInputParams(inputParamValue);
+	});
+});
+
+function _sendInputParams(inputParamValue=8){
+	axios.post('http://localhost:8000/physics/sendInitialParameterValue/', {
+    'value': inputParamValue
+  })
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+}
+
 
 // Do not change the default values
 const defaultInputValues = {
@@ -18,6 +51,7 @@ const defaultInputValues = {
 const inputValues = {...defaultInputValues};
 
 // ========================================================================
+
 
 // Sidebar Buttons
 const initialConditionsBtn = document.querySelector('.btn_intial-conditions');
