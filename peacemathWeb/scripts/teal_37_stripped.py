@@ -339,4 +339,9 @@ def getFig():
     zzz=App()
     box,box_colors = zzz.createBoxGraph()
     return (box,box_colors)
+
+def getChart():
+    zzz=App()
+    box = zzz.recalculate()
+    return (box)
 #call the classes----------------------------------------------

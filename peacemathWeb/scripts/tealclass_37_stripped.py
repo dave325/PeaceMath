@@ -157,7 +157,7 @@ class TextboxPlugin(plugins.PluginBase):  # inherit from PluginBase
         mpld3.register_plugin("textboxplugin", TextboxPlugin);
         TextboxPlugin.prototype = Object.create(mpld3.Plugin.prototype);
         TextboxPlugin.prototype.constructor = TextboxPlugin;
-         TextboxPlugin.prototype.requiredProps = ["box_colors"];
+         TextboxPlugin.prototype.requiredProps = ["box_colors","opacity"];
 
         function TextboxPlugin(fig, props){
             mpld3.Plugin.call(this, fig, props);
@@ -181,17 +181,17 @@ class TextboxPlugin(plugins.PluginBase):  # inherit from PluginBase
 			rect.setAttribute("width", SVGRect.width);
 			rect.setAttribute("height", SVGRect.height);
 			rect.setAttribute("fill", this.props.box_colors[i]);
+            rect.setAttribute("opacity",0.5);
 			rect.setAttribute("stroke","black");
 			rect.setAttribute("stroke-width",0.5);
 
-
+            textBoxes[i].addEventListener("click", function(){
+                console.log('hi');
+            });
 
 			let g = ctx.getElementsByTagName('g').item(0);
 
 			g.insertBefore(rect, textBox);
-
-
-
 
 		}
 
@@ -200,7 +200,7 @@ class TextboxPlugin(plugins.PluginBase):  # inherit from PluginBase
         }
         """
         def __init__(self,box_colors):
-            self.dict_ = {"type": "textboxplugin","box_colors":box_colors}
+            self.dict_ = {"type": "textboxplugin","box_colors":box_colors, "opacity":0.5}
 
 
 #MAIN CLASS THAT DOES MOST OF THE WORK
@@ -296,7 +296,9 @@ class App:
 
 
     #Euler numerical integration of the ordinary differential equations
-    def recalculate(self,pass_data):
+    def recalculate(self):
+        pass_data = data
+        '''
         #UGLY FIX FOR ENTRIES/ENTRIESIJ----------------------------------------
         if self.fixent==1:
             self.data.z[0]=[eval((self.entries[i][1].get())) for i in range(len(self.entries))]
@@ -304,6 +306,7 @@ class App:
             column=[eval((self.entriesIJ[i][1].get())) for i in range(len(self.entriesIJ))]
             self.data.ca[:,self.box_id]=column
         #UGLY FIX FOR ENTRIES/ENTRIESIJ----------------------------------------
+        '''
         self.fewarrows=0
         pass_data.tt=0
         for i in range (1,pass_data.numdata):
@@ -316,7 +319,8 @@ class App:
             for j in range(pass_data.numc):
                 pass_data.z[i][j]=max(pass_data.z[i][j],0.) 
         #make new plot
-        App.MakePlot(data)
+        return App.MakePlot(data)
+        '''
         #scale b's from z[-1]
         vector=data.z[-1]
         data.b=App.scalebox(vector)
@@ -326,7 +330,7 @@ class App:
         App.ClearFrame(self.framed1)
         App.ClearFrame(self.framepic)
         #self.refreshDataFrame()
-        self.refreshPicFrame()        
+        self.refreshPicFrame()      '''
      
         
     #makes plot of x(i) vs. time
@@ -335,7 +339,7 @@ class App:
         localtime = time.asctime( time.localtime(time.time()) )
         x_start=pass_data.z[0]
         x_final=pass_data.z[-1]
-        plt.figure()
+        f = plt.figure()
         plt.axes([0.1,.075,.8,.7])
         plt.plot(pass_data.t,pass_data.z[:,0:pass_data.numc])
         #print labels on lines
@@ -343,7 +347,7 @@ class App:
         for i in range (pass_data.numc):
             ytext=pass_data.z[-1,i]
             varis=str(i) #first variable is 0
-            plt.text(xtext,ytext,varis)
+            f.text(xtext,ytext,varis)
             xtext=xtext-1    
         programname='teal.py, tealclass.py, data.py   '+localtime
         param1='\n   input files= '+str(pass_data.fnamec)+'    '    +str(pass_data.fnameb)+'    '+str(pass_data.fnamem) +'    '+str(pass_data.fnamebtextbxy) + '     dt='+str(pass_data.dt)
@@ -352,6 +356,7 @@ class App:
         param2='\nstart=  ' + start + '\nfinish=  ' + finish
         titlelsl=programname+param1 + param2
         plt.title(titlelsl, fontsize=8)
+        return fig_to_html(f)
         # Removed to return plot as html instead
         # TODO return this info
         # plt.show(block=False) #IMPORTANT: to SHOW graph but NOT stop execution

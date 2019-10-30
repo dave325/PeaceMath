@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseNotFound
 from django.template import Template
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.csrf import csrf_exempt
-from peacemathWeb.scripts.teal_37_stripped import getFig
+from peacemathWeb.scripts.teal_37_stripped import getFig, getChart
 import json
 
 
@@ -16,8 +16,8 @@ def mainView(request):
 def chartView(request):
   if request.method == "POST":
     message = 'You have hit the chart post request'
-    return HttpResponse(message)
-  return HttpResponseNotFound('Wrong hitpoint')
+    return HttpResponse(getChart())
+  return render(request,'chart.html',{'box_graph':getChart()})
 
 @csrf_exempt 
 def sendInitialParameterValue(request):

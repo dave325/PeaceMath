@@ -2,7 +2,7 @@
 
 
 window.onload = function(){
-	setSideBarValues(defaultInputValues);
+	//setSideBarValues(defaultInputValues);
 	
 	// make initial call to set param input value to 8
 	_sendInputParams(inputParamValue);
@@ -56,9 +56,22 @@ const defaultInputValues = {
 // Instead, change these values
 const inputValues = {...defaultInputValues};
 
+document.getElementById('btn_original').addEventListener('click', function(){
+	fetch('/physics/chart/', {method:'post'}).then((res)=>{
+		res.text().then(
+			(i) => {
+				window.open('/physics/chart/', '_blank');
+				document.getElementById('b').innerHTML = i
+				//console.log(i)
+			}
+		)
+	})
+});
+
+
 // ========================================================================
 
-
+/*
 // Sidebar Buttons
 const initialConditionsBtn = document.querySelector('.btn_intial-conditions');
 initialConditionsBtn.addEventListener('click', function(){
@@ -140,3 +153,4 @@ function setSideBarValues(obj){
 
 
 
+*/
