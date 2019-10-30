@@ -15,9 +15,9 @@ def mainView(request):
 @csrf_exempt 
 def chartView(request):
   if request.method == "POST":
-    message = 'You have hit the chart post request'
-    return HttpResponse(getChart())
-  return render(request,'chart.html',{'box_graph':getChart()})
+      return HttpResponse(getChart())
+
+
 
 @csrf_exempt 
 def sendInitialParameterValue(request):

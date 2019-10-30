@@ -56,13 +56,15 @@ const defaultInputValues = {
 // Instead, change these values
 const inputValues = {...defaultInputValues};
 
-document.getElementById('btn_original').addEventListener('click', function(){
+document.getElementById('btn_calculate').addEventListener('click', function(){
+	let loadingFlag = true;
 	fetch('/physics/chart/', {method:'post'}).then((res)=>{
 		res.text().then(
 			(i) => {
-				window.open('/physics/chart/', '_blank');
-				document.getElementById('b').innerHTML = i
-				//console.log(i)
+				loadingFlag = false;
+				var myWindow = window.open("", "Figure", "width=800,height=500");
+				myWindow.document.write(i);
+
 			}
 		)
 	})
