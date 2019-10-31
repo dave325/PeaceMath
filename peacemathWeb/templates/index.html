@@ -23,39 +23,54 @@
 		<div class="row">
 			<div class="sidebar col-3">
 				<div>
-					Input Value: <span id="dropdown_input-value"></span>
+					Input Value: {{ initialParamValue }}
 				</div>
-				<div class="btn-group dropright">
-					<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-						Select your input value
-					</button>
-					<div class="dropdown-menu dropdown-menu-right">
-						<button class="dropdown-item input-value_8" type="button">8</button>
-						<button class="dropdown-item input-value_105" type="button">105</button>
-						<button class="dropdown-item input-value_111" type="button">111</button>
-						<button class="dropdown-item input-value_202" type="button">202</button>
-					</div>
-				</div>
+				<form id="initialParamValue" method="post" action="http://localhost:8000/physics/sendInitialParameterValue/">
+					{% csrf_token %}
+					<select name="initialParamValue" form="initialParamValue">
+							<option value="8">8</option>
+							<option value="105">105</option>
+							<option value="111">111</option>
+							<option value="202">202</option>
+						</select>
+					<input type="submit">
+				</form>
+				
+					<!-- <div class="btn-group dropright">
+						<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+							Select your input value
+						</button>
+						<div class="dropdown-menu dropdown-menu-right">
+							<button class="dropdown-item input-value_8" type="button">8</button>
+							<button class="dropdown-item input-value_105" type="button">105</button>
+							<button class="dropdown-item input-value_111" type="button">111</button>
+							<button class="dropdown-item input-value_202" type="button">202</button>
+						</div>
+					</div> -->
+				
 				<hr>
-				<div class="input-menu">
-					<button id="btn_intial-conditions">Initial conditions</button>
-					<button id="btn_original">Original</button>
-					<button id="btn_calculate">Calculate</button>
-					<button id="btn_enter">Enter</button>
-					<hr>
-					<form>
+				<button name="calculate" id="btn_calculate">Calculate</button>
+				<div class="input-menu">					
+					<form method="post" action="http://localhost:8000/physics/sideBarButtonActions/">
+						{% csrf_token %}
 						<label for="add_mem">+ Mem</label>
-						<input type="text" name="add_mem" id="add_mem" value="{{b.0}}">
+						<input type="text" name="add_mem" id="add_mem" value={{ inputValues.addMem }}>
 						<label for="sub_mem">- Mem</label>
-						<input type="text" name="sub_mem" id="sub_mem" value="{{b.1}}">
+						<input type="text" name="sub_mem" id="sub_mem" value= {{ inputValues.subMem }} >
 						<label for="add_expect">+ Expect</label>
-						<input type="text" name="add_expect" id="add_expect" value="{{b.2}}">
+						<input type="text" name="add_expect" id="add_expect" value= {{ inputValues.addExpect }} >
 						<label for="sub_expect">- Expect</label>
-						<input type="text" name="sub_expect" id="sub_expect" value="{{b.3}}">
+						<input type="text" name="sub_expect" id="sub_expect" value= {{ inputValues.subExpect }} >
 						<label for="pir">PIR</label>
-						<input type="text" name="pir" id="pir" value="{{b.4}}">
+						<input type="text" name="pir" id="pir" value= {{ inputValues.pIR }} >
 						<label for="nir">NIR</label>
-						<input type="text" name="nir" id="nir" value="{{b.5}}">
+						<input type="text" name="nir" id="nir" value= {{ inputValues.nIR }} >
+						<hr>
+						<div class="submit_buttons">
+							<input type="submit" value="Original" name="original" id="btn_original" />
+							<input type="submit" value="Enter" name="enter" id="btn_enter" />
+							<input type="submit" name="initial_conditions" value="Initial conditions" id="btn_intial-conditions">		
+						</div>
 					</form>
 				</div>
 			</div>
