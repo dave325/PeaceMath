@@ -74,6 +74,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'peacemathWeb.wsgi.application'
 
+# Set SESSION ENGINE
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
