@@ -80,8 +80,7 @@ import time
 import os
 import peacemathWeb.scripts.data as pass_data
 from peacemathWeb.scripts.tealclass_37_stripped import * #import the METHODS from tealclass.py
-
-
+import uuid 
 #START OF DEFINED FUNCTIONS----------------------------------------------------
 #read text string in a file
 def filein (fname):
@@ -332,13 +331,10 @@ print(pass_data.ma)
 #call the classes----------------------------------------------
 
 
-
-
-        
 def getFig():
     zzz=App()
     box,box_colors = zzz.createBoxGraph()
-    return (box,box_colors)
+    return (box,box_colors, pass_data, uuid.uuid1())
 
 def getChart():
     zzz=App()

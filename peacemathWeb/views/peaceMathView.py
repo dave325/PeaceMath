@@ -7,7 +7,8 @@ from peacemathWeb.scripts.teal_37_stripped import getFig, getChart
 
 
 def mainView(request):
-  box_graph,box_colors = getFig()
+  box_graph,box_colors, data, id = getFig()
+  print(id)
   if 'initialParamValue' in request.session:
     initialParamValue = request.session['initialParamValue']
   else:
@@ -23,14 +24,16 @@ def mainView(request):
     'box_graph':box_graph,
     'box_colors':box_colors,
     'initialParamValue': initialParamValue,
-    'inputValues': inputValues
+    'inputValues': inputValues,
+    'dataValues':data.b.tolist(),
+    'uuid': id
     })
 
 @csrf_exempt
 def chartView(request):
   if request.method == "POST":
-    return HttpResponse(getChart())
-
+    chart, data = getChart()
+    return HttpResponse({'chart':chart, 'data':data})
 
 '''
   This method sets the input values of either:

@@ -15,7 +15,6 @@
 	<script type="text/javascript" async src="{% static 'index.js' %}"></script>
 
 
-
 </head>
 
 <body>
@@ -25,7 +24,7 @@
 				<div>
 					Input Value: {{ initialParamValue }}
 				</div>
-				<form id="initialParamValue" method="post" action="http://localhost:8000/physics/sendInitialParameterValue/">
+				<form id="initialParamValue" method="post" action="http://localhost:8000/physics/sendInitialParameterValue/?id={{uuid}}">
 					{% csrf_token %}
 					<select name="initialParamValue" form="initialParamValue">
 							<option value="8">8</option>
@@ -51,7 +50,7 @@
 				<hr>
 				<button name="calculate" id="btn_calculate">Calculate</button>
 				<div class="input-menu">					
-					<form method="post" action="http://localhost:8000/physics/sideBarButtonActions/">
+					<form method="post" action="http://localhost:8000/physics/sideBarButtonActions/?id={{uuid}}">
 						{% csrf_token %}
 						<label for="add_mem">+ Mem</label>
 						<input type="text" name="add_mem" id="add_mem" value={{ inputValues.addMem }}>
@@ -110,6 +109,10 @@
 		crossorigin="anonymous"></script>
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </body>
+<script>
+window.sessionStorage.setItem('{{uuid}}', {{dataValues}})
+	console.log(window.sessionStorage.getItem('{{uuid}}').split(','))
+	</script>
 
 
 <script type="text/javascript">
