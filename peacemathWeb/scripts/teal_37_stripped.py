@@ -79,7 +79,6 @@ import random
 import time
 import os
 import peacemathWeb.scripts.data as pass_data
-from peacemathWeb.scripts.tealclass_37_stripped import * #import the METHODS from tealclass.py
 import uuid 
 #START OF DEFINED FUNCTIONS----------------------------------------------------
 #read text string in a file
@@ -190,154 +189,147 @@ def lslin(invars,invar):
 
 
 #START DATA INPUT
+def getVariables():
+
+    #fast=input('\n ONLY NUMBER n and I will find cn.txt, etc. (#/a, Def=a)')
+    #TODO TEMP SETTING fast TO HARD CODED VALUE SO THE SERVER CAN CALL IT WITHOUT COMMAND PROMPT
+    fast='8'
 
 
-#fast=input('\n ONLY NUMBER n and I will find cn.txt, etc. (#/a, Def=a)')
-#TODO TEMP SETTING fast TO HARD CODED VALUE SO THE SERVER CAN CALL IT WITHOUT COMMAND PROMPT
-fast='8'
 
+    #give it just a number # and RETURN and it will read files:
+    # m#.txt, b#.txt, ic#.txt, c#.txt, and btextbxy#.txt
+    if fast.isdigit():
+        fnamec='c'+fast+'.txt'
+        fnameb='b'+fast+'.txt'
+        fnamem='m'+fast+'.txt'
+        fnameic='ic'+fast+'.txt'
+        fnamebtextbxy='btextbxy'+fast+'.txt'
+    else:
+        fname=input('\nfilename for array c [I will add .txt]=  ')
+        fnamec=fname+'.txt'
+        
+        fname=input('\nfilename for array b [I will add .txt]=  ')
+        fnameb=fname+'.txt'
+        
+        fname=input('\nfilename for array m [I will add .txt]=  ')
+        fnamem=fname+'.txt'
+        
+        fname=input('\nfilename for array IC [I will add .txt]=  ')
+        fnameic=fname+'.txt'
+        
+        fname=input('\nfilename for bxy, btext [I will add .txt]=  ')
+        fnamebtextbxy=fname+'.txt'
 
+    #get the input from the files
+    c,numc=getxn(fnamec)
+    b,numb=getx(fnameb)
+    m,numm=getx(fnamem)
+    ic,numic=getx(fnameic)
+    btextbxydata,numvar=getxnsecondstring(fnamebtextbxy)
 
-#give it just a number # and RETURN and it will read files:
-# m#.txt, b#.txt, ic#.txt, c#.txt, and btextbxy#.txt
-if fast.isdigit():
-    fnamec='c'+fast+'.txt'
-    fnameb='b'+fast+'.txt'
-    fnamem='m'+fast+'.txt'
-    fnameic='ic'+fast+'.txt'
-    fnamebtextbxy='btextbxy'+fast+'.txt'
-else:
-    fname=input('\nfilename for array c [I will add .txt]=  ')
-    fnamec=fname+'.txt'
-    
-    fname=input('\nfilename for array b [I will add .txt]=  ')
-    fnameb=fname+'.txt'
-    
-    fname=input('\nfilename for array m [I will add .txt]=  ')
-    fnamem=fname+'.txt'
-    
-    fname=input('\nfilename for array IC [I will add .txt]=  ')
-    fnameic=fname+'.txt'
-    
-    fname=input('\nfilename for bxy, btext [I will add .txt]=  ')
-    fnamebtextbxy=fname+'.txt'
+    #check for consistentcy
+    if (numc**4!=numb*numm*numic*numvar):
+        print ("\nFATAL WARNING - input issue - numbers c,b,m,ic,bxy,btext don't match")
+        quit()
 
-#get the input from the files
-c,numc=getxn(fnamec)
-b,numb=getx(fnameb)
-m,numm=getx(fnamem)
-ic,numic=getx(fnameic)
-btextbxydata,numvar=getxnsecondstring(fnamebtextbxy)
-
-#check for consistentcy
-if (numc**4!=numb*numm*numic*numvar):
-    print ("\nFATAL WARNING - input issue - numbers c,b,m,ic,bxy,btext don't match")
-    quit()
-
-#PART ONE make original m, b, c, ic arrays (NOT matrices) and print
-ma=np.array(m)
-ba=np.array(b)
-ca=np.array(c)
-ica=np.array(ic)
-print ('\nca= ',ca)
-print ('\nba= ',ba)
-print ('\nma= ',ma)
-print ('\nica= ',ica)
-
-#TODO HARD CODING change VALUE SO THE SERVER 
-#change=input('\nWant to CHANGE parameters (y/n), def=n')
-change='n'
-
-if (change=='y' or change=='Y'):
-    c=lslin('c',c)
-    b=lslin('b',b)
-    m=lslin('m',m)
-    ic=lslin('ic',ic)
-    
+    #PART ONE make original m, b, c, ic arrays (NOT matrices) and print
     ma=np.array(m)
     ba=np.array(b)
     ca=np.array(c)
     ica=np.array(ic)
-    print ('\n\nNEW PARAMTER VALUES ARE:')
     print ('\nca= ',ca)
     print ('\nba= ',ba)
     print ('\nma= ',ma)
-    print ('\nic= ',ica)
-else:
-    pass
+    print ('\nica= ',ica)
 
-#PART TWO read in the variable names and box size and locations in the plot
-print('\n numvar(from btextbxy)= ',numvar)
-print('\n btextbxydata= ',btextbxydata)
+    #TODO HARD CODING change VALUE SO THE SERVER 
+    #change=input('\nWant to CHANGE parameters (y/n), def=n')
+    change='n'
 
-#COMPUTE (x,y)=[0,1] needed from PPTX
-bx=[btextbxydata[i][2] for i in range (numvar)]
-by=[btextbxydata[i][3] for i in range (numvar)]
-wx=[btextbxydata[i][5] for i in range (numvar)]
-hy=[btextbxydata[i][4] for i in range (numvar)]
+    if (change=='y' or change=='Y'):
+        c=lslin('c',c)
+        b=lslin('b',b)
+        m=lslin('m',m)
+        ic=lslin('ic',ic)
+        
+        ma=np.array(m)
+        ba=np.array(b)
+        ca=np.array(c)
+        ica=np.array(ic)
+        print ('\n\nNEW PARAMTER VALUES ARE:')
+        print ('\nca= ',ca)
+        print ('\nba= ',ba)
+        print ('\nma= ',ma)
+        print ('\nic= ',ica)
+    else:
+        pass
 
-#note this scaling has changed 2017-07-06
-#SCALE as needed for the plot
-xp=[0. for i in range(numvar)]
-yp=[0. for i in range(numvar)]
-xp2=[0. for i in range(numvar)]
-yp2=[0. for i in range(numvar)]
-for i in range(numvar):
-    xp[i]=(bx[i] + 0.5*wx[i])
-    yp[i]=(by[i] + 0.5*hy[i])
-maxx,minx=max(xp),min(xp)
-maxy,miny=max(yp),min(yp)
-for i in range(numvar):
-    xp2[i]=0.9*(xp[i]-minx)/(maxx-minx)+0.05
-    yp2[i]=1-(0.9*(yp[i]-miny)/(maxy-miny)+0.05)
-    
-bxy=[[xp2[i],yp2[i]] for i in range(numvar)]
-print ('\nbxy=  ',bxy)
+    #PART TWO read in the variable names and box size and locations in the plot
+    print('\n numvar(from btextbxy)= ',numvar)
+    print('\n btextbxydata= ',btextbxydata)
 
-#PARAEMTERS NEEDED FOR THE NUMERICAL INTEGRATION
-dt=.001 #step size
-numdata=30000 #number of integration steps
-t=[0. for i in range(numdata)] #time
-z=np.array([ica for i in range (numdata)]) #row=variables at each time
+    #COMPUTE (x,y)=[0,1] needed from PPTX
+    bx=[btextbxydata[i][2] for i in range (numvar)]
+    by=[btextbxydata[i][3] for i in range (numvar)]
+    wx=[btextbxydata[i][5] for i in range (numvar)]
+    hy=[btextbxydata[i][4] for i in range (numvar)]
 
-#READY TO PASS ON DATA----------------------------------------------------------
-#wrap parameters to pass into function 
-pass_data.numdata=numdata
-pass_data.ca=ca
-pass_data.dt=dt
-pass_data.ma=ma
-pass_data.ba=ba
-pass_data.numc=numc
-pass_data.z=z
-pass_data.t=t
-pass_data.ica=ica
-#NEW DATA's ADDED BELOW
-pass_data.fnamec=fnamec
-pass_data.fnamem=fnamem
-pass_data.fnameb=fnameb
-pass_data.fnamebtextbxy=fnamebtextbxy
-pass_data.dt=dt
-#EVEN MORE DATA'S ADDED BELOW
-pass_data.a=ca
-pass_data.bxy=bxy
-pass_data.btext=str([btextbxydata[i][0] for i in range(numvar)])
-pass_data.b=ica
-pass_data.labels=[btextbxydata[i][0] for i in range(numvar)]
-#ADDING BOX COLORS
-pass_data.boxcolor=[btextbxydata[i][1] for i in range(numvar)]
-print("Pass Data")
-print(pass_data.ma)
+    #note this scaling has changed 2017-07-06
+    #SCALE as needed for the plot
+    xp=[0. for i in range(numvar)]
+    yp=[0. for i in range(numvar)]
+    xp2=[0. for i in range(numvar)]
+    yp2=[0. for i in range(numvar)]
+    for i in range(numvar):
+        xp[i]=(bx[i] + 0.5*wx[i])
+        yp[i]=(by[i] + 0.5*hy[i])
+    maxx,minx=max(xp),min(xp)
+    maxy,miny=max(yp),min(yp)
+    for i in range(numvar):
+        xp2[i]=0.9*(xp[i]-minx)/(maxx-minx)+0.05
+        yp2[i]=1-(0.9*(yp[i]-miny)/(maxy-miny)+0.05)
+        
+    bxy=[[xp2[i],yp2[i]] for i in range(numvar)]
+    print ('\nbxy=  ',bxy)
+
+    #PARAEMTERS NEEDED FOR THE NUMERICAL INTEGRATION
+    dt=.001 #step size
+    numdata=30000 #number of integration steps
+    t=[0. for i in range(numdata)] #time
+    z=np.array([ica for i in range (numdata)]) #row=variables at each time
+
+    #READY TO PASS ON DATA----------------------------------------------------------
+    #wrap parameters to pass into function 
+
+    data = {}
+    data["numdata"]=numdata
+    data["ca"]=ca
+    data["dt"]=dt
+    data["ma"]=ma
+    data["ba"]=ba
+    data["numc"]=numc
+    data["z"]=z
+    data["t"]=t
+    data["ica"]=ica
+    #NEW DATA's ADDED BELOW
+    data["fnamec"]=fnamec
+    data["fnamem"]=fnamem
+    data["fnameb"]=fnameb
+    data["fnamebtextbxy"]=fnamebtextbxy
+    data["dt"]=dt
+    #EVEN MORE DATA'S ADDED BELOW
+    data["a"]=ca
+    data["bxy"]=bxy
+    data["btext"]=str([btextbxydata[i][0] for i in range(numvar)])
+    data["b"]=ica
+    data["labels"]=[btextbxydata[i][0] for i in range(numvar)]
+    #ADDING BOX COLORS
+    data["boxcolor"]=[btextbxydata[i][1] for i in range(numvar)]
+    print("Pass Data")
+    print(data["ma"])
+    return data
 
 #call the classes----------------------------------------------
 
 
-def getFig():
-    zzz=App()
-    box,box_colors = zzz.createBoxGraph()
-    return (box,box_colors, pass_data, uuid.uuid1())
-
-def getChart():
-    zzz=App()
-    box = zzz.recalculate()
-    return (box)
-#call the classes----------------------------------------------

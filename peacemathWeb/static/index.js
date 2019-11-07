@@ -34,13 +34,15 @@
 document.getElementById('btn_calculate').addEventListener('click', function(){
 	let loadingFlag = true;
 	fetch('/physics/chart/', {method:'post'}).then((res)=>{
-		res.text().then(
+		res.json().then(
 			(i) => {
+				console.log(i.data)
+				return;
 				loadingFlag = false;
 				var myWindow = window.open("", "Figure", "width=800,height=500");
 				myWindow.document.write(i);
 
 			}
 		)
-	})
+	});
 });

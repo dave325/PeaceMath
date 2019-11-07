@@ -1,13 +1,12 @@
 # pages/views.py
-from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect, JsonResponse
 from django.template import Template
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.csrf import csrf_exempt
-from peacemathWeb.scripts.teal_37_stripped import getFig, getChart
-
+from peacemathWeb.scripts.PeaceMathAPI import getFig, getChart
 
 def mainView(request):
-  box_graph,box_colors, data, id = getFig()
+  box_graph,box_colors, data = getFig()
   print(id)
   if 'initialParamValue' in request.session:
     initialParamValue = request.session['initialParamValue']
@@ -25,15 +24,14 @@ def mainView(request):
     'box_colors':box_colors,
     'initialParamValue': initialParamValue,
     'inputValues': inputValues,
-    'dataValues':data.b.tolist(),
-    'uuid': id
+    'dataValues':data
     })
 
 @csrf_exempt
 def chartView(request):
   if request.method == "POST":
     chart, data = getChart()
-    return HttpResponse({'chart':chart, 'data':data})
+    return JsonResponse({'chart':chart, 'data':data})
 
 '''
   This method sets the input values of either:

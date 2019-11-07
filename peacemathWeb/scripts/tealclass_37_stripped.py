@@ -72,7 +72,7 @@ click on ORIGINAL on the initial conditions input
 """
 
 #import tkinter as tk
-import peacemathWeb.scripts.data as data
+from peacemathWeb.scripts.teal_37_stripped import getVariables
 import numpy as np
 from decimal import *
 import matplotlib.patches as patches
@@ -120,17 +120,17 @@ class ArrowObject:
         @t to which box
     '''
     visible_arrow=[]
-    def __init__(self,ax13,f,t,id):
+    def __init__(self,ax13,f,t,id,data):
         self.from_box = f
         self.to_box = t
         self.id = id
-        end=(data.bxy[f][0],data.bxy[f][1])
-        start=(data.bxy[t][0],data.bxy[t][1])
-        amin, amax=np.amin(abs(data.a)), np.amax(abs(data.a))
-        opacity=(abs(data.a[f][t])-amin)/(amax-amin)*.8 +.2
+        end=(data['bxy'][f][0],data['bxy'][f][1])
+        start=(data['bxy'][t][0],data['bxy'][t][1])
+        amin, amax=np.amin(abs(data['a'])), np.amax(abs(data['a']))
+        opacity=(abs(data['a'][f][t])-amin)/(amax-amin)*.8 +.2
         # width=opacity*24/data.numc #scale ARROW WIDTH inverse #VARIABLES
-        width=opacity*(24.+(2./3.)*(data.numc-6.))/data.numc # a BETTER scale?
-        if data.a[f][t]<0:
+        width=opacity*(24.+(2./3.)*(data['numc']-6.))/data['numc'] # a BETTER scale?
+        if data['a'][f][t]<0:
             arrow_color='r'
         else:
             arrow_color='#00ccff'
@@ -144,7 +144,7 @@ class ArrowObject:
             alpha=opacity,
             linewidth=width)
         self.arrow.set_arrowstyle('fancy',head_length=6*width, head_width=6*width)
-        if data.a[f][t]!=0:
+        if data['a'][f][t]!=0:
             self.visible_arrow.append(self)
         ax13.add_patch(self.arrow)
         
@@ -207,7 +207,7 @@ class TextboxPlugin(plugins.PluginBase):  # inherit from PluginBase
 class App:
     #constructor
     def __init__(self):
-        self.data=data
+        self.data=getVariables()
         self.fewarrows=0
         self.fixent=1 #UGLY FIX FOR ENTRIES/ENTRIESIJ
         #self.MakeWindow()
@@ -243,33 +243,33 @@ class App:
         a = f.add_subplot(111)
         a.axis('off')
         colorDictionary = []
-        for index in range(len(data.b)):
-            xy=data.bxy[index]
-            #print(data.labels[index])
-            #print(data.b[index])
-            colorDictionary.append(data.boxcolor[index])
-            # Need to change data.b[index] - sets size of font to 1, not sure why this doesn't work for web
-            #TextBox(a,xy[0],xy[1],data.b[index],index,data.labels[index],data.boxcolor[index])
-            bbox_props = {'facecolor':data.boxcolor[index][0], 'pad':10}
-            a.text(xy[0], xy[1], data.labels[index], style='italic',horizontalalignment='center',verticalalignment='center',size=20, color='k',transform=a.transAxes,bbox=bbox_props)
+        for index in range(len(self.data['b'])):
+            xy=self.data['bxy'][index]
+            #print(self.data.labels[index])
+            #print(self.data.b[index])
+            colorDictionary.append(self.data['boxcolor'][index])
+            # Need to change self.data.b[index] - sets size of font to 1, not sure why this doesn't work for web
+            #TextBox(a,xy[0],xy[1],self.data.b[index],index,self.data.labels[index],self.data.boxcolor[index])
+            bbox_props = {'facecolor':self.data['boxcolor'][index][0], 'pad':10}
+            a.text(xy[0], xy[1], self.data['labels'][index], style='italic',horizontalalignment='center',verticalalignment='center',size=20, color='k',transform=a.transAxes,bbox=bbox_props)
             
         id=0
         if (self.fewarrows==0):
-            for i in range(len(data.b)):
-                for j in range(len(data.b)):
-                    if i!=j and data.a[i][j]!=0:
-                        arrow=ArrowObject(a,i,j,id)
+            for i in range(len(self.data['b'])):
+                for j in range(len(self.data['b'])):
+                    if i!=j and self.data['a'][i][j]!=0:
+                        arrow=ArrowObject(a,i,j,id, self.data)
                         id=id+1
         else:
             i=self.box_id
-            for j in range(len(data.b)):
-                if i!=j and data.a[i][j]!=0:
-                    arrow=ArrowObject(a,i,j,id)
+            for j in range(len(self.data['b'])):
+                if i!=j and self.data['a'][i][j]!=0:
+                    arrow=ArrowObject(a,i,j,id, self.data)
                     id=id+1
             j=self.box_id
-            for i in range(len(data.b)):
-                if i!=j and data.a[i][j]!=0:
-                    arrow=ArrowObject(a,i,j,id)
+            for i in range(len(self.data['b'])):
+                if i!=j and self.data['a'][i][j]!=0:
+                    arrow=ArrowObject(a,i,j,id, self.data)
                     id=id+1
         #plt.show(block=False)
         plugins.connect(f, TextboxPlugin(colorDictionary))
@@ -297,7 +297,7 @@ class App:
 
     #Euler numerical integration of the ordinary differential equations
     def recalculate(self):
-        pass_data = data
+        pass_data = self.data
         '''
         #UGLY FIX FOR ENTRIES/ENTRIESIJ----------------------------------------
         if self.fixent==1:
@@ -327,7 +327,7 @@ class App:
         #set z[0]=z[-1] for the NEXT iteration
         pass_data.z[0]=pass_data.z[-1]
         print(pass_data.b)
-        return App.MakePlot(data), pass_data
+        return (App.MakePlot(data), pass_data)
         '''
         #CLEAR and REFRESH DATA and PIC frames
         App.ClearFrame(self.framed1)

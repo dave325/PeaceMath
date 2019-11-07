@@ -50,7 +50,7 @@
 				<hr>
 				<button name="calculate" id="btn_calculate">Calculate</button>
 				<div class="input-menu">					
-					<form method="post" action="http://localhost:8000/physics/sideBarButtonActions/?id={{uuid}}">
+					<form method="post" action="http://localhost:8000/physics/sideBarButtonActions/">
 						{% csrf_token %}
 						<label for="add_mem">+ Mem</label>
 						<input type="text" name="add_mem" id="add_mem" value={{ inputValues.addMem }}>
@@ -110,8 +110,7 @@
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </body>
 <script>
-window.sessionStorage.setItem('{{uuid}}', {{dataValues}})
-	console.log(window.sessionStorage.getItem('{{uuid}}').split(','))
+
 	</script>
 
 
@@ -121,8 +120,9 @@ window.sessionStorage.setItem('{{uuid}}', {{dataValues}})
 
 
 
-
-
+console.log({{dataValues}})
+window.sessionStorage.setItem(window.clientInformation, {{dataValues}})
+	console.log(window.sessionStorage.getItem(window.clientInformation).split(','))
 
 
 </script>
