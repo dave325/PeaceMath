@@ -296,8 +296,8 @@ class App:
 
 
     #Euler numerical integration of the ordinary differential equations
-    def recalculate(self):
-        pass_data = self.data
+    def recalculate(self, data):
+        pass_data = data
         '''
         #UGLY FIX FOR ENTRIES/ENTRIESIJ----------------------------------------
         if self.fixent==1:
@@ -308,26 +308,25 @@ class App:
         #UGLY FIX FOR ENTRIES/ENTRIESIJ----------------------------------------
         '''
         self.fewarrows=0
-        pass_data.tt=0
-        for i in range (1,pass_data.numdata):
-            mtanh=np.tanh(pass_data.z[i-1])
-            cterm=np.dot(pass_data.ca,mtanh)
-            pass_data.dx=pass_data.dt*(pass_data.ma*pass_data.z[i-1] + pass_data.ba + cterm)
-            pass_data.tt=pass_data.tt+pass_data.dt
-            pass_data.t[i]=pass_data.tt
-            pass_data.z[i]=pass_data.z[i-1]+pass_data.dx
-            for j in range(pass_data.numc):
-                pass_data.z[i][j]=max(pass_data.z[i][j],0.) 
+        pass_data["tt"]=0
+        for i in range (1,pass_data["numdata"]):
+            mtanh=np.tanh(pass_data["z"][i-1])
+            cterm=np.dot(pass_data["ca"],mtanh)
+            pass_data["dx"]=pass_data["dt"]*(pass_data["ma"]*pass_data["z"][i-1] + pass_data["ba"] + cterm)
+            pass_data["tt"]=pass_data["tt"]+pass_data["dt"]
+            pass_data["t"][i]=pass_data["tt"]
+            pass_data["z"][i]=pass_data["z"][i-1]+pass_data["dx"]
+            for j in range(pass_data["numc"]):
+                pass_data["z"][i][j]=max(pass_data["z"][i][j],0.) 
         #make new plot
         
         
         #scale b's from z[-1]
-        vector=pass_data.z[-1]
-        pass_data.b=App.scalebox(vector)
+        vector=pass_data["z"][-1]
+        pass_data["b"]=App.scalebox(vector)
         #set z[0]=z[-1] for the NEXT iteration
-        pass_data.z[0]=pass_data.z[-1]
-        print(pass_data.b)
-        return (App.MakePlot(data), pass_data)
+        pass_data["z"][0]=pass_data["z"][-1]
+        return (App.MakePlot(self,pass_data), pass_data)
         '''
         #CLEAR and REFRESH DATA and PIC frames
         App.ClearFrame(self.framed1)
@@ -337,25 +336,25 @@ class App:
      
         
     #makes plot of x(i) vs. time
-    def MakePlot(pass_data):
+    def MakePlot(self,pass_data):
         print('\nYour plot is ready')
         localtime = time.asctime( time.localtime(time.time()) )
-        x_start=pass_data.z[0]
-        x_final=pass_data.z[-1]
+        x_start=pass_data['z'][0]
+        x_final=pass_data['z'][-1]
         f = plt.figure()
         plt.axes([0.1,.075,.8,.7])
-        plt.plot(pass_data.t,pass_data.z[:,0:pass_data.numc])
+        plt.plot(pass_data['t'],pass_data['z'][:,0:pass_data['numc']])
         #print labels on lines
         xtext=25
-        for i in range (pass_data.numc):
-            ytext=pass_data.z[-1,i]
+        for i in range (pass_data['numc']):
+            ytext=pass_data['z'][-1,i]
             varis=str(i) #first variable is 0
             f.text(xtext,ytext,varis)
             xtext=xtext-1    
         programname='teal.py, tealclass.py, data.py   '+localtime
-        param1='\n   input files= '+str(pass_data.fnamec)+'    '    +str(pass_data.fnameb)+'    '+str(pass_data.fnamem) +'    '+str(pass_data.fnamebtextbxy) + '     dt='+str(pass_data.dt)
-        start=App.displayinput(pass_data.z[0],75)
-        finish=App.displayinput(pass_data.z[-1],75)
+        param1='\n   input files= '+str(pass_data['fnamec'])+'    '    +str(pass_data['fnameb'])+'    '+str(pass_data['fnamem']) +'    '+str(pass_data['fnamebtextbxy']) + '     dt='+str(pass_data['dt'])
+        start=App.displayinput(pass_data['z'][0],75)
+        finish=App.displayinput(pass_data['z'][-1],75)
         param2='\nstart=  ' + start + '\nfinish=  ' + finish
         titlelsl=programname+param1 + param2
         plt.title(titlelsl, fontsize=8)

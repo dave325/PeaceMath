@@ -6,8 +6,8 @@ def getFig():
     box,box_colors = zzz.createBoxGraph()
     return (box,box_colors, getVariables())
 
-def getChart():
+def getChart(data):
     zzz=App()
-    box = zzz.recalculate()
+    box = zzz.recalculate(data)
     return (box)
 #call the classes----

@@ -33,14 +33,17 @@
 
 document.getElementById('btn_calculate').addEventListener('click', function(){
 	let loadingFlag = true;
-	fetch('/physics/chart/', {method:'post'}).then((res)=>{
+	console.log(window.sessionStorage.getItem(window.clientInformation))
+	fetch('/physics/chart/', {method:'post',    headers: {
+		'Accept': 'application/json',
+		'Content-Type': 'application/json'
+	  }, body:window.sessionStorage.getItem(window.clientInformation)}).then((res)=>{
 		res.json().then(
 			(i) => {
 				console.log(i.data)
-				return;
 				loadingFlag = false;
 				var myWindow = window.open("", "Figure", "width=800,height=500");
-				myWindow.document.write(i);
+				myWindow.document.write(i.chart);
 
 			}
 		)

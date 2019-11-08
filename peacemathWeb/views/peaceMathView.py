@@ -4,10 +4,16 @@ from django.template import Template
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.csrf import csrf_exempt
 from peacemathWeb.scripts.PeaceMathAPI import getFig, getChart
-
+import numpy
+import json
 def mainView(request):
   box_graph,box_colors, data = getFig()
-  print(id)
+  print("before loop")
+  for (key,value) in data.items():
+    if type(value) is numpy.ndarray :
+          print("array: " + key)
+          data[key] = numpy.array(value).tolist()
+  print('after loop')
   if 'initialParamValue' in request.session:
     initialParamValue = request.session['initialParamValue']
   else:
@@ -24,13 +30,21 @@ def mainView(request):
     'box_colors':box_colors,
     'initialParamValue': initialParamValue,
     'inputValues': inputValues,
-    'dataValues':data
+    'dataValues': json.dumps(data)
     })
 
 @csrf_exempt
 def chartView(request):
   if request.method == "POST":
-    chart, data = getChart()
+    print("Durig request")
+    temp = json.loads(request.body)
+    for (key,value) in temp.items():
+      if type(value) is list :
+            temp[key] = numpy.array(value)
+    chart, data = getChart(temp)
+    for (key,value) in data.items():
+      if type(value) is numpy.ndarray :
+            data[key] = numpy.array(value).tolist()
     return JsonResponse({'chart':chart, 'data':data})
 
 '''
