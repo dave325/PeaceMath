@@ -309,6 +309,7 @@ class App:
         '''
         self.fewarrows=0
         pass_data["tt"]=0
+        print(pass_data['b'])
         for i in range (1,pass_data["numdata"]):
             mtanh=np.tanh(pass_data["z"][i-1])
             cterm=np.dot(pass_data["ca"],mtanh)
@@ -326,7 +327,11 @@ class App:
         pass_data["b"]=App.scalebox(vector)
         #set z[0]=z[-1] for the NEXT iteration
         pass_data["z"][0]=pass_data["z"][-1]
-        return (App.MakePlot(self,pass_data), pass_data)
+        print(pass_data["z"][-1])
+        return (self.MakePlot(pass_data), pass_data)
+        pass_data["b"]=App.scalebox(vector)
+        #set z[0]=z[-1] for the NEXT iteration
+        pass_data["z"][0]=pass_data["z"][-1]
         '''
         #CLEAR and REFRESH DATA and PIC frames
         App.ClearFrame(self.framed1)
@@ -355,6 +360,7 @@ class App:
         param1='\n   input files= '+str(pass_data['fnamec'])+'    '    +str(pass_data['fnameb'])+'    '+str(pass_data['fnamem']) +'    '+str(pass_data['fnamebtextbxy']) + '     dt='+str(pass_data['dt'])
         start=App.displayinput(pass_data['z'][0],75)
         finish=App.displayinput(pass_data['z'][-1],75)
+        print(finish)
         param2='\nstart=  ' + start + '\nfinish=  ' + finish
         titlelsl=programname+param1 + param2
         plt.title(titlelsl, fontsize=8)
