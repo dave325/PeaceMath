@@ -12,7 +12,7 @@ def mainView(request):
   for (key,value) in data.items():
     if type(value) is numpy.ndarray :
           print("array: " + key)
-          data[key] = numpy.array(value).tolist()
+          data[key] = value.tolist()
   print('after loop')
   if 'initialParamValue' in request.session:
     initialParamValue = request.session['initialParamValue']
@@ -39,12 +39,12 @@ def chartView(request):
     print("Durig request")
     temp = json.loads(request.body)
     for (key,value) in temp.items():
-      if type(value) is list :
+      if key == "ca" or key == "ma" or key == "ba" or key == "ica" or key == "z" or key == "a" or key == "b":
             temp[key] = numpy.array(value)
     chart, data = getChart(temp)
     for (key,value) in data.items():
       if type(value) is numpy.ndarray :
-            data[key] = numpy.array(value).tolist()
+            data[key] = value.tolist()
     return JsonResponse({'chart':chart, 'data':data})
 
 '''
