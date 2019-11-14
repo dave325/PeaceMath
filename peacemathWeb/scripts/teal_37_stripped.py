@@ -331,5 +331,3 @@ def getVariables():
     return data
 
 #call the classes----------------------------------------------
-
-

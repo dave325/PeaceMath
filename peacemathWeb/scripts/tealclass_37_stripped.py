@@ -328,10 +328,11 @@ class App:
         #set z[0]=z[-1] for the NEXT iteration
         pass_data["z"][0]=pass_data["z"][-1]
         print(pass_data["z"][-1])
-        return (self.MakePlot(pass_data), pass_data)
+        
         pass_data["b"]=App.scalebox(vector)
         #set z[0]=z[-1] for the NEXT iteration
         pass_data["z"][0]=pass_data["z"][-1]
+        return (self.MakePlot(pass_data), pass_data)
         '''
         #CLEAR and REFRESH DATA and PIC frames
         App.ClearFrame(self.framed1)

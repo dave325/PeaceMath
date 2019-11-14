@@ -40,11 +40,13 @@ def chartView(request):
     temp = json.loads(request.body)
     for (key,value) in temp.items():
       if key == "ca" or key == "ma" or key == "ba" or key == "ica" or key == "z" or key == "a" or key == "b":
-            temp[key] = numpy.array(value)
+        x = numpy.asfarray(value, float)
+        temp[key] = numpy.array(x)
     chart, data = getChart(temp)
     for (key,value) in data.items():
       if type(value) is numpy.ndarray :
-            data[key] = value.tolist()
+        data[key] = value.tolist()
+    print("END OF PRINTING THE KEYS ....")
     return JsonResponse({'chart':chart, 'data':data})
 
 '''
