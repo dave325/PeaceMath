@@ -33,7 +33,7 @@
 var windowCounter = 1;
 document.getElementById('btn_calculate').addEventListener('click', function(){
 	let loadingFlag = true;
-	console.log(window.sessionStorage.getItem(window.clientInformation))
+	//console.log(window.sessionStorage.getItem(window.clientInformation))
 	fetch('/physics/chart/', {method:'post',    headers: {
 		'Accept': 'application/json',
 		'Content-Type': 'application/json'
@@ -46,6 +46,8 @@ document.getElementById('btn_calculate').addEventListener('click', function(){
 				myWindow.document.write(i.chart);
 				myWindow.document.title = "Figure " + windowCounter;
 				windowCounter++;
+
+				
 
 			}
 		)
