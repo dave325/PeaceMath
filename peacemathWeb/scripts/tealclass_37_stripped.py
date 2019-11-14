@@ -82,6 +82,10 @@ from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from mpld3 import fig_to_html
 from mpld3 import plugins
+import codecs,json
+import sys
+
+
 
 #from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
 
@@ -295,9 +299,24 @@ class App:
         return vectornew
 
 
+
+
     #Euler numerical integration of the ordinary differential equations
     def recalculate(self, data):
-        pass_data = data
+
+        consoleOut = sys.stdout
+
+        sys.stdout = open('correctData.txt', 'w')
+        print(self.data) 
+        sys.stdout = open('incorrectData.txt','w')
+        print(data)
+
+        sys.stdout = consoleOut
+
+        print('write complete')       
+
+
+        pass_data = self.data
         '''
         #UGLY FIX FOR ENTRIES/ENTRIESIJ----------------------------------------
         if self.fixent==1:
@@ -529,7 +548,7 @@ class App:
                 self.fewarrows=1
                 #self.refreshCIJFrame()
                 # TextBox.selected_box_id=id
-                return;
+                return
                 
     
     #reset the initial conditions to the input data ic(i) default values
