@@ -46,7 +46,6 @@ def chartView(request):
     for (key,value) in data.items():
       if type(value) is numpy.ndarray :
         data[key] = value.tolist()
-    print("END OF PRINTING THE KEYS ....")
     return JsonResponse({'chart':chart, 'data':data})
 
 '''
