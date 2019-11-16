@@ -196,6 +196,7 @@ class App:
         f.set_size_inches(8,10)
         a = f.add_subplot(111)
         a.axis('off')
+        print('B VALUES')
         for index in range(len(data.b)):
             xy=data.bxy[index]
             TextBox(a,xy[0],xy[1],data.b[index],index,data.labels[index],data.boxcolor[index])

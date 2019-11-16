@@ -255,8 +255,8 @@ class App:
             colorDictionary.append(self.data['boxcolor'][index])
             # Need to change self.data.b[index] - sets size of font to 1, not sure why this doesn't work for web
             #TextBox(a,xy[0],xy[1],self.data.b[index],index,self.data.labels[index],self.data.boxcolor[index])
-            bbox_props = {'facecolor':self.data['boxcolor'][index][0], 'pad':10}
-            a.text(xy[0], xy[1], self.data['labels'][index], style='italic',horizontalalignment='center',verticalalignment='center',size=20, color='k',transform=a.transAxes,bbox=bbox_props)
+            bbox_props = {'facecolor':self.data['boxcolor'][index][0], 'pad':10}   
+            a.text(xy[0], xy[1], self.data['labels'][index], style='italic',horizontalalignment='center',verticalalignment='center',size=self.data['b'][index] * 16, color='k',transform=a.transAxes,bbox=bbox_props)
             
         id=0
         if (self.fewarrows==0):
@@ -305,18 +305,23 @@ class App:
     #Euler numerical integration of the ordinary differential equations
     def recalculate(self, data):
 
-        consoleOut = sys.stdout
+        #consoleOut = sys.stdout
 
-        sys.stdout = open('correctData.txt', 'w')
-        print(self.data) 
-        sys.stdout = open('incorrectData.txt','w')
-        print(data)
+        #sys.stdout = open('correctData.txt', 'w')
+        #print(self.data) 
+        #sys.stdout = open('incorrectData.txt','w')
+        #print(data)
 
-        sys.stdout = consoleOut
+        #sys.stdout = consoleOut
 
-        print('write complete')       
+        #print('write complete')       
 
 
+<<<<<<< HEAD
+=======
+        #pass_data = self.data
+
+>>>>>>> 2ccd95eb5b0946a4b8dd07795e95dd66f119404b
         pass_data = data
         '''
         #UGLY FIX FOR ENTRIES/ENTRIESIJ----------------------------------------
