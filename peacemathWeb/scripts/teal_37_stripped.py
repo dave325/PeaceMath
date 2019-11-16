@@ -189,11 +189,11 @@ def lslin(invars,invar):
 
 
 #START DATA INPUT
-def getVariables():
+def getVariables(num):
 
     #fast=input('\n ONLY NUMBER n and I will find cn.txt, etc. (#/a, Def=a)')
     #TODO TEMP SETTING fast TO HARD CODED VALUE SO THE SERVER CAN CALL IT WITHOUT COMMAND PROMPT
-    fast='8'
+    fast = num
 
 
 

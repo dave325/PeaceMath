@@ -210,8 +210,9 @@ class TextboxPlugin(plugins.PluginBase):  # inherit from PluginBase
 #MAIN CLASS THAT DOES MOST OF THE WORK
 class App:
     #constructor
-    def __init__(self):
-        self.data=getVariables()
+    def __init__(self, num):
+        self.num = num
+        self.data=getVariables(num)
         self.fewarrows=0
         self.fixent=1 #UGLY FIX FOR ENTRIES/ENTRIESIJ
         #self.MakeWindow()

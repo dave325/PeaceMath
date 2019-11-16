@@ -1,13 +1,13 @@
 
 from peacemathWeb.scripts.tealclass_37_stripped import *
 from peacemathWeb.scripts.teal_37_stripped import getVariables
-def getFig():
-    zzz=App()
+def getFig(num):
+    zzz=App(num)
     box,box_colors = zzz.createBoxGraph()
-    return (box,box_colors, getVariables())
+    return (box,box_colors, getVariables(num))
 
-def getChart(data):
-    zzz=App()
+def getChart(num ,data):
+    zzz=App(num)
     box = zzz.recalculate(data)
     return (box)
 
