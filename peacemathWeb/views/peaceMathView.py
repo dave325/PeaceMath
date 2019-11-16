@@ -60,10 +60,8 @@ def sendInitialParameterValue(request):
 def sideBarButtonActions(request):
   # CSRF Token can be accessed in request.POST['csrfmiddlewaretoken]
   if request.method == "POST":
-    if 'initial_conditions' in request.POST:
-      request.session['inputValues'] = revertBackToInitial()
     if 'original' in request.POST:
-      request.session['inputValues'] = setInputValues(request)
+      request.session['inputValues'] = revertBackToInitial()
     if 'enter' in request.POST:
       request.session['inputValues'] = setInputValues(request)
     return redirect('/physics/')

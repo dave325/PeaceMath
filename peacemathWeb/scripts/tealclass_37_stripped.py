@@ -317,7 +317,7 @@ class App:
         print('write complete')       
 
 
-        pass_data = self.data
+        pass_data = data
         '''
         #UGLY FIX FOR ENTRIES/ENTRIESIJ----------------------------------------
         if self.fixent==1:
