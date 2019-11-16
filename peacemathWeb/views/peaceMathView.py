@@ -12,6 +12,7 @@ def mainView(request):
   if 'initialParamValue' in request.session:
     initialParamValue = request.session['initialParamValue']
   else:
+    request.session['initialParamValue'] = "8"
     initialParamValue = "8"
 
   box_graph,box_colors, data = getFig(initialParamValue)
