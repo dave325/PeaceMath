@@ -3,19 +3,25 @@ from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.template import Template
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.csrf import csrf_exempt
-from peacemathWeb.scripts.PeaceMathAPI import getFig, getChart
+
+# from peacemathWeb.scripts.PeaceMathAPI import getFig, getChart
+
+from peacemathWeb.scripts.tealclass_37_stripped import *
+from peacemathWeb.scripts.teal_37_stripped import getVariables
+
 import numpy
 import json
+
+from datetime import datetime
 
 
 def mainView(request):
   if 'initialParamValue' in request.session:
-    initialParamValue = request.session['initialParamValue']
+    initialParamValue = int(request.session['initialParamValue'])
   else:
-    request.session['initialParamValue'] = "8"
     initialParamValue = "8"
 
-  box_graph,box_colors, data = getFig(initialParamValue)
+  box_graph,box_colors, data = getFig(request)
 
   for (key,value) in data.items():
     if type(value) is numpy.ndarray :
@@ -44,7 +50,7 @@ def chartView(request):
       if key == "ca" or key == "ma" or key == "ba" or key == "ica" or key == "z" or key == "a" or key == "b":
         x = numpy.asfarray(value, float)
         temp[key] = numpy.array(x)
-    chart, data = getChart(request.session['initialParamValue'], temp)
+    chart, data = getChart(request, temp)
     for (key,value) in data.items():
       if type(value) is numpy.ndarray :
         data[key] = value.tolist()
@@ -89,5 +95,27 @@ def setInputValues(request):
     'pIR' : request.POST['pir'],
     'nIR' : request.POST['nir']  
   }
+
+
+
   
-  
+def getFig(request):
+  if 'initialParamValue' in request.session:
+    initialParamValue = str(request.session['initialParamValue'])
+  else:
+    request.session['initialParamValue'] = "8"
+    initialParamValue = "8"
+  # WILL FIX THIS LATER TO ALLOW FOR ONE INSTANCE OF APP
+  zzz = App(initialParamValue)
+  box,box_colors = zzz.createBoxGraph()
+  return (box,box_colors, getVariables(initialParamValue))
+
+def getChart(request ,data):
+  if 'initialParamValue' in request.session:
+    initialParamValue = str(request.session['initialParamValue'])
+  else:
+    initialParamValue = "8"
+  # WILL FIX THIS LATER TO ALLOW FOR ONE INSTANCE OF APP
+  zzz = App(initialParamValue)
+  box = zzz.recalculate(data)
+  return (box)
