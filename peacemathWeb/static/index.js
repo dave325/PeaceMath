@@ -37,7 +37,7 @@ document.getElementById('btn_calculate').addEventListener('click', function(){
 		fetch('/physics/chart/', {method:'post', headers: {
 			'Accept': 'application/json',
 			'Content-Type': 'application/json'
-			}, body:window.sessionStorage.getItem(window.clientInformation)}).then((res)=>{
+			}, body:window.sessionStorage.getItem("key")}).then((res)=>{
 			res.json().then(
 				 (i) => {
 

@@ -317,11 +317,8 @@ class App:
         #print('write complete')       
 
 
-<<<<<<< HEAD
-=======
         #pass_data = self.data
 
->>>>>>> 2ccd95eb5b0946a4b8dd07795e95dd66f119404b
         pass_data = data
         '''
         #UGLY FIX FOR ENTRIES/ENTRIESIJ----------------------------------------
