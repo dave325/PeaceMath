@@ -221,7 +221,7 @@ class App:
         self.fixent=1 #UGLY FIX FOR ENTRIES/ENTRIESIJ
         # self.root.mainloop() -maybe needed for Windows OS
 
-
+    '''
     #makes frames and frames within frames needed for correct display
     def MakeWindow (self):
         #self.root=tk.Tk()
@@ -237,7 +237,7 @@ class App:
         self.framepic=tk.Frame(self.outsideframepic,borderwidth=5,relief=tk.RIDGE)
         self.framepic.pack(side=tk.TOP,fill=tk.BOTH,expand=1) #BIG-BAD
        # self.refreshDataFrame()
-        self.refreshPicFrame()
+        self.refreshPicFrame()'''
 
     
     #makes the plot: boxes and the (fancy) arrows connecting them
@@ -416,7 +416,7 @@ class App:
 
     
     #clear and refresh ONLY the left initial condition dataframe
-
+    '''
     # Used to fill left side of screen
     def refreshDataFrame(self):
         self.fixent=1 #UGLY FIX FOR ENTRIES/ENTRIESIJ
@@ -533,7 +533,7 @@ class App:
         column=[eval((self.entriesIJ[i][1].get())) for i in range(len(self.entriesIJ))]
         self.data.ca[:,self.box_id]=column
         self.outsideframed1.pack(expand=1)
-        return
+        return'''
 
 
     #return the textbox id that was clicked
