@@ -79,7 +79,7 @@ import matplotlib.patches as patches
 import matplotlib.pyplot as plt
 import time
 from matplotlib.figure import Figure
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+#from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from mpld3 import fig_to_html
 from mpld3 import plugins
 import codecs,json
