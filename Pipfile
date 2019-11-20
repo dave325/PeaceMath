@@ -13,6 +13,6 @@ scipy = "*"
 requests = "*"
 mpld3 = "*"
 jinja2 = "*"
-
+django_heroku = "*"
 [requires]
 python_version = "3.7"
