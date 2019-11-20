@@ -130,3 +130,6 @@ STATIC_URL = '/static/'
 # Set to 5 MB
 DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880
 
+# Configure Django App for Heroku.
+import django_heroku
+django_heroku.settings(locals())
