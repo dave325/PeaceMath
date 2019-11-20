@@ -14,7 +14,9 @@ import numpy
 import json
 
 from datetime import datetime
-from django.contrib.sessions.backends.db import SessionStore
+from importlib import import_module
+from django.conf import settings
+SessionStore = import_module(settings.SESSION_ENGINE).SessionStore
 
 def mainView(request):
     if 'initialParamValue' in request.session:
@@ -36,9 +38,8 @@ def mainView(request):
     s = SessionStore()
     s['data'] = json.dumps(data)
     s.create()
-    print(s.session_key)
     s1 = SessionStore(session_key=s.session_key)
-    print(s['data'])
+
     # decoded json object now
     response = render(request, 'index.html', {
         'box_graph': box_graph,
@@ -53,8 +54,8 @@ def mainView(request):
 @csrf_exempt
 def chartView(request):
     if request.method == "POST":
-        print(SessionStore(session_key=request.body))
-        temp = json.loads(request.body)
+        print("during chart call")
+        temp = json.loads(SessionStore(session_key=request.body.decode("UTF-8"))['data'])
         for (key, value) in temp.items():
             if key == "ca" or key == "ma" or key == "ba" or key == "ica" or key == "z" or key == "a" or key == "b":
                 x = numpy.asfarray(value, float)
@@ -63,6 +64,9 @@ def chartView(request):
         for (key, value) in data.items():
             if type(value) is numpy.ndarray:
                 data[key] = value.tolist()
+        s = SessionStore(session_key=request.body.decode("UTF-8"))
+        s['data'] = json.dumps(data)
+        s.save()
         return JsonResponse({'chart': chart, 'data': data})
 
 

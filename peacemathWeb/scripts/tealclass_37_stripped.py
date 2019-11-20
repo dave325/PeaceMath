@@ -331,7 +331,7 @@ class App:
         '''
         self.fewarrows=0
         pass_data["tt"]=0
-        print(pass_data['b'])
+        #print(pass_data['b'])
         for i in range (1,pass_data["numdata"]):
             mtanh=np.tanh(pass_data["z"][i-1])
             cterm=np.dot(pass_data["ca"],mtanh)

@@ -55,17 +55,17 @@
 					<form method="post" action="http://localhost:8000/physics/sideBarButtonActions/">
 						{% csrf_token %}
 						<label for="add_mem">+ Mem</label>
-						<input type="text" name="add_mem" id="add_mem" value={{ inputValues.addMem }}>
+						<input type="text" name="add_mem" id="add_mem" class="b_value" value={{ inputValues.addMem }}>
 						<label for="sub_mem">- Mem</label>
-						<input type="text" name="sub_mem" id="sub_mem" value= {{ inputValues.subMem }} >
+						<input type="text" name="sub_mem" id="sub_mem" class="b_value" value= {{ inputValues.subMem }} >
 						<label for="add_expect">+ Expect</label>
-						<input type="text" name="add_expect" id="add_expect" value= {{ inputValues.addExpect }} >
+						<input type="text" name="add_expect" id="add_expect" class="b_value" value= {{ inputValues.addExpect }} >
 						<label for="sub_expect">- Expect</label>
-						<input type="text" name="sub_expect" id="sub_expect" value= {{ inputValues.subExpect }} >
+						<input type="text" name="sub_expect" id="sub_expect" class="b_value" value= {{ inputValues.subExpect }} >
 						<label for="pir">PIR</label>
-						<input type="text" name="pir" id="pir" value= {{ inputValues.pIR }} >
+						<input type="text" name="pir" id="pir"class="b_value"  value= {{ inputValues.pIR }} >
 						<label for="nir">NIR</label>
-						<input type="text" name="nir" id="nir" value= {{ inputValues.nIR }} >
+						<input type="text" name="nir" id="nir" class="b_value" value= {{ inputValues.nIR }} >
 						<hr>
 						<div>
 							Initial Conditions
@@ -126,7 +126,7 @@
 
 
 //console.log({{dataValues | safe}})
-window.sessionStorage.setItem("key", {{session_key}})
+window.sessionStorage.setItem("key", "{{session_key}}")
 
 
 
