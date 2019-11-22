@@ -17,12 +17,12 @@ from datetime import datetime
 from importlib import import_module
 from django.conf import settings
 SessionStore = import_module(settings.SESSION_ENGINE).SessionStore
-
+import time
 def mainView(request):
     if 'initialParamValue' in request.session:
         initialParamValue = int(request.session['initialParamValue'])
     else:
-        initialParamValue = "8"
+        initialParamValue = "202"
 
     box_graph, box_colors, data = getFig(request)
 
@@ -30,16 +30,16 @@ def mainView(request):
         if type(value) is numpy.ndarray:
             print("array: " + key)
             data[key] = value.tolist()
-
     if 'inputValues' in request.session:
         inputValues = request.session['inputValues']
     else:
         inputValues = revertBackToInitial()
+    start = time.time()
     s = SessionStore()
     s['data'] = json.dumps(data)
     s.create()
     s1 = SessionStore(session_key=s.session_key)
-
+    print(time.time() - start)
     # decoded json object now
     response = render(request, 'index.html', {
         'box_graph': box_graph,
@@ -119,10 +119,10 @@ def getFig(request):
     if 'initialParamValue' in request.session:
         initialParamValue = str(request.session['initialParamValue'])
     else:
-        request.session['initialParamValue'] = "8"
-        initialParamValue = "8"
+        request.session['initialParamValue'] = "202"
+        initialParamValue = "202"
     # WILL FIX THIS LATER TO ALLOW FOR ONE INSTANCE OF APP
-    zzz = App(initialParamValue)
+    zzz = App("202")
     box, box_colors = zzz.createBoxGraph()
     return (box, box_colors, getVariables(initialParamValue))
 

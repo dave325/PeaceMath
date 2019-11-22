@@ -305,16 +305,14 @@ class App:
     #Euler numerical integration of the ordinary differential equations
     def recalculate(self, data):
 
-        #consoleOut = sys.stdout
+        consoleOut = sys.stdout
 
-        #sys.stdout = open('correctData.txt', 'w')
-        #print(self.data) 
-        #sys.stdout = open('incorrectData.txt','w')
-        #print(data)
+        sys.stdout = open('correctData.txt', 'w')
+        print(data) 
 
-        #sys.stdout = consoleOut
+        sys.stdout = consoleOut
 
-        #print('write complete')       
+        print('write complete')       
 
 
         #pass_data = self.data
@@ -331,6 +329,8 @@ class App:
         '''
         self.fewarrows=0
         pass_data["tt"]=0
+        #pass_data["t"]=[0. for i in range(pass_data["numdata"])] #time
+        #pass_data["z"]=np.array([pass_data["ica"] for i in range (pass_data["numdata"])]) #row=variables at each time
         #print(pass_data['b'])
         for i in range (1,pass_data["numdata"]):
             mtanh=np.tanh(pass_data["z"][i-1])
@@ -354,6 +354,9 @@ class App:
         pass_data["b"]=App.scalebox(vector)
         #set z[0]=z[-1] for the NEXT iteration
         pass_data["z"][0]=pass_data["z"][-1]
+        
+        sys.stdout = open('incorrectData.txt','w')
+        print(pass_data)
         return (self.MakePlot(pass_data), pass_data)
         '''
         #CLEAR and REFRESH DATA and PIC frames

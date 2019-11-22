@@ -95,7 +95,7 @@ import time
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 #from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
-
+import sys
 
 #Defines the textboxes that will scale to the size of the variables x(i)
 class TextBox:
@@ -242,6 +242,14 @@ class App:
 
     #Euler numerical integration of the ordinary differential equations
     def recalculate(self,pass_data):
+        consoleOut = sys.stdout
+
+        sys.stdout = open('correctData.txt', 'w')
+        print(pass_data) 
+
+        sys.stdout = consoleOut
+
+        print('write complete')  
         #UGLY FIX FOR ENTRIES/ENTRIESIJ----------------------------------------
         if self.fixent==1:
             self.data.z[0]=[eval((self.entries[i][1].get())) for i in range(len(self.entries))]
@@ -269,6 +277,8 @@ class App:
         data.b=App.scalebox(vector)
         #set z[0]=z[-1] for the NEXT iteration
         pass_data.z[0]=pass_data.z[-1]
+        sys.stdout = open('incorrectData.txt','w')
+        print(pass_data)
         #CLEAR and REFRESH DATA and PIC frames
         App.ClearFrame(self.framed1)
         App.ClearFrame(self.framepic)
