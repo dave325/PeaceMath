@@ -102,8 +102,7 @@ class TextBox:
         self.size = s
         self.id = id
         self.boxcolor=boxcolor #adding color
-        print(s)
-                                                                                                        #CHANGES THE FONT SIZE ON THE RENDER
+
         self.text=ax13.text(x, y, t, style='italic',horizontalalignment='center',verticalalignment='center',size=s, color='k',transform=ax13.transAxes,bbox={'facecolor':self.colors[0], 'pad':10})
         self.text.set_bbox(dict(facecolor=boxcolor,alpha=0.2,edgecolor='black'))
         self.list_box.append(self)
@@ -152,6 +151,64 @@ class ArrowObject:
             self.visible_arrow.append(self)
         ax13.add_patch(self.arrow)
         
+
+class GetChartPlugin(plugins.PluginBase):  # inherit from PluginBase
+        """GetChartPlugin plugin"""
+        JAVASCRIPT = """
+
+        mpld3.register_plugin("getchartplugin", GetChartPlugin);
+        GetChartPlugin.prototype = Object.create(mpld3.Plugin.prototype);
+        GetChartPlugin.prototype.constructor = GetChartPlugin;
+
+        GetChartPlugin.prototype.requiredProps = ["lineData"];
+
+
+        function GetChartPlugin(fig, props){
+            mpld3.Plugin.call(this, fig, props);
+            
+
+
+        };
+
+        
+        GetChartPlugin.prototype.draw = function(){
+
+
+            let data = this.props.lineData;
+
+            console.log(this.fig.width);
+            console.log(this.fig.height);
+
+      
+            console.log(data);
+            for(let i = 0; i < data.length; i++)
+            {
+
+                 this.fig.canvas.append("text")
+                .text(data[i][2])
+                .style("font-size", 10)
+                .attr("x", data[i][0] * 20)
+                .attr("y", data[i][1])
+
+
+            }
+
+                 this.fig.canvas.append("text")
+                .text("H")
+                .style("font-size", 20)
+                .attr("x", 620)
+                .attr("y", 50)
+
+            
+
+	
+
+
+
+        }
+        """
+        def __init__(self,lineData):
+            self.dict_ = {"type": "getchartplugin","lineData":lineData}
 
 
 class TextboxPlugin(plugins.PluginBase):  # inherit from PluginBase
@@ -255,7 +312,7 @@ class App:
             colorDictionary.append(self.data['boxcolor'][index])
             # Need to change self.data.b[index] - sets size of font to 1, not sure why this doesn't work for web
             #TextBox(a,xy[0],xy[1],self.data.b[index],index,self.data.labels[index],self.data.boxcolor[index])
-            bbox_props = {'facecolor':self.data['boxcolor'][index][0], 'pad':10}   
+            bbox_props = {'facecolor':self.data['boxcolor'][index][0], 'pad':10}              
             a.text(xy[0], xy[1], self.data['labels'][index], style='italic',horizontalalignment='center',verticalalignment='center',size=self.data['b'][index] * 16, color='k',transform=a.transAxes,bbox=bbox_props)
             
         id=0
@@ -354,6 +411,8 @@ class App:
         pass_data["b"]=App.scalebox(vector)
         #set z[0]=z[-1] for the NEXT iteration
         pass_data["z"][0]=pass_data["z"][-1]
+        
+        
         return (self.MakePlot(pass_data), pass_data)
         '''
         #CLEAR and REFRESH DATA and PIC frames
@@ -374,10 +433,21 @@ class App:
         plt.plot(pass_data['t'],pass_data['z'][:,0:pass_data['numc']])
         #print labels on lines
         xtext=25
+
+        lineData = []
         for i in range (pass_data['numc']):
             ytext=pass_data['z'][-1,i]
             varis=str(i) #first variable is 0
+            #print("LABELS")
+            #print(varis)
+            #print(str(xtext))
+            #print(str(ytext))
             f.text(xtext,ytext,varis)
+            lineData.append([xtext,ytext,varis])
+            
+    
+            #f.text(xtext, ytext, self.data['labels'][index], style='italic',horizontalalignment='center',verticalalignment='center',size=self.data['b'][index] * 16, color='k',transform=a.transAxes,bbox=bbox_props)
+
             xtext=xtext-1    
         programname='teal.py, tealclass.py, data.py   '+localtime
         param1='\n   input files= '+str(pass_data['fnamec'])+'    '    +str(pass_data['fnameb'])+'    '+str(pass_data['fnamem']) +'    '+str(pass_data['fnamebtextbxy']) + '     dt='+str(pass_data['dt'])
@@ -387,6 +457,8 @@ class App:
         param2='\nstart=  ' + start + '\nfinish=  ' + finish
         titlelsl=programname+param1 + param2
         plt.title(titlelsl, fontsize=8)
+        
+        plugins.connect(f, GetChartPlugin(lineData))
         return fig_to_html(f)
         # Removed to return plot as html instead
         # TODO return this info
