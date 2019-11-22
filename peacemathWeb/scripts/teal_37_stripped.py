@@ -80,6 +80,7 @@ import time
 import os
 import peacemathWeb.scripts.data as pass_data
 import uuid 
+import json
 #START OF DEFINED FUNCTIONS----------------------------------------------------
 #read text string in a file
 def filein (fname):
@@ -192,9 +193,7 @@ def lslin(invars,invar):
 def getVariables(num):
 
     #fast=input('\n ONLY NUMBER n and I will find cn.txt, etc. (#/a, Def=a)')
-    #TODO TEMP SETTING fast TO HARD CODED VALUE SO THE SERVER CAN CALL IT WITHOUT COMMAND PROMPT
     fast = num
-
 
 
     #give it just a number # and RETURN and it will read files:
@@ -269,11 +268,14 @@ def getVariables(num):
     print('\n numvar(from btextbxy)= ',numvar)
     print('\n btextbxydata= ',btextbxydata)
 
+
     #COMPUTE (x,y)=[0,1] needed from PPTX
     bx=[btextbxydata[i][2] for i in range (numvar)]
     by=[btextbxydata[i][3] for i in range (numvar)]
     wx=[btextbxydata[i][5] for i in range (numvar)]
     hy=[btextbxydata[i][4] for i in range (numvar)]
+
+    # writeFileToInitialValues(num, btextbxydata)
 
     #note this scaling has changed 2017-07-06
     #SCALE as needed for the plot
@@ -293,15 +295,26 @@ def getVariables(num):
     bxy=[[xp2[i],yp2[i]] for i in range(numvar)]
     print ('\nbxy=  ',bxy)
 
+
     #PARAEMTERS NEEDED FOR THE NUMERICAL INTEGRATION
     dt=.001 #step size
     numdata=30000 #number of integration steps
+
+    '''
+     *** TOOK IT OUT TO OPTIMIZE TIME COMPLEXITY ***
+
     t=[0. for i in range(numdata)] #time
     z=np.array([ica for i in range (numdata)]) #row=variables at each time
+   
+    '''
 
+  
+    
+
+  
     #READY TO PASS ON DATA----------------------------------------------------------
     #wrap parameters to pass into function 
-
+    
     data = {}
     data["numdata"]=numdata
     data["ca"]=ca
@@ -309,8 +322,35 @@ def getVariables(num):
     data["ma"]=ma
     data["ba"]=ba
     data["numc"]=numc
-    data["z"]=z
-    data["t"]=t
+
+
+    CURRENT_PATH = os.path.dirname(os.path.abspath(__file__))  # /code/peacemathWeb/scripts
+   
+    if num == "8":
+        # np.savez(os.path.join(CURRENT_PATH, "npz_src",  '8.npz'), z = z, t = t)
+        print('Reading in pre-loaded file: 8.npz')
+        f = np.load(os.path.join(CURRENT_PATH, "npz_src",  '8.npz'))
+    elif num == "111":
+        # np.savez(os.path.join(CURRENT_PATH, "npz_src",  '8.npz'), z = z, t = t)
+        print('Reading in pre-loaded file: 111.npz')
+        f = np.load(os.path.join(CURRENT_PATH, "npz_src",  '111.npz'))
+    elif num == "105":
+        # np.savez(os.path.join(CURRENT_PATH, "npz_src",  '8.npz'), z = z, t = t)
+        print('Reading in pre-loaded file: 105.npz')
+        f = np.load(os.path.join(CURRENT_PATH, "npz_src", '105.npz'))
+    elif num == "202":
+        # np.savez(os.path.join(CURRENT_PATH, "npz_src",  '8.npz'), z = z, t = t)
+        print('Reading in pre-loaded file: 202.npz')
+        f = np.load(os.path.join(CURRENT_PATH, "npz_src", '202.npz'))
+
+
+    # data["z"] = z 
+    # data["t"] = t
+
+    # Read in the pre-made file instead:
+    data["z"]=f['z']
+    data["t"]=f['t']   
+   
     data["ica"]=ica
     #NEW DATA's ADDED BELOW
     data["fnamec"]=fnamec
@@ -326,8 +366,12 @@ def getVariables(num):
     data["labels"]=[btextbxydata[i][0] for i in range(numvar)]
     #ADDING BOX COLORS
     data["boxcolor"]=[btextbxydata[i][1] for i in range(numvar)]
-    print("Pass Data")
-    print(data["ma"])
+    # print("Pass Data")
+    # print(data["ma"])
+    
+  
+
+
     return data
 
 #call the classes----------------------------------------------
