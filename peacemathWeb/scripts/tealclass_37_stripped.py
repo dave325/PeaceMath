@@ -256,7 +256,7 @@ class App:
             # Need to change self.data.b[index] - sets size of font to 1, not sure why this doesn't work for web
             #TextBox(a,xy[0],xy[1],self.data.b[index],index,self.data.labels[index],self.data.boxcolor[index])
             bbox_props = {'facecolor':self.data['boxcolor'][index][0], 'pad':10}   
-            a.text(xy[0], xy[1], self.data['labels'][index], style='italic',horizontalalignment='center',verticalalignment='center',size=self.data['b'][index] * 16, color='k',transform=a.transAxes,bbox=bbox_props)
+            a.text(xy[0], xy[1], self.data['labels'][index], style='italic',horizontalalignment='center',verticalalignment='center',size=self.data['b'][index] * 40, color='k')
             
         id=0
         if (self.fewarrows==0):
@@ -277,7 +277,7 @@ class App:
                     arrow=ArrowObject(a,i,j,id, self.data)
                     id=id+1
         #plt.show(block=False)
-        plugins.connect(f, TextboxPlugin(colorDictionary))
+        #plugins.connect(f, TextboxPlugin(colorDictionary))
         return (fig_to_html(f),colorDictionary)
         #coding trick to close extra figures accidentally created in canvas----
         openfigs=plt.get_fignums()
