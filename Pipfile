@@ -6,6 +6,7 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
+<<<<<<< HEAD
 django = "*"
 numpy = "*"
 matplotlib = "*"
@@ -17,3 +18,5 @@ django_heroku = "*"
 gunicorn = "*"
 [requires]
 python_version = "3.7"
+=======
+>>>>>>> 70fe251d923db139d6e59cdbef68d7595e5ee3e2
