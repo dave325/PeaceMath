@@ -222,12 +222,24 @@ class TextboxPlugin(plugins.PluginBase):  # inherit from PluginBase
 
         function TextboxPlugin(fig, props){
             mpld3.Plugin.call(this, fig, props);
-
+            this.extentClass = "rectbrush";
         };
 
-        
         TextboxPlugin.prototype.draw = function(){
-      
+            let ctx = this.fig.canvas[0][0];
+            console.log(ctx.getBBox())
+		    let textBoxes = ctx.getElementsByClassName("mpld3-text");
+            console.log(this.fig.canvas.select("g"))
+            for (let i = 0; i < textBoxes.length; i++) {
+                let textBox = textBoxes.item(i);
+                SVGRect = textBox.getBBox();
+                this.fig.canvas.select("g").append('rect')
+                .attr("transform", translate)
+                .attr({x: SVGRect.x, y: SVGRect.y, width: SVGRect.width, height:SVGRect.height})
+            }
+
+            
+        /*
         let ctx = this.fig.canvas[0][0];
 		let textBoxes = ctx.getElementsByClassName("mpld3-text");
 
@@ -235,7 +247,7 @@ class TextboxPlugin(plugins.PluginBase):  # inherit from PluginBase
 		for (let i = 0; i < textBoxes.length; i++) {
 			let textBox = textBoxes.item(i);
 			SVGRect = textBox.getBBox();
-
+            console.log(SVGRect);
 			var rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
 			rect.setAttribute("x", SVGRect.x);
 			rect.setAttribute("y", SVGRect.y);
@@ -249,15 +261,14 @@ class TextboxPlugin(plugins.PluginBase):  # inherit from PluginBase
             textBoxes[i].addEventListener("click", function(){
                 console.log('hi');
             });
-
-			let g = ctx.getElementsByTagName('g').item(0);
-
+			let g = ctx.getElementsByClassName('mpld3-axes').item(0);
 			g.insertBefore(rect, textBox);
 
 		}
-
-
-
+        */
+        function translate(d) {
+            return "translate(" + (d)  + "," + Math.floor(d)+ ")";
+            }
         }
         """
         def __init__(self,box_colors):
@@ -312,9 +323,13 @@ class App:
             colorDictionary.append(self.data['boxcolor'][index])
             # Need to change self.data.b[index] - sets size of font to 1, not sure why this doesn't work for web
             #TextBox(a,xy[0],xy[1],self.data.b[index],index,self.data.labels[index],self.data.boxcolor[index])
+            fontSize = 1
             bbox_props = {'facecolor':self.data['boxcolor'][index][0], 'pad':10}   
-            a.text(xy[0], xy[1], self.data['labels'][index], style='italic',horizontalalignment='center',verticalalignment='center',size=self.data['b'][index] * 40, color='k')
-            
+            if self.data['b'][index] > 1:
+                fontSize = self.data['b'][index]
+        
+            a.text(xy[0], xy[1], self.data['labels'][index], style='italic',horizontalalignment='center',verticalalignment='center',size=fontSize * 16, color='k', bbox=bbox_props)
+
         id=0
         if (self.fewarrows==0):
             for i in range(len(self.data['b'])):
@@ -334,7 +349,7 @@ class App:
                     arrow=ArrowObject(a,i,j,id, self.data)
                     id=id+1
         #plt.show(block=False)
-        #plugins.connect(f, TextboxPlugin(colorDictionary))
+        plugins.connect(f, TextboxPlugin(colorDictionary))
         return (fig_to_html(f),colorDictionary)
         #coding trick to close extra figures accidentally created in canvas----
         openfigs=plt.get_fignums()
