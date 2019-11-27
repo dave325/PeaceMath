@@ -84,6 +84,7 @@ from mpld3 import fig_to_html
 from mpld3 import plugins
 import codecs,json
 import sys
+from matplotlib.offsetbox import AnnotationBbox, AuxTransformBox
 
 
 
@@ -152,6 +153,22 @@ class ArrowObject:
         ax13.add_patch(self.arrow)
         
 
+#Defines the arrows used to connect the textboxes
+#note some of the fancy arrow paramters changed from their default values
+class RectangleObject:
+    ''' @f from which box
+        @t to which box
+    '''
+    visible_arrow=[]
+    def __init__(self,ax13,f,id):
+        self.from_box = f
+        self.id = id
+        self.arrow=plt.Rectangle(
+            [f[0],f[1]],
+            0.1,0.03)
+        self.visible_arrow.append(self)
+        ax13.add_patch(self.arrow)
+        
 class GetChartPlugin(plugins.PluginBase):  # inherit from PluginBase
         """GetChartPlugin plugin"""
         JAVASCRIPT = """
@@ -226,15 +243,28 @@ class TextboxPlugin(plugins.PluginBase):  # inherit from PluginBase
         };
 
         TextboxPlugin.prototype.draw = function(){
+            
             let ctx = this.fig.canvas[0][0];
+            console.log(this.fig)
+            var div = d3.select(".mpld3-axes");
             console.log(ctx.getBBox())
 		    let textBoxes = ctx.getElementsByClassName("mpld3-text");
-            console.log(this.fig.canvas.select("g"))
+            console.log(this.props.box_colors)
+            let colors = this.props.box_colors;
+            /*
+            d3.selectAll(".mpld3-text").each(function(d,i){
+                SVGRect = this.getBBox();
+                div.append('rect')
+                .attr({x: SVGRect.x, y: SVGRect.y, width: SVGRect.width, height:SVGRect.height})
+                .call(d3.zoom().on("zoom", function () {
+                    svg.attr("transform", d3.event.transform)
+                  }))
+            });/*
             for (let i = 0; i < textBoxes.length; i++) {
                 let textBox = textBoxes.item(i);
+                console.log(textBox)
                 SVGRect = textBox.getBBox();
-                this.fig.canvas.select("g").append('rect')
-                .attr("transform", translate)
+                div.append('rect')
                 .attr({x: SVGRect.x, y: SVGRect.y, width: SVGRect.width, height:SVGRect.height})
             }
 
@@ -267,7 +297,7 @@ class TextboxPlugin(plugins.PluginBase):  # inherit from PluginBase
 		}
         */
         function translate(d) {
-            return "translate(" + (d)  + "," + Math.floor(d)+ ")";
+            return "translate(" + (d)  + "," + Math.floor(d) + ")";
             }
         }
         """
@@ -315,6 +345,7 @@ class App:
         f.set_size_inches(8,10)
         a = f.add_subplot(111)
         a.axis('off')
+        ax = f.add_subplot(111)
         colorDictionary = []
         for index in range(len(self.data['b'])):
             xy=self.data['bxy'][index]
@@ -329,7 +360,16 @@ class App:
                 fontSize = self.data['b'][index]
         
             a.text(xy[0], xy[1], self.data['labels'][index], style='italic',horizontalalignment='center',verticalalignment='center',size=fontSize * 16, color='k', bbox=bbox_props)
-
+            """             g = plt.gca()
+            r = patches.Rectangle((xy[0],xy[1]), 1,1,facecolor=self.data['boxcolor'][index][0])
+            offsetbox = AuxTransformBox(a.transData)
+            offsetbox.add_artist(r)
+            ab = AnnotationBbox(offsetbox, (xy[0] ,xy[1]),
+                                boxcoords="data", pad=0.52,
+                                bboxprops=dict(facecolor = "none", edgecolor='r'))
+            a.add_artist(ab) """
+            
+            rect = RectangleObject(ax,xy,index)
         id=0
         if (self.fewarrows==0):
             for i in range(len(self.data['b'])):
