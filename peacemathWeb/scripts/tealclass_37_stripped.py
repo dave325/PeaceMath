@@ -228,83 +228,6 @@ class GetChartPlugin(plugins.PluginBase):  # inherit from PluginBase
             self.dict_ = {"type": "getchartplugin","lineData":lineData}
 
 
-class TextboxPlugin(plugins.PluginBase):  # inherit from PluginBase
-        """TextboxPlugin plugin"""
-        JAVASCRIPT = """
-
-        mpld3.register_plugin("textboxplugin", TextboxPlugin);
-        TextboxPlugin.prototype = Object.create(mpld3.Plugin.prototype);
-        TextboxPlugin.prototype.constructor = TextboxPlugin;
-         TextboxPlugin.prototype.requiredProps = ["box_colors","opacity"];
-
-        function TextboxPlugin(fig, props){
-            mpld3.Plugin.call(this, fig, props);
-            this.extentClass = "rectbrush";
-        };
-
-        TextboxPlugin.prototype.draw = function(){
-            
-            let ctx = this.fig.canvas[0][0];
-            console.log(this.fig)
-            var div = d3.select(".mpld3-axes");
-            console.log(ctx.getBBox())
-		    let textBoxes = ctx.getElementsByClassName("mpld3-text");
-            console.log(this.props.box_colors)
-            let colors = this.props.box_colors;
-            /*
-            d3.selectAll(".mpld3-text").each(function(d,i){
-                SVGRect = this.getBBox();
-                div.append('rect')
-                .attr({x: SVGRect.x, y: SVGRect.y, width: SVGRect.width, height:SVGRect.height})
-                .call(d3.zoom().on("zoom", function () {
-                    svg.attr("transform", d3.event.transform)
-                  }))
-            });/*
-            for (let i = 0; i < textBoxes.length; i++) {
-                let textBox = textBoxes.item(i);
-                console.log(textBox)
-                SVGRect = textBox.getBBox();
-                div.append('rect')
-                .attr({x: SVGRect.x, y: SVGRect.y, width: SVGRect.width, height:SVGRect.height})
-            }
-
-            
-        /*
-        let ctx = this.fig.canvas[0][0];
-		let textBoxes = ctx.getElementsByClassName("mpld3-text");
-
-
-		for (let i = 0; i < textBoxes.length; i++) {
-			let textBox = textBoxes.item(i);
-			SVGRect = textBox.getBBox();
-            console.log(SVGRect);
-			var rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-			rect.setAttribute("x", SVGRect.x);
-			rect.setAttribute("y", SVGRect.y);
-			rect.setAttribute("width", SVGRect.width);
-			rect.setAttribute("height", SVGRect.height);
-			rect.setAttribute("fill", this.props.box_colors[i]);
-            rect.setAttribute("opacity",0.5);
-			rect.setAttribute("stroke","black");
-			rect.setAttribute("stroke-width",0.5);
-
-            textBoxes[i].addEventListener("click", function(){
-                console.log('hi');
-            });
-			let g = ctx.getElementsByClassName('mpld3-axes').item(0);
-			g.insertBefore(rect, textBox);
-
-		}
-        */
-        function translate(d) {
-            return "translate(" + (d)  + "," + Math.floor(d) + ")";
-            }
-        }
-        """
-        def __init__(self,box_colors):
-            self.dict_ = {"type": "textboxplugin","box_colors":box_colors, "opacity":0.5}
-
-
 #MAIN CLASS THAT DOES MOST OF THE WORK
 class App:
     #constructor
@@ -345,7 +268,6 @@ class App:
         f.set_size_inches(8,10)
         a = f.add_subplot(111)
         a.axis('off')
-        ax = f.add_subplot(111)
         colorDictionary = []
         for index in range(len(self.data['b'])):
             xy=self.data['bxy'][index]
@@ -360,16 +282,8 @@ class App:
                 fontSize = self.data['b'][index]
         
             a.text(xy[0], xy[1], self.data['labels'][index], style='italic',horizontalalignment='center',verticalalignment='center',size=fontSize * 16, color='k', bbox=bbox_props)
-            """             g = plt.gca()
-            r = patches.Rectangle((xy[0],xy[1]), 1,1,facecolor=self.data['boxcolor'][index][0])
-            offsetbox = AuxTransformBox(a.transData)
-            offsetbox.add_artist(r)
-            ab = AnnotationBbox(offsetbox, (xy[0] ,xy[1]),
-                                boxcoords="data", pad=0.52,
-                                bboxprops=dict(facecolor = "none", edgecolor='r'))
-            a.add_artist(ab) """
-            
-            rect = RectangleObject(ax,xy,index)
+
+            rect = RectangleObject(a,xy,index)
         id=0
         if (self.fewarrows==0):
             for i in range(len(self.data['b'])):
@@ -389,7 +303,6 @@ class App:
                     arrow=ArrowObject(a,i,j,id, self.data)
                     id=id+1
         #plt.show(block=False)
-        plugins.connect(f, TextboxPlugin(colorDictionary))
         return (fig_to_html(f),colorDictionary)
         #coding trick to close extra figures accidentally created in canvas----
         openfigs=plt.get_fignums()
