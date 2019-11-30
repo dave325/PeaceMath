@@ -84,6 +84,7 @@ from mpld3 import fig_to_html
 from mpld3 import plugins
 import codecs,json
 import sys
+import matplotlib.patches as patches
 from matplotlib.offsetbox import AnnotationBbox, AuxTransformBox
 
 
@@ -160,13 +161,28 @@ class RectangleObject:
         @t to which box
     '''
     visible_arrow=[]
-    def __init__(self,ax13,f,id):
+    def __init__(self,ax13,f,id,color,text):
         self.from_box = f
         self.id = id
+        print('coord')
+
+
+        paddingX = 0.010
+        paddingY = 0.010
+
+        width =(len(text) * 0.01) + paddingX*2
+        height = 0.01 + paddingY
+       
+        xPos = f[0] - width/2 - paddingX   #(((len(text) + 1)/2) + paddingX)/100
+        yPos = f[1] - (0.01 + paddingY/2)
+
+
         self.arrow=plt.Rectangle(
-            [f[0],f[1]],
-            0.1,0.03)
+            [xPos,yPos],
+            width + paddingX,height + paddingY)
         self.visible_arrow.append(self)
+        self.arrow.set_alpha(0.50)
+        self.arrow.set_color(color)
         ax13.add_patch(self.arrow)
         
 class GetChartPlugin(plugins.PluginBase):  # inherit from PluginBase
@@ -281,9 +297,10 @@ class App:
             if self.data['b'][index] > 1:
                 fontSize = self.data['b'][index]
         
-            a.text(xy[0], xy[1], self.data['labels'][index], style='italic',horizontalalignment='center',verticalalignment='center',size=fontSize * 16, color='k', bbox=bbox_props)
+            a.text(xy[0], xy[1], self.data['labels'][index], style='italic',horizontalalignment='center',verticalalignment='center',size=fontSize, color='k', bbox=bbox_props)
 
-            rect = RectangleObject(a,xy,index)
+            #this automatically adds a rectangle to the plot at A
+            rect = RectangleObject(a,xy,index,self.data['boxcolor'][index],self.data['labels'][index])
         id=0
         if (self.fewarrows==0):
             for i in range(len(self.data['b'])):
