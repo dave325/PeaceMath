@@ -297,7 +297,7 @@ class App:
             if self.data['b'][index] > 1:
                 fontSize = self.data['b'][index]
         
-            a.text(xy[0], xy[1], self.data['labels'][index], style='italic',horizontalalignment='center',verticalalignment='center',size=fontSize, color='k', bbox=bbox_props)
+            a.text(xy[0], xy[1], self.data['labels'][index], style='italic',horizontalalignment='center',verticalalignment='center',size=fontSize * 14, color='k', bbox=bbox_props)
 
             #this automatically adds a rectangle to the plot at A
             rect = RectangleObject(a,xy,index,self.data['boxcolor'][index],self.data['labels'][index])
@@ -347,14 +347,14 @@ class App:
     #Euler numerical integration of the ordinary differential equations
     def recalculate(self, data):
 
-        consoleOut = sys.stdout
+        #consoleOut = sys.stdout
 
-        sys.stdout = open('correctData.txt', 'w')
-        print(data) 
+        #sys.stdout = open('correctData.txt', 'w')
+        #print(data) 
 
-        sys.stdout = consoleOut
+        #sys.stdout = consoleOut
 
-        print('write complete')       
+        #print('write complete')       
 
 
         #pass_data = self.data
@@ -413,11 +413,19 @@ class App:
         localtime = time.asctime( time.localtime(time.time()) )
         x_start=pass_data['z'][0]
         x_final=pass_data['z'][-1]
+        #this figsize translates to 800x600 pixels in html
         f = plt.figure()
-        plt.axes([0.1,.075,.8,.7])
+        f.set_size_inches(8,6)
+
+        #plt.axes([0.1,.075,.8,.7])
         plt.plot(pass_data['t'],pass_data['z'][:,0:pass_data['numc']])
         #print labels on lines
         xtext=25
+
+        sub = f.add_subplot(111)
+        sub.axis('off')
+
+        plt.axes(sub)
 
         lineData = []
         for i in range (pass_data['numc']):
@@ -427,23 +435,20 @@ class App:
             #print(varis)
             #print(str(xtext))
             #print(str(ytext))
-            f.text(xtext,ytext,varis)
+            sub.text(xtext, ytext, varis,fontsize=14)
             lineData.append([xtext,ytext,varis])
-            
-    
             #f.text(xtext, ytext, self.data['labels'][index], style='italic',horizontalalignment='center',verticalalignment='center',size=self.data['b'][index] * 16, color='k',transform=a.transAxes,bbox=bbox_props)
-
             xtext=xtext-1    
         programname='teal.py, tealclass.py, data.py   '+localtime
         param1='\n   input files= '+str(pass_data['fnamec'])+'    '    +str(pass_data['fnameb'])+'    '+str(pass_data['fnamem']) +'    '+str(pass_data['fnamebtextbxy']) + '     dt='+str(pass_data['dt'])
         start=App.displayinput(pass_data['z'][0],75)
         finish=App.displayinput(pass_data['z'][-1],75)
-        print(finish)
+        #print(finish)
         param2='\nstart=  ' + start + '\nfinish=  ' + finish
         titlelsl=programname+param1 + param2
-        plt.title(titlelsl, fontsize=8)
+        plt.title(titlelsl, fontsize=10)
         
-        plugins.connect(f, GetChartPlugin(lineData))
+        #plugins.connect(f, GetChartPlugin(lineData))
         return fig_to_html(f)
         # Removed to return plot as html instead
         # TODO return this info

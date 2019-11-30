@@ -9,7 +9,7 @@ document.getElementById('btn_calculate').addEventListener('click', function(){
 	}
 
 	const windowCounter = Number(sessionStorage.getItem('windowCounter'));
-    let myWindow = window.open("", "Figure " + windowCounter, "width=640 ,height=520");
+    let myWindow = window.open("", "Figure " + windowCounter, "width=960 ,height=780");
 	myWindow.document.write( '<h1>Loading</h1>');
 
 	
