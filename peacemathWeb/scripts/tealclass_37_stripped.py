@@ -248,6 +248,7 @@ class GetChartPlugin(plugins.PluginBase):  # inherit from PluginBase
 class App:
     #constructor
     def __init__(self, num):
+        print(str(num))
         self.num = num
         self.data=getVariables(num)
         self.fewarrows=0

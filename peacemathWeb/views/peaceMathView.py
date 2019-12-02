@@ -22,7 +22,7 @@ def mainView(request):
     if 'initialParamValue' in request.session:
         initialParamValue = int(request.session['initialParamValue'])
     else:
-        initialParamValue = "202"
+        initialParamValue = "8"
 
     box_graph, box_colors, data = getFig(request)
 
@@ -119,10 +119,10 @@ def getFig(request):
     if 'initialParamValue' in request.session:
         initialParamValue = str(request.session['initialParamValue'])
     else:
-        request.session['initialParamValue'] = "202"
-        initialParamValue = "202"
+        request.session['initialParamValue'] = "8"
+        initialParamValue = "8"
     # WILL FIX THIS LATER TO ALLOW FOR ONE INSTANCE OF APP
-    zzz = App("202")
+    zzz = App(initialParamValue)
     box, box_colors = zzz.createBoxGraph()
     return (box, box_colors, getVariables(initialParamValue))
 
