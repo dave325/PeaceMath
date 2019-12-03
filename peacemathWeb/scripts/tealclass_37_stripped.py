@@ -80,7 +80,7 @@ import matplotlib.pyplot as plt
 import time
 from matplotlib.figure import Figure
 #from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-from mpld3 import fig_to_html
+from mpld3 import fig_to_html, fig_to_dict
 from mpld3 import plugins
 import codecs,json
 import sys
@@ -321,13 +321,72 @@ class App:
                     arrow=ArrowObject(a,i,j,id, self.data)
                     id=id+1
         #plt.show(block=False)
-        return (fig_to_html(f),colorDictionary)
+        fig = fig_to_html(f)
+        plt.close(f)
+        return (fig,colorDictionary)
         #coding trick to close extra figures accidentally created in canvas----
         openfigs=plt.get_fignums()
         last=openfigs[-1]
         plt.close(last)
+        fig = fig_to_html(f)
+        plt.close(f)
         #coding trick to close extra figures accidentally created in canvas----
-        return fig_to_html(f)
+        return fig
+
+     #makes the plot: boxes and the (fancy) arrows connecting them
+    def createBoxGraphDict(self):
+        TextBox.list_box=[]  #CLEAR ALL PREVIOUS!!!
+        f = plt.figure(facecolor = 'white')
+        f.set_size_inches(8,10)
+        a = f.add_subplot(111)
+        a.axis('off')
+        colorDictionary = []
+        for index in range(len(self.data['b'])):
+            xy=self.data['bxy'][index]
+            #print(self.data.labels[index])
+            #print(self.data.b[index])
+            colorDictionary.append(self.data['boxcolor'][index])
+            # Need to change self.data.b[index] - sets size of font to 1, not sure why this doesn't work for web
+            #TextBox(a,xy[0],xy[1],self.data.b[index],index,self.data.labels[index],self.data.boxcolor[index])
+            fontSize = 1
+            bbox_props = {'facecolor':self.data['boxcolor'][index][0], 'pad':10}   
+            if self.data['b'][index] > 1:
+                fontSize = self.data['b'][index]
+        
+            a.text(xy[0], xy[1], self.data['labels'][index], style='italic',horizontalalignment='center',verticalalignment='center',size=fontSize * 14, color='k', bbox=bbox_props)
+
+            #this automatically adds a rectangle to the plot at A
+            rect = RectangleObject(a,xy,index,self.data['boxcolor'][index],self.data['labels'][index])
+        id=0
+        if (self.fewarrows==0):
+            for i in range(len(self.data['b'])):
+                for j in range(len(self.data['b'])):
+                    if i!=j and self.data['a'][i][j]!=0:
+                        arrow=ArrowObject(a,i,j,id, self.data)
+                        id=id+1
+        else:
+            i=self.box_id
+            for j in range(len(self.data['b'])):
+                if i!=j and self.data['a'][i][j]!=0:
+                    arrow=ArrowObject(a,i,j,id, self.data)
+                    id=id+1
+            j=self.box_id
+            for i in range(len(self.data['b'])):
+                if i!=j and self.data['a'][i][j]!=0:
+                    arrow=ArrowObject(a,i,j,id, self.data)
+                    id=id+1
+        #plt.show(block=False)
+        fig = fig_to_dict(f)
+        plt.close(f)
+        return (fig,colorDictionary)
+        #coding trick to close extra figures accidentally created in canvas----
+        openfigs=plt.get_fignums()
+        last=openfigs[-1]
+        plt.close(last)
+        fig = fig_to_dict(f)
+        plt.close(f)
+        #coding trick to close extra figures accidentally created in canvas----
+        return fig
 
     
     #used to scale the sizes of the textboxes
@@ -398,8 +457,8 @@ class App:
         #set z[0]=z[-1] for the NEXT iteration
         pass_data["z"][0]=pass_data["z"][-1]
         
-        
-        return (self.MakePlot(pass_data), pass_data)
+        self.data = pass_data
+        return (self.MakePlot(pass_data), self.createBoxGraphDict(), pass_data)
         '''
         #CLEAR and REFRESH DATA and PIC frames
         App.ClearFrame(self.framed1)
@@ -448,9 +507,10 @@ class App:
         param2='\nstart=  ' + start + '\nfinish=  ' + finish
         titlelsl=programname+param1 + param2
         plt.title(titlelsl, fontsize=10)
-        
+        fig = fig_to_html(f)
+        plt.close(f)
         #plugins.connect(f, GetChartPlugin(lineData))
-        return fig_to_html(f)
+        return fig
         # Removed to return plot as html instead
         # TODO return this info
         # plt.show(block=False) #IMPORTANT: to SHOW graph but NOT stop execution

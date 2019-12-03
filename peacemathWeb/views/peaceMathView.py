@@ -60,14 +60,14 @@ def chartView(request):
             if key == "ca" or key == "ma" or key == "ba" or key == "ica" or key == "z" or key == "a" or key == "b":
                 x = numpy.asfarray(value, float)
                 temp[key] = numpy.array(x)
-        chart, data = getChart(request, temp)
+        chart, graph, data = getChart(request, temp)
         for (key, value) in data.items():
             if type(value) is numpy.ndarray:
                 data[key] = value.tolist()
         s = SessionStore(session_key=request.body.decode("UTF-8"))
         s['data'] = json.dumps(data)
         s.save()
-        return JsonResponse({'chart': chart, 'data': data})
+        return JsonResponse({'chart': chart, 'graph':graph, 'data': data['b']})
 
 
 def sendInitialParameterValue(request):

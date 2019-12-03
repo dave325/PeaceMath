@@ -55,17 +55,17 @@
 					<form method="post" action="http://localhost:3000/physics/sideBarButtonActions/">
 						{% csrf_token %}
 						<label for="add_mem">+ Mem</label>
-						<input class="form-control" type="number" placeholder="1.0" min="0" max="100" step="0.1" name="add_mem" id="add_mem" class="b_value" value={{ inputValues.addMem }}>
+						<input class="form-control b_values" type="number" placeholder="1.0" min="0" max="100" step="0.1" name="add_mem" id="add_mem" value={{ inputValues.addMem }}>
 						<label for="sub_mem">- Mem</label>
-						<input class="form-control" type="number" placeholder="1.0" min="0" max="100" step="0.1" name="sub_mem" id="sub_mem" class="b_value" value= {{ inputValues.subMem }} >
+						<input class="form-control b_values" type="number" placeholder="1.0" min="0" max="100" step="0.1" name="sub_mem" id="sub_mem" value= {{ inputValues.subMem }} >
 						<label for="add_expect">+ Expect</label>
-						<input class="form-control" type="number" placeholder="1.0" min="0" max="100" step="0.1" name="add_expect" id="add_expect" class="b_value" value= {{ inputValues.addExpect }} >
+						<input class="form-control b_values" type="number" placeholder="1.0" min="0" max="100" step="0.1" name="add_expect" id="add_expect" value= {{ inputValues.addExpect }} >
 						<label for="sub_expect">- Expect</label>
-						<input class="form-control" type="number" placeholder="1.0" min="0" max="100" step="0.1" name="sub_expect" id="sub_expect" class="b_value" value= {{ inputValues.subExpect }} >
+						<input class="form-control b_values" type="number" placeholder="1.0" min="0" max="100" step="0.1" name="sub_expect" id="sub_expect" value= {{ inputValues.subExpect }} >
 						<label for="pir">PIR</label>
-						<input class="form-control" type="number" placeholder="1.0" min="0" max="100" step="0.1" name="pir" id="pir"class="b_value"  value= {{ inputValues.pIR }} >
+						<input class="form-control" type="number" placeholder="1.0" min="0" max="100" step="0.1" name="pir" id="pir" value= {{ inputValues.pIR }} >
 						<label for="nir">NIR</label>
-						<input class="form-control" type="number" placeholder="1.0" min="0" max="100" step="0.1" name="nir" id="nir" class="b_value" value= {{ inputValues.nIR }} >
+						<input class="form-control b_values" type="number" placeholder="1.0" min="0" max="100" step="0.1" name="nir" id="nir" value= {{ inputValues.nIR }} >
 						<hr>
 						<div>
 							Initial Conditions
