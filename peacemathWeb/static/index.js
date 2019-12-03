@@ -26,17 +26,13 @@ document.getElementById('btn_calculate').addEventListener('click', function () {
 
 				console.log(i)
 				//console.log(i.data.b)
-/* 				let b_values = document.getElementsByClassName('b_values');
-				let text = document.getElementsByClassName('mpld3-text');
-				let rect = document.getElementsByClassName("mpld3-path")
+ 				let b_values = document.getElementsByClassName('b_values');
 				for (let j = 0; j < b_values.length; j++) {
 					b_values[j].value = i.data[j];
-					text[j].style.fontSize = i.data[j] + "px"
 
-				} */
+				} 
 				d3.select("#b").selectAll("*").remove();
 				mpld3.draw_figure("b", i.graph[0])
-				console.log(i.graph)
 				myWindow.document.open("");
 				myWindow.document.innerHTML = ' ';
 				myWindow.document.write(i.chart);
