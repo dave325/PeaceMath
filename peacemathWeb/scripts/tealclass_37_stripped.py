@@ -349,9 +349,9 @@ class App:
             fontSize = 1
             bbox_props = {'facecolor':self.data['boxcolor'][index][0], 'pad':10}   
             if self.data['b'][index] > 1:
-                fontSize = self.data['b'][index]
-        
-            a.text(xy[0], xy[1], self.data['labels'][index], style='italic',horizontalalignment='center',verticalalignment='center',size=fontSize * 14, color='k', bbox=bbox_props)
+                fontSize = self.data['b'][index]/max(self.data['b']) + 0.3
+
+            a.text(xy[0], xy[1], self.data['labels'][index], style='italic',horizontalalignment='center',verticalalignment='center',size=fontSize * 28, color='k', bbox=bbox_props)
 
             #this automatically adds a rectangle to the plot at A
             rect = RectangleObject(a,xy,index,self.data['boxcolor'][index],self.data['labels'][index])
