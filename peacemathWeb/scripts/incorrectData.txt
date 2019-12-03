@@ -1,2 +1,21 @@
 <module 'data' from 'C:\\Users\\deepakk\\Desktop\\Work\\PeaceMath\\peacemathWeb\\scripts\\data.py'>
 B VALUES
+
+id,bname(id)=   0 + mem
+B VALUES
+B VALUES
+B VALUES
+B VALUES
+B VALUES
+B VALUES
+B VALUES
+B VALUES
+B VALUES
+B VALUES
+write complete
+b val
+[2.0, 30.0, 2.0, 11.979598091840023, 2.0, 8.61152171155079]
+
+Your plot is ready
+call
+0.0,  24.999468,  0.0,  8.888838,  0.0,  5.888889

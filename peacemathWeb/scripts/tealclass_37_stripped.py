@@ -164,8 +164,6 @@ class RectangleObject:
     def __init__(self,ax13,f,id,color,text):
         self.from_box = f
         self.id = id
-        print('coord')
-
 
         paddingX = 0.010
         paddingY = 0.010
@@ -458,7 +456,13 @@ class App:
         pass_data["z"][0]=pass_data["z"][-1]
         
         self.data = pass_data
-        return (self.MakePlot(pass_data), self.createBoxGraphDict(), pass_data)
+
+        arg1 = self.MakePlot(pass_data)
+        arg2 = self.createBoxGraphDict()
+        
+    
+
+        return (arg1,arg2, pass_data)
         '''
         #CLEAR and REFRESH DATA and PIC frames
         App.ClearFrame(self.framed1)
