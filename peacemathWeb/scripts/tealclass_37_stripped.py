@@ -329,9 +329,10 @@ class App:
                     id=id+1
         #plt.show(block=False)
         fig = fig_to_html(f)
-        plt.close(f)
         return (fig,colorDictionary)
         #coding trick to close extra figures accidentally created in canvas----
+
+        '''
         openfigs=plt.get_fignums()
         last=openfigs[-1]
         plt.close(last)
@@ -339,6 +340,7 @@ class App:
         plt.close(f)
         #coding trick to close extra figures accidentally created in canvas----
         return fig
+        '''
 
      #makes the plot: boxes and the (fancy) arrows connecting them
     def createBoxGraphDict(self):
@@ -384,8 +386,8 @@ class App:
                     id=id+1
         #plt.show(block=False)
         fig = fig_to_dict(f)
-        plt.close(f)
         return (fig,colorDictionary)
+        '''
         #coding trick to close extra figures accidentally created in canvas----
         openfigs=plt.get_fignums()
         last=openfigs[-1]
@@ -394,6 +396,7 @@ class App:
         plt.close(f)
         #coding trick to close extra figures accidentally created in canvas----
         return fig
+        '''
 
     
     #used to scale the sizes of the textboxes
@@ -466,6 +469,8 @@ class App:
         
         self.data = pass_data
 
+        plt.close('all')
+
         arg1 = self.MakePlot(pass_data)
         arg2 = self.createBoxGraphDict()
         
@@ -521,7 +526,7 @@ class App:
         titlelsl=programname+param1 + param2
         plt.title(titlelsl, fontsize=10)
         fig = fig_to_html(f)
-        plt.close(f)
+        #plt.close(f)
         #plugins.connect(f, GetChartPlugin(lineData))
         return fig
         # Removed to return plot as html instead
