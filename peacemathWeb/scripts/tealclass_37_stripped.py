@@ -268,6 +268,7 @@ class App:
     
     #makes the plot: boxes and the (fancy) arrows connecting them
     def createBoxGraph(self):
+        plt.clear('all')
         TextBox.list_box=[]  #CLEAR ALL PREVIOUS!!!
         f = plt.figure(facecolor = 'white')
         f.set_size_inches(8,10)
