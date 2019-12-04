@@ -265,24 +265,6 @@ class App:
         self.fixent=1 #UGLY FIX FOR ENTRIES/ENTRIESIJ
         # self.root.mainloop() -maybe needed for Windows OS
 
-    '''
-    #makes frames and frames within frames needed for correct display
-    def MakeWindow (self):
-        #self.root=tk.Tk()
-        self.root.wm_title("Data Input and Graphical Output")
-        self.outsideframed1=tk.Frame(self.root,width=300, height=800)
-        self.outsideframepic=tk.Frame(self.root,width=675, height=800)
-        self.outsideframed1.pack(side=tk.LEFT,fill=None,expand=False)
-        self.outsideframepic.pack(side=tk.LEFT,fill=None,expand=False)                                 
-        self.outsideframed1.pack_propagate(False) 
-        self.outsideframepic.pack_propagate(False)      
-        self.framed1=tk.Frame(self.outsideframed1,width=200, height=100)
-        self.framed1.pack(side=tk.LEFT,fill=None,expand=False)
-        self.framepic=tk.Frame(self.outsideframepic,borderwidth=5,relief=tk.RIDGE)
-        self.framepic.pack(side=tk.TOP,fill=tk.BOTH,expand=1) #BIG-BAD
-       # self.refreshDataFrame()
-        self.refreshPicFrame()'''
-
     
     #makes the plot: boxes and the (fancy) arrows connecting them
     def createBoxGraph(self):
