@@ -161,18 +161,26 @@ class RectangleObject:
         @t to which box
     '''
     visible_arrow=[]
-    def __init__(self,ax13,f,id,color,text):
+    def __init__(self,ax13,f,id,color,text,fontSize):
         self.from_box = f
         self.id = id
 
-        paddingX = 0.010
-        paddingY = 0.010
+        paddingX = 0.010 * fontSize
+        paddingY = 0.010 * fontSize
+        scaledLetterSize = 0.01 * fontSize
 
-        width =(len(text) * 0.01) + paddingX*2
-        height = 0.01 + paddingY
+        if(fontSize > 1 or fontSize < 1):
+            paddingX = 0.010 * fontSize * 2
+            paddingY = 0.010 * fontSize * 2
+            scaledLetterSize = 0.01 * fontSize * 2
+        
+
+       
+        width =(len(text) * scaledLetterSize) + paddingX*2
+        height = scaledLetterSize + paddingY
        
         xPos = f[0] - width/2 - paddingX   #(((len(text) + 1)/2) + paddingX)/100
-        yPos = f[1] - (0.01 + paddingY/2)
+        yPos = f[1] - (scaledLetterSize + paddingY/2)
 
 
         self.arrow=plt.Rectangle(
@@ -296,10 +304,11 @@ class App:
             if self.data['b'][index] > 1:
                 fontSize = self.data['b'][index]
         
+
             a.text(xy[0], xy[1], self.data['labels'][index], style='italic',horizontalalignment='center',verticalalignment='center',size=fontSize * 14, color='k', bbox=bbox_props)
 
             #this automatically adds a rectangle to the plot at A
-            rect = RectangleObject(a,xy,index,self.data['boxcolor'][index],self.data['labels'][index])
+            rect = RectangleObject(a,xy,index,self.data['boxcolor'][index],self.data['labels'][index],fontSize)
         id=0
         if (self.fewarrows==0):
             for i in range(len(self.data['b'])):
@@ -354,7 +363,7 @@ class App:
             a.text(xy[0], xy[1], self.data['labels'][index], style='italic',horizontalalignment='center',verticalalignment='center',size=fontSize * 28, color='k', bbox=bbox_props)
 
             #this automatically adds a rectangle to the plot at A
-            rect = RectangleObject(a,xy,index,self.data['boxcolor'][index],self.data['labels'][index])
+            rect = RectangleObject(a,xy,index,self.data['boxcolor'][index],self.data['labels'][index],fontSize)
         id=0
         if (self.fewarrows==0):
             for i in range(len(self.data['b'])):
