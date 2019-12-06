@@ -26,6 +26,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('physics/',peaceMathView.mainView),
     path('physics/sendInitialParameterValue/',peaceMathView.sendInitialParameterValue),
-    path('physics/sideBarButtonActions/',peaceMathView.sideBarButtonActions),
+    path('physics/mainViewEnterButton/',peaceMathView.mainViewEnterButton),
     path('physics/chart/',peaceMathView.chartView)
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

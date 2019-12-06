@@ -4,7 +4,7 @@ from peacemathWeb.scripts.teal_37_stripped import getVariables
 
 def getFig(num):
     zzz=App(str(num))
-    box,box_colors = zzz.createBoxGraph()
+    box,box_colors,inputFields = zzz.createBoxGraph()
     return (box,box_colors, getVariables(num))
 
 def getChart(num ,data):

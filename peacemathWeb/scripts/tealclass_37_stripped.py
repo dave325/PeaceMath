@@ -312,7 +312,7 @@ class App:
                     id=id+1
         #plt.show(block=False)
         fig = fig_to_html(f)
-        return (fig,colorDictionary)
+        return (fig,colorDictionary,self.data['labels'])
         #coding trick to close extra figures accidentally created in canvas----
 
         '''
@@ -395,7 +395,11 @@ class App:
         return vectornew
 
 
+    def recalculateEnter(self,data):
+        self.data = data
+        return (self.createBoxGraphDict(),data)
 
+    
 
     #Euler numerical integration of the ordinary differential equations
     def recalculate(self, data):

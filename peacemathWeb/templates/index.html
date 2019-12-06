@@ -15,7 +15,7 @@
 </head>
 
 <body>
-	{{ zzz | safe }}
+
 
 	<div class="container-fluid">
 		<div class="row">
@@ -23,18 +23,19 @@
 				<div>
 					Input Value: {{ initialParamValue }}
 				</div>
-				<form id="initialParamValue" method="post" action="http://localhost:3000/physics/sendInitialParameterValue/?id={{uuid}}">
+				<form id="initialParamValue" method="post"
+					action="http://localhost:3000/physics/sendInitialParameterValue/?id={{uuid}}">
 					{% csrf_token %}
 					<select name="initialParamValue" form="initialParamValue" id="mySelect">
-							<option value="8">8</option>
-							<option value="105">105</option>
-							<option value="111">111</option>
-							<option value="202">202</option>
-						</select>
+						<option value="8">8</option>
+						<option value="105">105</option>
+						<option value="111">111</option>
+						<option value="202">202</option>
+					</select>
 					<input type="submit" class="btn btn-light btn-outline-info">
 				</form>
-				
-					<!-- <div class="btn-group dropright">
+
+				<!-- <div class="btn-group dropright">
 						<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
 							Select your input value
 						</button>
@@ -45,33 +46,53 @@
 							<button class="dropdown-item input-value_202" type="button">202</button>
 						</div>
 					</div> -->
-				
+
 				<hr>
 				<button name="calculate" class="btn btn-light btn-outline-info" id="btn_calculate">Calculate</button>
-				<div class="input-menu">					
-					<form method="post" action="http://localhost:3000/physics/sideBarButtonActions/">
+				<div class="input-menu">
 						{% csrf_token %}
-						<label for="add_mem">+ Mem</label>
-						<input class="form-control b_values" type="number" placeholder="1.0" min="0" max="100" step="0.1" name="add_mem" id="add_mem" value={{ inputValues.addMem }}>
+
+
+						{% for label in inputFields %}
+						
+						<label for={{label}}>{{label}}</label>
+						<input class="form-control b_values" type="number" placeholder="1.0" min="0" max="100"
+						step="0.1" name={{label}} id={{label}} >
+
+						{% endfor %}
+
+						<!---
+
+								<label for="add_mem">+ Mem</label>
+						
 						<label for="sub_mem">- Mem</label>
-						<input class="form-control b_values" type="number" placeholder="1.0" min="0" max="100" step="0.1" name="sub_mem" id="sub_mem" value= {{ inputValues.subMem }} >
+						<input class="form-control b_values" type="number" placeholder="1.0" min="0" max="100"
+							step="0.1" name="sub_mem" id="sub_mem" value={{ inputValues.subMem }}>
 						<label for="add_expect">+ Expect</label>
-						<input class="form-control b_values" type="number" placeholder="1.0" min="0" max="100" step="0.1" name="add_expect" id="add_expect" value= {{ inputValues.addExpect }} >
+						<input class="form-control b_values" type="number" placeholder="1.0" min="0" max="100"
+							step="0.1" name="add_expect" id="add_expect" value={{ inputValues.addExpect }}>
 						<label for="sub_expect">- Expect</label>
-						<input class="form-control b_values" type="number" placeholder="1.0" min="0" max="100" step="0.1" name="sub_expect" id="sub_expect" value= {{ inputValues.subExpect }} >
+						<input class="form-control b_values" type="number" placeholder="1.0" min="0" max="100"
+							step="0.1" name="sub_expect" id="sub_expect" value={{ inputValues.subExpect }}>
 						<label for="pir">PIR</label>
-						<input class="form-control" type="number" placeholder="1.0" min="0" max="100" step="0.1" name="pir" id="pir" value= {{ inputValues.pIR }} >
+						<input class="form-control" type="number" placeholder="1.0" min="0" max="100" step="0.1"
+							name="pir" id="pir" value={{ inputValues.pIR }}>
 						<label for="nir">NIR</label>
-						<input class="form-control b_values" type="number" placeholder="1.0" min="0" max="100" step="0.1" name="nir" id="nir" value= {{ inputValues.nIR }} >
+						<input class="form-control b_values" type="number" placeholder="1.0" min="0" max="100"
+							step="0.1" name="nir" id="nir" value={{ inputValues.nIR }}>
+						
+						-->
+					
 						<hr>
 						<div>
 							Initial Conditions
 						</div>
 						<div class="submit_buttons">
-							<input class="btn btn-light btn-outline-info" type="submit" value="Original" name="original" id="btn_original" />
-							<input class="btn btn-light btn-outline-info" type="submit" value="Enter" name="enter" id="btn_enter" />		
+							<input class="btn btn-light btn-outline-info" type="submit" value="Original" name="original"
+								id="btn_original" />
+							<input class="btn btn-light btn-outline-info" type="submit" value="Enter" name="enter"
+								id="btn_enter" />
 						</div>
-					</form>
 				</div>
 			</div>
 			<div class="main_figure col-9" id="b">
@@ -113,16 +134,16 @@
 </body>
 <script>
 
-	</script>
-	<!-- ASYNC SCRIPT LOADERS -->
-	<script type="text/javascript" async src="{% static 'index.js' %}"></script>
+</script>
+<!-- ASYNC SCRIPT LOADERS -->
+<script type="text/javascript" async src="{% static 'index.js' %}"></script>
 
 
 
 <script type="text/javascript">
 
-//console.log({{dataValues | safe}})
-window.sessionStorage.setItem("key", "{{session_key}}")
+	//console.log({{dataValues | safe}})
+	window.sessionStorage.setItem("key", "{{session_key}}")
 
 
 
