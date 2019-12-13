@@ -27,5 +27,6 @@ urlpatterns = [
     path('physics/',peaceMathView.mainView),
     path('physics/sendInitialParameterValue/',peaceMathView.sendInitialParameterValue),
     path('physics/mainViewEnterButton/',peaceMathView.mainViewEnterButton),
-    path('physics/chart/',peaceMathView.chartView)
+    path('physics/chart/',peaceMathView.chartView),
+    path('physics/btn_click/', peaceMathView.btnClick)
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

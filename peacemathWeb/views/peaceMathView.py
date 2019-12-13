@@ -90,7 +90,10 @@ def mainView(request):
     })
     return response
 
-
+@csrf_exempt
+def btnClick(request):
+    temp = json.loads(request.body)
+    return JsonResponse({"temp": temp}) 
 @csrf_exempt
 def chartView(request):
     if request.method == "POST":
