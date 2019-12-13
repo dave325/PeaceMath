@@ -72,7 +72,10 @@ def mainView(request):
     })
     return response
 
-
+@csrf_exempt
+def btnClick(request):
+    temp = json.loads(request.body)
+    return JsonResponse({"temp": temp}) 
 @csrf_exempt
 def chartView(request):
     if request.method == "POST":
@@ -101,7 +104,7 @@ def sendInitialParameterValue(request):
 
 
 def getFig(request,initialParamValue):
-    zzz = App(initialParamValue)
+    zzz = tc.App(initialParamValue)
     box, box_colors,labels = zzz.createBoxGraph()
     return (box, box_colors, getVariables(initialParamValue),labels)
 
@@ -111,6 +114,6 @@ def getChart(request, data):
         initialParamValue = str(request.session['initialParamValue'])
     else:
         initialParamValue = "8"
-    zzz = App(initialParamValue)
+    zzz = tc.App(initialParamValue)
     box = zzz.recalculate(data)
     return (box)

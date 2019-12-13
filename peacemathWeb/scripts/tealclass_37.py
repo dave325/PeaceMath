@@ -437,7 +437,8 @@ class App:
         self.canvas.create_window((0,0), window=self.frame, anchor='nw')
         # creating the cij adjacency matrix entry widgets
         fields=self.data.labels
-        entriesIJ = []                                                         
+        entriesIJ = []     
+        print("Self.data check")                                                    
         for field in fields:
             row = tk.Frame(self.frame)
             lab = tk.Label(row, width=15, text=field, anchor='w',bg='thistle1')
@@ -446,6 +447,7 @@ class App:
             lab.pack(side=tk.LEFT,expand=1)
             entIJ.pack(side=tk.RIGHT, expand=tk.YES, fill=tk.Y)
             entIJ.insert(10,self.data.ca[fields.index(field)][self.box_id])
+            print(self.data.ca[fields.index(field)][self.box_id])
             entriesIJ.append((field, entIJ))
             self.entriesIJ=entriesIJ
         #TRANSFORM ALL ENTRIES INTO STARTING VALUES FOR COMPUTATION
@@ -461,6 +463,7 @@ class App:
             contains, attrd = box.text.contains(event)
             if(contains):
                 id=box.id
+                print(id)
                 print('\nid,bname(id)=  ',id, data.labels[id])
                 # print('box_%d'  % id)
                 # print('box_' + data.bname[id])

@@ -249,6 +249,54 @@ class GetChartPlugin(plugins.PluginBase):  # inherit from PluginBase
         def __init__(self,lineData):
             self.dict_ = {"type": "getchartplugin","lineData":lineData}
 
+class GetTextBoxPlugin(plugins.PluginBase):
+    """textBoxPlugin plugin"""
+    JAVASCRIPT = """
+    mpld3.register_plugin("gettextplugin", GetTextBoxPlugin);
+        GetTextBoxPlugin.prototype = Object.create(mpld3.Plugin.prototype);
+        GetTextBoxPlugin.prototype.constructor = GetTextBoxPlugin;
+
+        GetTextBoxPlugin.prototype.requiredProps = [];
+
+
+        function GetTextBoxPlugin(fig, props){
+            mpld3.Plugin.call(this, fig, props);
+
+            
+
+
+        };
+        
+        GetTextBoxPlugin.prototype.draw = function(){
+   let ctx = this.fig.canvas[0][0];
+            console.log(this.fig)
+            var div = d3.select(".mpld3-axes");
+            console.log(ctx.getBBox())
+		    let textBoxes = ctx.getElementsByClassName("mpld3-text");
+    	console.log("Adding text listeners")
+    let text = document.getElementsByClassName('mpld3-text');
+    for(let i = 0; i < text.length; i++){
+        text[i].addEventListener("mousedown", function() {
+			data = JSON.stringify({ key: window.sessionStorage.getItem("key"), val: i })
+			fetch('/physics/btn_click/', {
+				method: 'post', headers: {
+					'Accept': 'application/json',
+					'Content-Type': 'application/json'
+				}, body: data
+			}).then((res) => {
+				res.json().then(
+
+					(i) => {
+						console.log(i)
+					}
+				)
+			})
+		})
+    }
+    
+	}"""
+    def __init__(self):
+            self.dict_ = {"type": "gettextplugin"}
 
 #MAIN CLASS THAT DOES MOST OF THE WORK
 class App:
@@ -311,6 +359,7 @@ class App:
                     arrow=ArrowObject(a,i,j,id, self.data)
                     id=id+1
         #plt.show(block=False)
+        plugins.connect(f, GetTextBoxPlugin())
         fig = fig_to_html(f)
         return (fig,colorDictionary,self.data['labels'])
         #coding trick to close extra figures accidentally created in canvas----
@@ -368,6 +417,7 @@ class App:
                     arrow=ArrowObject(a,i,j,id, self.data)
                     id=id+1
         #plt.show(block=False)
+        plugins.connect(f, GetTextBoxPlugin())
         fig = fig_to_dict(f)
         return (fig,colorDictionary)
         '''
@@ -511,6 +561,7 @@ class App:
         param2='\nstart=  ' + start + '\nfinish=  ' + finish
         titlelsl=programname+param1 + param2
         plt.title(titlelsl, fontsize=10)
+        plugins.connect(f, GetTextPlugin())
         fig = fig_to_html(f)
         #plt.close(f)
         #plugins.connect(f, GetChartPlugin(lineData))
@@ -519,7 +570,13 @@ class App:
         # TODO return this info
         # plt.show(block=False) #IMPORTANT: to SHOW graph but NOT stop execution
       
-        
+    def btn_on_click(self, box_id, data):
+        arr = []
+        for field in data["labels"]:
+            arr.append(data.ca[data['labels'].index(field)][box_id])
+        print(arr)
+        return arr
+
     #rounds numbers for x(start), x(final) in the title of plot x(i) vs. time
     def displayinput(vector1,number):
         #creates string to print from np.array(vector1)
