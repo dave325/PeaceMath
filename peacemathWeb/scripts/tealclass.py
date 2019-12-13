@@ -431,7 +431,6 @@ class App:
             contains, attrd = box.text.contains(event)
             if(contains):
                 id=box.id
-                print('\nid,bname(id)=  ',id, data.labels[id])
                 # print('box_%d'  % id)
                 # print('box_' + data.bname[id])
                 # print('show vars ')

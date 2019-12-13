@@ -26,12 +26,16 @@
 				<form id="initialParamValue" method="post"
 					action="http://localhost:3000/physics/sendInitialParameterValue/?id={{uuid}}">
 					{% csrf_token %}
+
 					<select name="initialParamValue" form="initialParamValue" id="mySelect">
-						<option value="8">8</option>
-						<option value="105">105</option>
-						<option value="111">111</option>
-						<option value="202">202</option>
+					{% for option in select_options %}
+						<option value="{{option}}"
+							{% if option == initialParamValue %}selected="selected"{% endif %}>
+							{{option}}
+						</option>
+					{% endfor %}
 					</select>
+
 					<input type="submit" class="btn btn-light btn-outline-info">
 				</form>
 

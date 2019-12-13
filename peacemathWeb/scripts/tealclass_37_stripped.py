@@ -397,7 +397,7 @@ class App:
 
     def recalculateEnter(self,data):
         self.data = data
-        return (self.createBoxGraphDict(),data)
+        return self.createBoxGraphDict(),data
 
     
 
@@ -448,7 +448,6 @@ class App:
         pass_data["b"]=App.scalebox(vector)
         #set z[0]=z[-1] for the NEXT iteration
         pass_data["z"][0]=pass_data["z"][-1]
-        print(pass_data["z"][-1])
         
         pass_data["b"]=App.scalebox(vector)
         #set z[0]=z[-1] for the NEXT iteration
@@ -714,9 +713,5 @@ class App:
     # when all widgets are in canvas
 #         self.canvas=canvas
         canvas.configure(scrollregion=canvas.bbox('all'))
-        
-    def recalculateAndReturnPlot(self):
-        self.resetIC()
-        print(plt.get_fignums())
-        return plt.figure(1)
+
         

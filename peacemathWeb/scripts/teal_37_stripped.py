@@ -195,7 +195,6 @@ def getVariables(num):
     #fast=input('\n ONLY NUMBER n and I will find cn.txt, etc. (#/a, Def=a)')
     fast = num
 
-
     #give it just a number # and RETURN and it will read files:
     # m#.txt, b#.txt, ic#.txt, c#.txt, and btextbxy#.txt
     if fast.isdigit():
@@ -237,10 +236,10 @@ def getVariables(num):
     ba=np.array(b)
     ca=np.array(c)
     ica=np.array(ic)
-    print ('\nca= ',ca)
-    print ('\nba= ',ba)
-    print ('\nma= ',ma)
-    print ('\nica= ',ica)
+    #print ('\nca= ',ca)
+    #print ('\nba= ',ba)
+    #print ('\nma= ',ma)
+    #print ('\nica= ',ica)
 
     #TODO HARD CODING change VALUE SO THE SERVER 
     #change=input('\nWant to CHANGE parameters (y/n), def=n')
@@ -256,17 +255,17 @@ def getVariables(num):
         ba=np.array(b)
         ca=np.array(c)
         ica=np.array(ic)
-        print ('\n\nNEW PARAMTER VALUES ARE:')
-        print ('\nca= ',ca)
-        print ('\nba= ',ba)
-        print ('\nma= ',ma)
-        print ('\nic= ',ica)
+        #print ('\n\nNEW PARAMTER VALUES ARE:')
+        #print ('\nca= ',ca)
+        #print ('\nba= ',ba)
+        #print ('\nma= ',ma)
+        #print ('\nic= ',ica)
     else:
         pass
 
     #PART TWO read in the variable names and box size and locations in the plot
-    print('\n numvar(from btextbxy)= ',numvar)
-    print('\n btextbxydata= ',btextbxydata)
+    #print('\n numvar(from btextbxy)= ',numvar)
+    #print('\n btextbxydata= ',btextbxydata)
 
 
     #COMPUTE (x,y)=[0,1] needed from PPTX
@@ -293,7 +292,7 @@ def getVariables(num):
         yp2[i]=1-(0.9*(yp[i]-miny)/(maxy-miny)+0.05)
         
     bxy=[[xp2[i],yp2[i]] for i in range(numvar)]
-    print ('\nbxy=  ',bxy)
+    #print ('\nbxy=  ',bxy)
 
 
     #PARAEMTERS NEEDED FOR THE NUMERICAL INTEGRATION
@@ -328,19 +327,19 @@ def getVariables(num):
    
     if num == "8":
         # np.savez(os.path.join(CURRENT_PATH, "npz_src",  '8.npz'), z = z, t = t)
-        print('Reading in pre-loaded file: 8.npz')
+        #print('Reading in pre-loaded file: 8.npz')
         f = np.load(os.path.join(CURRENT_PATH, "npz_src",  '8.npz'))
     elif num == "111":
         # np.savez(os.path.join(CURRENT_PATH, "npz_src",  '8.npz'), z = z, t = t)
-        print('Reading in pre-loaded file: 111.npz')
+        #print('Reading in pre-loaded file: 111.npz')
         f = np.load(os.path.join(CURRENT_PATH, "npz_src",  '111.npz'))
     elif num == "105":
         # np.savez(os.path.join(CURRENT_PATH, "npz_src",  '8.npz'), z = z, t = t)
-        print('Reading in pre-loaded file: 105.npz')
+        #print('Reading in pre-loaded file: 105.npz')
         f = np.load(os.path.join(CURRENT_PATH, "npz_src", '105.npz'))
     elif num == "202":
         # np.savez(os.path.join(CURRENT_PATH, "npz_src",  '8.npz'), z = z, t = t)
-        print('Reading in pre-loaded file: 202.npz')
+        #print('Reading in pre-loaded file: 202.npz')
         f = np.load(os.path.join(CURRENT_PATH, "npz_src", '202.npz'))
 
 
