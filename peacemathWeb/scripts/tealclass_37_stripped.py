@@ -288,6 +288,12 @@ class GetTextBoxPlugin(plugins.PluginBase):
 
 					(i) => {
 						console.log(i)
+                        let b_values = document.getElementsByClassName('b_values');
+                        for (let j = 0; j < b_values.length; j++) {
+                            b_values[j].value = i.temp[j];
+                        }
+                        d3.select("#b").selectAll("*").remove();
+				        mpld3.draw_figure("b", i.graph[0]);
 					}
 				)
 			})
@@ -304,7 +310,10 @@ class App:
     def __init__(self, num):
         print(str(num))
         self.num = num
-        self.data=getVariables(num)
+        if(isinstance(num,dict)):
+            self.data = num
+        else:
+            self.data=getVariables(num)
         self.fewarrows=0
         self.fixent=1 #UGLY FIX FOR ENTRIES/ENTRIESIJ
         #self.MakeWindow()
@@ -571,10 +580,14 @@ class App:
       
     def btn_on_click(self, box_id, data):
         arr = []
+        print(data['ca'])
         for field in data["labels"]:
-            arr.append(data.ca[data['labels'].index(field)][box_id])
+            arr.append(data['ca'][data['labels'].index(field)][box_id])
         print(arr)
-        return arr
+        self.data = data
+        self.fewarrows = 1
+        self.box_id = box_id
+        return (arr,self.createBoxGraphDict())
 
     #rounds numbers for x(start), x(final) in the title of plot x(i) vs. time
     def displayinput(vector1,number):

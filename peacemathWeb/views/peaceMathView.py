@@ -93,12 +93,14 @@ def mainView(request):
 @csrf_exempt
 def btnClick(request):
     temp = json.loads(request.body)
-    s = json.loads(SessionStore(session_key=temp['key']))
-    for (key, value) in temp.items():
+    s = json.loads(SessionStore(session_key=temp['key'])['data'])
+    for (key, value) in s.items():
         if key == "ca" or key == "ma" or key == "ba" or key == "ica" or key == "z" or key == "a" or key == "b":
             x = numpy.asfarray(value, float)
-            temp[key] = numpy.array(x)
-    return JsonResponse({"temp": temp}) 
+            s[key] = numpy.array(x)
+    arr,graph = getValuesByLabels(s, temp['val'])
+    return JsonResponse({"temp": arr, 'graph':graph }) 
+
 @csrf_exempt
 def chartView(request):
     if request.method == "POST":
@@ -129,6 +131,10 @@ def sendInitialParameterValue(request):
         return redirect('/physics/')
     return HttpResponseNotFound('Wrong hitpoint')
 
+def getValuesByLabels(data,id):
+    zzz = tc.App(data)
+    arr,graph = zzz.btn_on_click(id,data)
+    return (arr,graph)
 
 def getEnterButtonFig(initialParamValue,data):
     zzz = tc.App(initialParamValue)
