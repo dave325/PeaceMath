@@ -25,7 +25,7 @@
 					Input Value: {{ initialParamValue }}
 				</div>
 				<form id="initialParamValue" method="post"
-					action="http://localhost:3000/physics/sendInitialParameterValue/?id={{uuid}}">
+					action="https://peacemath.herokuapp.com/physics/sendInitialParameterValue/?id={{uuid}}">
 					{% csrf_token %}
 
 					<select name="initialParamValue" form="initialParamValue" id="mySelect">
