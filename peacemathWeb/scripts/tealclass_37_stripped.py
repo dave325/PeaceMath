@@ -170,18 +170,17 @@ class RectangleObject:
         scaledLetterSize = 0.01 * fontSize
 
         if(fontSize > 1 or fontSize < 1):
-            paddingX = 0.010 * fontSize * 2
-            paddingY = 0.010 * fontSize * 2
-            scaledLetterSize = 0.01 * fontSize * 2
+            paddingX = 0.010 * (fontSize / 7)
+            paddingY = 0.010 * (fontSize / 28 )
+            scaledLetterSize = 0.01 * (fontSize / 28)
         
 
        
-        width =(len(text) * scaledLetterSize) + paddingX*2
+        width =(len(text) * scaledLetterSize) + paddingX * 2
         height = scaledLetterSize + paddingY
        
-        xPos = f[0] - width/2 - paddingX   #(((len(text) + 1)/2) + paddingX)/100
+        xPos = f[0] - width/2 - paddingX  #(((len(text) + 1)/2) + paddingX)/100
         yPos = f[1] - (scaledLetterSize + paddingY/2)
-
 
         self.arrow=plt.Rectangle(
             [xPos,yPos],
@@ -344,6 +343,8 @@ class App:
         a = f.add_subplot(111)
         a.axis('off')
         colorDictionary = []
+        print(self.data['b'])
+
         for index in range(len(self.data['b'])):
             xy=self.data['bxy'][index]
             #print(self.data.labels[index])
@@ -353,11 +354,12 @@ class App:
             #TextBox(a,xy[0],xy[1],self.data.b[index],index,self.data.labels[index],self.data.boxcolor[index])
             fontSize = 1
             bbox_props = {'facecolor':self.data['boxcolor'][index][0], 'pad':10}   
-            if self.data['b'][index] > 1:
-                fontSize = self.data['b'][index]
+            if self.data['b'][index] != 0:
+                 fontSize = self.data['b'][index]/max(self.data['b']) + 0.3 * 28
+            else:
+                fontSize = 0
         
-
-            a.text(xy[0], xy[1], self.data['labels'][index], style='italic',horizontalalignment='center',verticalalignment='center',size=fontSize * 14, color='k', bbox=bbox_props)
+            a.text(xy[0], xy[1], self.data['labels'][index], style='italic',horizontalalignment='center',verticalalignment='center',size=fontSize, color='k', bbox=bbox_props)
 
             #this automatically adds a rectangle to the plot at A
             rect = RectangleObject(a,xy,index,self.data['boxcolor'][index],self.data['labels'][index],fontSize)
@@ -396,13 +398,15 @@ class App:
         '''
 
      #makes the plot: boxes and the (fancy) arrows connecting them
-    def createBoxGraphDict(self):
+    def createBoxGraphDict(self, arr):
         TextBox.list_box=[]  #CLEAR ALL PREVIOUS!!!
         f = plt.figure(facecolor = 'white')
         f.set_size_inches(8,10)
         a = f.add_subplot(111)
         a.axis('off')
         colorDictionary = []
+        print("Dict call")
+        print(self.data['b'])
         for index in range(len(self.data['b'])):
             xy=self.data['bxy'][index]
             #print(self.data.labels[index])
@@ -411,11 +415,22 @@ class App:
             # Need to change self.data.b[index] - sets size of font to 1, not sure why this doesn't work for web
             #TextBox(a,xy[0],xy[1],self.data.b[index],index,self.data.labels[index],self.data.boxcolor[index])
             fontSize = 1
-            bbox_props = {'facecolor':self.data['boxcolor'][index][0], 'pad':10}   
-            if self.data['b'][index] > 1:
-                fontSize = self.data['b'][index]/max(self.data['b']) + 0.3
+            bbox_props = {'facecolor':self.data['boxcolor'][index][0], 'pad':10}
+            if(len(arr) > 0):
+                if(arr[index] != 0):
+                    fontSize = (arr[index]/max(arr) + 0.3) * 28
+                else:
+                    if(index == self.box_id):
+                        fontSize =  0.3 * 28
+                    else:
+                        fontSize = 0
+            else:   
+                if self.data['b'][index] != 0:
+                    fontSize = self.data['b'][index]/max(self.data['b']) + 0.3 * 28
+                else:
+                    fontSize = 0
 
-            a.text(xy[0], xy[1], self.data['labels'][index], style='italic',horizontalalignment='center',verticalalignment='center',size=fontSize * 28, color='k', bbox=bbox_props)
+            a.text(xy[0], xy[1], self.data['labels'][index], style='italic',horizontalalignment='center',verticalalignment='center',size=fontSize, color='k', bbox=bbox_props)
 
             #this automatically adds a rectangle to the plot at A
             rect = RectangleObject(a,xy,index,self.data['boxcolor'][index],self.data['labels'][index],fontSize)
@@ -468,7 +483,7 @@ class App:
 
     def recalculateEnter(self,data):
         self.data = data
-        return self.createBoxGraphDict(),data
+        return self.createBoxGraphDict([]),data
 
     
 
@@ -528,7 +543,7 @@ class App:
 
 
         arg1 = self.MakePlot(pass_data)
-        arg2 = self.createBoxGraphDict()
+        arg2 = self.createBoxGraphDict([])
         
     
 
@@ -596,10 +611,11 @@ class App:
         for field in data["labels"]:
             arr.append(data['ca'][data['labels'].index(field)][box_id])
         #print(arr)
+        
         self.data = data
         self.fewarrows = 1
         self.box_id = box_id
-        return (arr,self.createBoxGraphDict())
+        return (arr,self.createBoxGraphDict(arr))
 
     #rounds numbers for x(start), x(final) in the title of plot x(i) vs. time
     def displayinput(vector1,number):
