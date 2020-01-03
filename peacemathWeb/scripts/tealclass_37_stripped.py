@@ -580,10 +580,10 @@ class App:
       
     def btn_on_click(self, box_id, data):
         arr = []
-        print(data['ca'])
+        #print(data['ca'])
         for field in data["labels"]:
             arr.append(data['ca'][data['labels'].index(field)][box_id])
-        print(arr)
+        #print(arr)
         self.data = data
         self.fewarrows = 1
         self.box_id = box_id
@@ -738,7 +738,7 @@ class App:
             contains, attrd = box.text.contains(event)
             if(contains):
                 id=box.id
-                print('\nid,bname(id)=  ',id, data.labels[id])
+                #print('\nid,bname(id)=  ',id, data.labels[id])
                 # print('box_%d'  % id)
                 # print('box_' + data.bname[id])
                 # print('show vars ')
