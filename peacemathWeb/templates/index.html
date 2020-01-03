@@ -10,6 +10,7 @@
 	{% load staticfiles %}
 	<link rel="stylesheet" type="text/css" href="{% static 'index.css' %}">
 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 
 </head>
@@ -39,18 +40,7 @@
 					<input type="submit" class="btn btn-light btn-outline-info">
 				</form>
 
-				<!-- <div class="btn-group dropright">
-						<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-							Select your input value
-						</button>
-						<div class="dropdown-menu dropdown-menu-right">
-							<button class="dropdown-item input-value_8" type="button">8</button>
-							<button class="dropdown-item input-value_105" type="button">105</button>
-							<button class="dropdown-item input-value_111" type="button">111</button>
-							<button class="dropdown-item input-value_202" type="button">202</button>
-						</div>
-					</div> -->
-
+			
 				<hr>
 				<button name="calculate" class="btn btn-light btn-outline-info" id="btn_calculate">Calculate</button>
 				<div class="input-menu">
@@ -65,28 +55,7 @@
 
 					{% endfor %}
 
-					<!---
-
-								<label for="add_mem">+ Mem</label>
-						
-						<label for="sub_mem">- Mem</label>
-						<input class="form-control b_values" type="number" placeholder="1.0" min="0" max="100"
-							step="0.1" name="sub_mem" id="sub_mem" value={{ inputValues.subMem }}>
-						<label for="add_expect">+ Expect</label>
-						<input class="form-control b_values" type="number" placeholder="1.0" min="0" max="100"
-							step="0.1" name="add_expect" id="add_expect" value={{ inputValues.addExpect }}>
-						<label for="sub_expect">- Expect</label>
-						<input class="form-control b_values" type="number" placeholder="1.0" min="0" max="100"
-							step="0.1" name="sub_expect" id="sub_expect" value={{ inputValues.subExpect }}>
-						<label for="pir">PIR</label>
-						<input class="form-control" type="number" placeholder="1.0" min="0" max="100" step="0.1"
-							name="pir" id="pir" value={{ inputValues.pIR }}>
-						<label for="nir">NIR</label>
-						<input class="form-control b_values" type="number" placeholder="1.0" min="0" max="100"
-							step="0.1" name="nir" id="nir" value={{ inputValues.nIR }}>
-						
-						-->
-
+			
 					<hr>
 					<div>
 						Initial Conditions
@@ -100,24 +69,7 @@
 				</div>
 			</div>
 			<div class="main_figure col-9" id="b">
-				<!--
-				<div class="row justify-content-between">
-					<button class="btn_add-mem col-2">+ mem</button>
-					<button class="btn_add-expect col-2">+ expect</button>
-				</div>
-				<div class="row justify-content-center">
-					<button class="btn_pir col-2">PIR</button>
-				</div>
-				<div class="row justify-content-center">
-					<button class="btn_nir col-2">NIR</button>
-				</div>
-				<div class="row justify-content-between">
-					<button class="btn_sub-mem col-2">- mem</button>
-					<button class="btn_sub-expect col-2">- expect</button>
-				</div>
-				-->
 				{{box_graph | safe}}
-				<br>
 			</div>
 		</div>
 	</div>

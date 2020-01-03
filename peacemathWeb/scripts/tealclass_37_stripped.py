@@ -259,6 +259,7 @@ class GetTextBoxPlugin(plugins.PluginBase):
         GetTextBoxPlugin.prototype.requiredProps = [];
 
 
+
         function GetTextBoxPlugin(fig, props){
             mpld3.Plugin.call(this, fig, props);
 
@@ -275,8 +276,17 @@ class GetTextBoxPlugin(plugins.PluginBase):
 		    let textBoxes = ctx.getElementsByClassName("mpld3-text");
     	console.log("Adding text listeners")
     let text = document.getElementsByClassName('mpld3-text');
+
+
+    let mainGraph = document.getElementById('b');
+
     for(let i = 0; i < text.length; i++){
         text[i].addEventListener("mousedown", function() {
+            
+            d3.select("#b").selectAll("*").remove()
+            mainGraph.insertAdjacentHTML("afterbegin","<h1>Loading...</h1> <p> We\'re building an awesome graph!");
+
+
 			data = JSON.stringify({ key: window.sessionStorage.getItem("key"), val: i })
 			fetch('/physics/btn_click/', {
 				method: 'post', headers: {
@@ -287,6 +297,8 @@ class GetTextBoxPlugin(plugins.PluginBase):
 				res.json().then(
 
 					(i) => {
+
+                        console.log('special click');
 						console.log(i)
                         let b_values = document.getElementsByClassName('b_values');
                         for (let j = 0; j < b_values.length; j++) {
@@ -296,7 +308,7 @@ class GetTextBoxPlugin(plugins.PluginBase):
 				        mpld3.draw_figure("b", i.graph[0]);
 					}
 				)
-			})
+			}).catch(err=>{})
 		})
     }
     

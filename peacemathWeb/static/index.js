@@ -3,7 +3,6 @@
 
 document.getElementById('btn_original').addEventListener('click', function () {
 
-	console.log('click')
 	let inputVals = document.getElementsByClassName('b_values')
 	for (let j = 0; j < inputVals.length; j++) {
 		let input = inputVals[j]
@@ -23,7 +22,7 @@ document.getElementById('btn_enter').addEventListener('click', function () {
 		{
 			inputBVals.push(1)
 
-		}
+		} 
 		else{
 			inputBVals.push(input.value)		
 		}
@@ -35,17 +34,8 @@ document.getElementById('btn_enter').addEventListener('click', function () {
 	body['b_vals'] = inputBVals
 
 	let mainGraph = document.getElementById('b')
-	let styleBefore = b.style.display
-	b.style.display = "none"
-
-	var h1 = document.createElement('h4');
-	h1.style.cssText="margin-top:100px;margin-left:auto;margin-right:auto"
-	h1.appendChild(document.createTextNode('Loading...'))
-	let subHeading = document.createElement('p')
-	subHeading.appendChild(document.createTextNode("we're building an awesome graph"))
-	h1.appendChild(subHeading)
 	
-	mainGraph.parentNode.insertBefore(h1, mainGraph.nextSibling);
+	mainGraph.innerHTML = '<h1>Loading...</h1> <p> We\'re building an awesome graph!';
 
 	fetch('/physics/mainViewEnterButton/', {
 		method: 'post',	 headers: {
@@ -56,7 +46,7 @@ document.getElementById('btn_enter').addEventListener('click', function () {
 		res.json().then(
 			(i) => {
 
-
+				mainGraph.innerHTML = '';
 
 				let b_values = document.getElementsByClassName('b_values');
 				for (let j = 0; j < b_values.length; j++) {
@@ -66,9 +56,6 @@ document.getElementById('btn_enter').addEventListener('click', function () {
 				mpld3.draw_figure("b", i.graph[0][0]);
 				let text = document.getElementsByClassName("mpld3-text");
 				
-				b.style.display = styleBefore;
-				mainGraph.parentNode.removeChild(h1)
-
 
 			}
 		).catch((err) => {
@@ -82,6 +69,7 @@ document.getElementById('btn_calculate').addEventListener('click', function () {
 
 	let inputBVals = []
 	let inputVals = document.getElementsByClassName('b_values')
+	
 
 	for (let j = 0; j < inputVals.length; j++) {
 		let input = inputVals[j]
@@ -111,6 +99,9 @@ document.getElementById('btn_calculate').addEventListener('click', function () {
 	myWindow.document.write('<h1>Loading</h1>');
 
 
+	let mainGraph = document.getElementById('b')
+	mainGraph.innerHTML = ''
+	mainGraph.innerHTML = '<h1>Loading...</h1> <p> We\'re building an awesome graph!';
 
 
 	fetch('/physics/chart/', {

@@ -1,20 +1,76 @@
-<module 'data' from 'C:\\Users\\deepakk\\Desktop\\Work\\PeaceMath\\peacemathWeb\\scripts\\data.py'>
+<module 'data' from 'C:\\Users\\deepakk\\Desktop\\PeaceMath\\peacemathWeb\\scripts\\data.py'>
 B VALUES
+4
 
-id,bname(id)=   0 + mem
-B VALUES
-B VALUES
-B VALUES
-B VALUES
-B VALUES
-B VALUES
-B VALUES
-B VALUES
-B VALUES
-B VALUES
-write complete
-b val
-[2.0, 30.0, 2.0, 11.979598091840023, 2.0, 8.61152171155079]
+id,bname(id)=   4 PIR
+Self.data check
+1.5
+0.0
+1.5
+0.0
+0.0
+-0.3
+4
+
+id,bname(id)=   4 PIR
+Self.data check
+1.5
+0.0
+1.5
+0.0
+0.0
+-0.3
+4
+
+id,bname(id)=   4 PIR
+Self.data check
+1.5
+0.0
+1.5
+0.0
+0.0
+-0.3
+1
+
+id,bname(id)=   1 - mem
+Self.data check
+0.0
+0.0
+0.0
+5.0
+0.0
+5.0
+1
+
+id,bname(id)=   1 - mem
+Self.data check
+0.0
+0.0
+0.0
+5.0
+0.0
+5.0
+3
+
+id,bname(id)=   3 - expect
+Self.data check
+0.0
+0.0
+0.0
+0.0
+0.0
+0.3
+3
+
+id,bname(id)=   3 - expect
+Self.data check
+0.0
+0.0
+0.0
+0.0
+0.0
+0.3
+155079]
 
 Your plot is ready
 call
