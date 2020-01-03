@@ -1,6 +1,17 @@
 'use strict';
 
 
+document.getElementById('btn_original').addEventListener('click', function () {
+
+	console.log('click')
+	let inputVals = document.getElementsByClassName('b_values')
+	for (let j = 0; j < inputVals.length; j++) {
+		let input = inputVals[j]
+		input.value = '1'
+	}
+
+});
+
 document.getElementById('btn_enter').addEventListener('click', function () {
 
 	let inputBVals = []
@@ -43,8 +54,6 @@ document.getElementById('btn_enter').addEventListener('click', function () {
 		}, body: JSON.stringify(body)
 	}).then((res) => {
 		res.json().then(
-
-
 			(i) => {
 
 
