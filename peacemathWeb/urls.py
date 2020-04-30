@@ -24,7 +24,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('physics/',peaceMathView.mainView),
+    path('',peaceMathView.mainView),
     path('physics/sendInitialParameterValue/',peaceMathView.sendInitialParameterValue),
     path('physics/mainViewEnterButton/',peaceMathView.mainViewEnterButton),
     path('physics/chart/',peaceMathView.chartView),

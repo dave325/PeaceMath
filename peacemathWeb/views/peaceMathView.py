@@ -128,7 +128,7 @@ def sendInitialParameterValue(request):
         if 'initialParamValue' in request.POST:
             request.session['initialParamValue'] = str(
                 request.POST['initialParamValue'])
-        return redirect('/physics/')
+        return redirect('/')
     return HttpResponseNotFound('Wrong hitpoint')
 
 def getValuesByLabels(data,id):
