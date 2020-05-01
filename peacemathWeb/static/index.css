@@ -1,8 +1,15 @@
-.sidebar {
-	/*background: red;*/
-	border: 3px solid black;
-	min-height: 700px;
+
+
+
+.sidenav .closebtn {
+	position: absolute;
+	top: 0;
+	right: 25px;
+	font-size: 36px;
+	margin-left: 50px;
 }
+  
+
 
 .main_figure {
 	/*background: blue;*/

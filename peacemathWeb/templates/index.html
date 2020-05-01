@@ -8,9 +8,58 @@
 		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 	{% load staticfiles %}
-	<link rel="stylesheet" type="text/css" href="{% static 'index.css' %}">
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+
+	<style>
+		#sidebar {
+			/*background: red;*/
+			min-height: 700px;
+			position: fixed;
+			max-width: 240px;
+			/* 0 width - change this with JavaScript */
+			z-index: 1;
+			/* Stay on top */
+
+		}
+
+		html {
+			overflow-x: hidden;
+		}
+
+		/*
+		   by default have menu hidden (pushed left)
+		*/
+		.menu-left-hide {
+			left: -240px;
+			opacity: 0.7;
+		}
+
+		/*
+		  on toggle, push the menu to the right and open it
+		*/
+		.menu-left-open {
+			left: 0;
+			opacity: 1;
+		}
+
+		/*
+
+			when the left menu is moved, also move the main content right
+		*/
+		#main {
+			overflow-x: hidden;
+			position: relative;
+			left: 0px;
+		}
+
+
+		.main-push-right {
+			left: 240px !important;
+		}
+	</style>
 
 
 </head>
@@ -18,61 +67,70 @@
 <body>
 
 
-	<div class="container-fluid">
-		<div class="row">
-			<div class="sidebar col-3">
-				<div>
-					Input Value: {{ initialParamValue }}
-				</div>
-				<form id="initialParamValue" method="post"
-					action="https://peacemath.herokuapp.com/physics/sendInitialParameterValue/?id={{uuid}}">
-					{% csrf_token %}
 
-					<select name="initialParamValue" form="initialParamValue" id="mySelect">
-					{% for option in select_options %}
-						<option value="{{option}}"
-							{% if option == initialParamValue %}selected="selected"{% endif %}>
-							{{option}}
-						</option>
-					{% endfor %}
-					</select>
-
-					<input type="submit" class="btn btn-light btn-outline-info">
-				</form>
-
-			
-				<hr>
-				<button name="calculate" class="btn btn-light btn-outline-info" id="btn_calculate">Calculate</button>
-				<div class="input-menu">
-					{% csrf_token %}
+	<div id="sidebar" class="menu-left-hide">
 
 
-					{% for label in inputFields %}
 
-					<label for={{label}}>{{label}}</label>
-					<input class="form-control b_values" type="number" placeholder="1.0" min="0" max="100" step="0.1"
-						name={{label}} id={{label}}>
+		<div>
+			Input Value: {{ initialParamValue }}
+		</div>
+		<form id="initialParamValue" method="post" action="/physics/sendInitialParameterValue/?id={{uuid}}">
+			{% csrf_token %}
 
-					{% endfor %}
+			<select name="initialParamValue" form="initialParamValue" id="mySelect">
+				{% for option in select_options %}
+				<option value="{{option}}" {% if option == initialParamValue %}selected="selected" {% endif %}>
+					{{option}}
+				</option>
+				{% endfor %}
+			</select>
 
-			
-					<hr>
-					<div>
-						Initial Conditions
-					</div>
-					<div class="submit_buttons">
-						<input class="btn btn-light btn-outline-info" type="submit" value="Original" name="original"
-							id="btn_original" />
-						<input class="btn btn-light btn-outline-info" type="submit" value="Enter" name="enter"
-							id="btn_enter" />
-					</div>
-				</div>
+			<input type="submit" class="btn btn-light btn-outline-info">
+		</form>
+
+
+		<hr>
+		<button name="calculate" class="btn btn-light btn-outline-info" id="btn_calculate">Calculate</button>
+		<div class="input-menu">
+			{% csrf_token %}
+
+
+			{% for label in inputFields %}
+
+			<label for={{label}}>{{label}}</label>
+			<input class="form-control b_values" type="number" placeholder="1.0" min="0" max="100" step="0.1"
+				name={{label}} id={{label}}>
+
+			{% endfor %}
+
+
+			<hr>
+			<div>
+				Initial Conditions
 			</div>
-			<div class="main_figure col-9" id="b">
-				{{box_graph | safe}}
+			<div class="submit_buttons">
+				<input class="btn btn-light btn-outline-info" type="submit" value="Original" name="original"
+					id="btn_original" />
+				<input class="btn btn-light btn-outline-info" type="submit" value="Enter" name="enter" id="btn_enter" />
 			</div>
 		</div>
 	</div>
+
+
+	<div>
+		<div id="main">
+
+			<button class="btn btn-light btn-outline-info" id="toggleMenu">Toggle</button>
+
+			<div class="main_figure menu-push menu-push-right" id="b">
+				{{box_graph | safe}}
+			</div>
+
+		</div>
+	</div>
+
+
 
 
 
@@ -98,6 +156,36 @@
 
 <script type="text/javascript">
 
+
+	function hideMenu() {
+		$('#sidebar').removeClass('menu-left-open');
+		$('#main').removeClass('main-push-right');
+		open = false;
+	};
+
+	function showMenu() {
+		$('#sidebar').addClass('menu-left-open');
+		$('#main').addClass('main-push-right');
+		open = true;
+	};
+
+	var open = false;
+
+	$('#toggleMenu').click(function () {
+
+
+		if (!open) {
+			showMenu();
+			open = true;
+		}
+		else {
+			hideMenu();
+			open = false;
+		}
+	});
+
+
+
 	//console.log({{dataValues | safe}})
 	window.sessionStorage.setItem("key", "{{session_key}}")
 	console.log("Adding text listeners")
@@ -122,6 +210,9 @@
 			})
 		});
 	}
+
+
+
 
 </script>
 
