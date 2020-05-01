@@ -308,9 +308,11 @@ class GetTextBoxPlugin(plugins.PluginBase):
 				        )
 			        }).catch(err=>{})
 		        })
-                text[i].addEventListener("hover", function(event){
-                    event.target.title = "hello";
-                }
+                
+                text[i].addEventListener("mouseover", function(event){
+                    
+                })
+                
 
             }
     
