@@ -146,13 +146,9 @@
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script id="lzutf8" src="https://cdn.jsdelivr.net/npm/lzutf8/build/production/lzutf8.js"></script>
 </body>
-<script>
 
-</script>
 <!-- ASYNC SCRIPT LOADERS -->
 <script type="text/javascript" async src="{% static 'index.js' %}"></script>
-
-
 
 <script type="text/javascript">
 
@@ -160,27 +156,27 @@
 	function hideMenu() {
 		$('#sidebar').removeClass('menu-left-open');
 		$('#main').removeClass('main-push-right');
-		open = false;
+		sidebarOpen = false;
 	};
 
 	function showMenu() {
 		$('#sidebar').addClass('menu-left-open');
 		$('#main').addClass('main-push-right');
-		open = true;
+		sidebarOpen = true;
 	};
 
-	var open = false;
+	var sidebarOpen = false;
 
 	$('#toggleMenu').click(function () {
 
 
-		if (!open) {
+		if (!sidebarOpen) {
 			showMenu();
-			open = true;
+			sidebarOpen = true;
 		}
 		else {
 			hideMenu();
-			open = false;
+			sidebarOpen = false;
 		}
 	});
 
@@ -210,6 +206,10 @@
 			})
 		});
 	}
+
+
+
+	
 
 
 
