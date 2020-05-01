@@ -193,7 +193,6 @@ class RectangleObject:
 class GetChartPlugin(plugins.PluginBase):  # inherit from PluginBase
         """GetChartPlugin plugin"""
         JAVASCRIPT = """
-
         mpld3.register_plugin("getchartplugin", GetChartPlugin);
         GetChartPlugin.prototype = Object.create(mpld3.Plugin.prototype);
         GetChartPlugin.prototype.constructor = GetChartPlugin;
@@ -251,7 +250,7 @@ class GetChartPlugin(plugins.PluginBase):  # inherit from PluginBase
 class GetTextBoxPlugin(plugins.PluginBase):
     """textBoxPlugin plugin"""
     JAVASCRIPT = """
-    mpld3.register_plugin("gettextplugin", GetTextBoxPlugin);
+        mpld3.register_plugin("gettextplugin", GetTextBoxPlugin);
         GetTextBoxPlugin.prototype = Object.create(mpld3.Plugin.prototype);
         GetTextBoxPlugin.prototype.constructor = GetTextBoxPlugin;
 
@@ -268,50 +267,54 @@ class GetTextBoxPlugin(plugins.PluginBase):
         };
         
         GetTextBoxPlugin.prototype.draw = function(){
-   let ctx = this.fig.canvas[0][0];
+            let ctx = this.fig.canvas[0][0];
             console.log(this.fig)
             var div = d3.select(".mpld3-axes");
             console.log(ctx.getBBox())
 		    let textBoxes = ctx.getElementsByClassName("mpld3-text");
-    	console.log("Adding text listeners")
-    let text = document.getElementsByClassName('mpld3-text');
+    	    console.log("Adding text listeners")
+            let text = document.getElementsByClassName('mpld3-text');
 
 
-    let mainGraph = document.getElementById('b');
+            let mainGraph = document.getElementById('b');
 
-    for(let i = 0; i < text.length; i++){
-        text[i].addEventListener("mousedown", function() {
+            for(let i = 0; i < text.length; i++){
+                text[i].addEventListener("mousedown", function() {
             
-            d3.select("#b").selectAll("*").remove()
-            mainGraph.insertAdjacentHTML("afterbegin","<h1>Loading...</h1> <p> We\'re building an awesome graph!");
+                    d3.select("#b").selectAll("*").remove()
+                    mainGraph.insertAdjacentHTML("afterbegin","<h1>Loading...</h1> <p> We\'re building an awesome graph!");
 
 
-			data = JSON.stringify({ key: window.sessionStorage.getItem("key"), val: i })
-			fetch('/physics/btn_click/', {
-				method: 'post', headers: {
-					'Accept': 'application/json',
-					'Content-Type': 'application/json'
-				}, body: data
-			}).then((res) => {
-				res.json().then(
+			        data = JSON.stringify({ key: window.sessionStorage.getItem("key"), val: i })
+			        fetch('/physics/btn_click/', {
+				        method: 'post', headers: {
+					        'Accept': 'application/json',
+					        'Content-Type': 'application/json'
+				        }, body: data
+			        }).then((res) => {
+				        res.json().then(
 
-					(i) => {
+					        (i) => {
 
-                        console.log('special click');
-						console.log(i)
-                        let b_values = document.getElementsByClassName('b_values');
-                        for (let j = 0; j < b_values.length; j++) {
-                            b_values[j].value = i.temp[j];
-                        }
-                        d3.select("#b").selectAll("*").remove();
-				        mpld3.draw_figure("b", i.graph[0]);
-					}
-				)
-			}).catch(err=>{})
-		})
-    }
+                                console.log('special click');
+						        console.log(i)
+                                let b_values = document.getElementsByClassName('b_values');
+                                for (let j = 0; j < b_values.length; j++) {
+                                    b_values[j].value = i.temp[j];
+                                }
+                                d3.select("#b").selectAll("*").remove();
+				                mpld3.draw_figure("b", i.graph[0]);
+					        }
+				        )
+			        }).catch(err=>{})
+		        })
+                text[i].addEventListener("hover", function(event){
+                    event.target.title = "hello";
+                }
+
+            }
     
-	}"""
+	    }"""
     def __init__(self):
             self.dict_ = {"type": "gettextplugin"}
 
