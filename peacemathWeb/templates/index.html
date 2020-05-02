@@ -25,6 +25,8 @@
 
 		}
 
+
+
 		html {
 			overflow-x: hidden;
 		}
@@ -50,14 +52,32 @@
 			when the left menu is moved, also move the main content right
 		*/
 		#main {
+			/*
 			overflow-x: hidden;
 			position: relative;
 			left: 0px;
+			*/
 		}
 
 
 		.main-push-right {
 			left: 240px !important;
+		}
+
+		#b{
+			width: 800px !important;
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+			margin-top: -150px;
+		}
+
+
+	
+
+		#toggleMenu {
+			border: 2px solid red;
+			z-index: 9999;
 		}
 	</style>
 
@@ -118,16 +138,14 @@
 	</div>
 
 
-	<div>
-		<div id="main">
+	<div id="main">
 
-			<button class="btn btn-light btn-outline-info" id="toggleMenu">Toggle</button>
+		<button class="btn btn-light btn-outline-info" id="toggleMenu">Toggle</button>
 
-			<div class="main_figure menu-push menu-push-right" id="b">
-				{{box_graph | safe}}
-			</div>
-
+		<div id="b">
+			{{box_graph | safe}}
 		</div>
+
 	</div>
 
 
@@ -155,20 +173,17 @@
 
 	function hideMenu() {
 		$('#sidebar').removeClass('menu-left-open');
-		$('#main').removeClass('main-push-right');
 		sidebarOpen = false;
 	};
 
 	function showMenu() {
 		$('#sidebar').addClass('menu-left-open');
-		$('#main').addClass('main-push-right');
 		sidebarOpen = true;
 	};
 
 	var sidebarOpen = false;
 
 	$('#toggleMenu').click(function () {
-
 
 		if (!sidebarOpen) {
 			showMenu();
@@ -209,7 +224,7 @@
 
 
 
-	
+
 
 
 
