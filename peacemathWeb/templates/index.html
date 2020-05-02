@@ -16,15 +16,21 @@
 	<style>
 		#sidebar {
 			/*background: red;*/
+			position: absolute;
+			top: 0;
 			min-height: 700px;
-			position: fixed;
-			max-width: 240px;
+			width: 500px;
 			/* 0 width - change this with JavaScript */
 			z-index: 1;
 			/* Stay on top */
+			margin-top: 50px;
+			text-align: cener;
 
 		}
 
+		#toggleMenu {
+			text-align: center;
+		}
 
 
 		html {
@@ -64,20 +70,19 @@
 			left: 240px !important;
 		}
 
-		#b{
+		#b {
 			width: 800px !important;
 			display: block;
 			margin-left: auto;
 			margin-right: auto;
-			margin-top: -150px;
+			margin-top: -75px;
+
 		}
 
-
-	
-
-		#toggleMenu {
-			border: 2px solid red;
-			z-index: 9999;
+		.menu-left-hide,
+		.menu-left-open {
+			-webkit-transition: 200ms ease-in-out;
+			transition: 200ms ease-in-out;
 		}
 	</style>
 
@@ -91,56 +96,71 @@
 	<div id="sidebar" class="menu-left-hide">
 
 
+		<div class="row">
 
-		<div>
-			Input Value: {{ initialParamValue }}
-		</div>
-		<form id="initialParamValue" method="post" action="/physics/sendInitialParameterValue/?id={{uuid}}">
-			{% csrf_token %}
-
-			<select name="initialParamValue" form="initialParamValue" id="mySelect">
-				{% for option in select_options %}
-				<option value="{{option}}" {% if option == initialParamValue %}selected="selected" {% endif %}>
-					{{option}}
-				</option>
-				{% endfor %}
-			</select>
-
-			<input type="submit" class="btn btn-light btn-outline-info">
-		</form>
+			<div class="col-6">
 
 
-		<hr>
-		<button name="calculate" class="btn btn-light btn-outline-info" id="btn_calculate">Calculate</button>
-		<div class="input-menu">
-			{% csrf_token %}
+				<div>
+					Input Value: {{ initialParamValue }}
+				</div>
+				<form id="initialParamValue" method="post" action="/physics/sendInitialParameterValue/?id={{uuid}}">
+					{% csrf_token %}
+	
+					<select name="initialParamValue" form="initialParamValue" id="mySelect">
+						{% for option in select_options %}
+						<option value="{{option}}" {% if option == initialParamValue %}selected="selected" {% endif %}>
+							{{option}}
+						</option>
+						{% endfor %}
+					</select>
+	
+					<input type="submit" class="btn btn-light btn-outline-info">
+				</form>
+	
+	
+				<hr>
+				<button name="calculate" class="btn btn-light btn-outline-info" id="btn_calculate">Calculate</button>
+				<div class="input-menu">
+					{% csrf_token %}
+	
+	
+					{% for label in inputFields %}
+	
+					<label for={{label}}>{{label}}</label>
+					<input class="form-control b_values" type="number" placeholder="1.0" min="0" max="100" step="0.1"
+						name={{label}} id={{label}}>
+	
+					{% endfor %}
+	
+	
+					<hr>
+					<div>
+						Initial Conditions
+					</div>
+					<div class="submit_buttons">
+						<input class="btn btn-light btn-outline-info" type="submit" value="Original" name="original"
+							id="btn_original" />
+						<input class="btn btn-light btn-outline-info" type="submit" value="Enter" name="enter"
+							id="btn_enter" />
+					</div>
+				</div>
 
-
-			{% for label in inputFields %}
-
-			<label for={{label}}>{{label}}</label>
-			<input class="form-control b_values" type="number" placeholder="1.0" min="0" max="100" step="0.1"
-				name={{label}} id={{label}}>
-
-			{% endfor %}
-
-
-			<hr>
-			<div>
-				Initial Conditions
 			</div>
-			<div class="submit_buttons">
-				<input class="btn btn-light btn-outline-info" type="submit" value="Original" name="original"
-					id="btn_original" />
-				<input class="btn btn-light btn-outline-info" type="submit" value="Enter" name="enter" id="btn_enter" />
+
+			<div class="col-6">
+				<button class="btn btn-large btn-primary" id="toggleMenu">Modify</button>
+
 			</div>
+
+
 		</div>
 	</div>
 
 
+
 	<div id="main">
 
-		<button class="btn btn-light btn-outline-info" id="toggleMenu">Toggle</button>
 
 		<div id="b">
 			{{box_graph | safe}}
