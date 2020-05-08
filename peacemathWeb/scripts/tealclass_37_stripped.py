@@ -275,7 +275,6 @@ class GetTextBoxPlugin(plugins.PluginBase):
     	    console.log("Adding text listeners")
             let text = document.getElementsByClassName('mpld3-text');
 
-
             let mainGraph = document.getElementById('b');
 
             for(let i = 0; i < text.length; i++){
@@ -308,8 +307,22 @@ class GetTextBoxPlugin(plugins.PluginBase):
 				        )
 			        }).catch(err=>{})
 		        })
+                let coord = text[i].getBoundingClientRect();
+                let top = coord.top + window.pageYOffset + 75; 
+                let left = coord.left + window.pageXOffset - 530;
+                
+                this.fig.canvas.append("text").text(text[i].innerHTML).style("font-size", 24)
+                        .style("visibility", "hidden")
+                        .attr("id", i)
+                        .attr("x", left)
+                        .attr("y", top);
                 
                 text[i].addEventListener("mouseover", function(event){
+                    document.getElementById(i).style.visibility = "visible";   
+                })
+
+                text[i].addEventListener("mouseleave", function(event){
+                    document.getElementById(i).style.visibility = "hidden";
                     
                 })
                 
@@ -405,13 +418,17 @@ class App:
      #makes the plot: boxes and the (fancy) arrows connecting them
     def createBoxGraphDict(self, arr):
         TextBox.list_box=[]  #CLEAR ALL PREVIOUS!!!
+        
         f = plt.figure(facecolor = 'white')
         f.set_size_inches(8,10)
         a = f.add_subplot(111)
         a.axis('off')
+        
         colorDictionary = []
         print("Dict call")
         print(self.data['b'])
+        
+        
         for index in range(len(self.data['b'])):
             xy=self.data['bxy'][index]
             #print(self.data.labels[index])
@@ -436,7 +453,8 @@ class App:
                     fontSize = 0
 
             a.text(xy[0], xy[1], self.data['labels'][index], style='italic',horizontalalignment='center',verticalalignment='center',size=fontSize, color='k', bbox=bbox_props)
-
+            
+            
             #this automatically adds a rectangle to the plot at A
             rect = RectangleObject(a,xy,index,self.data['boxcolor'][index],self.data['labels'][index],fontSize)
         id=0
@@ -458,6 +476,9 @@ class App:
                     arrow=ArrowObject(a,i,j,id, self.data)
                     id=id+1
         #plt.show(block=False)
+        
+        
+        
         plugins.connect(f, GetTextBoxPlugin())
         fig = fig_to_dict(f)
         return (fig,colorDictionary)
