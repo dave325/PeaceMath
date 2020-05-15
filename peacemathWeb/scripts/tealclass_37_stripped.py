@@ -308,23 +308,36 @@ class GetTextBoxPlugin(plugins.PluginBase):
 			        }).catch(err=>{})
 		        })
                 let coord = text[i].getBoundingClientRect();
-                let top = coord.top + window.pageYOffset + 75; 
-                let left = coord.left + window.pageXOffset - 530;
+                let top = coord.top  + 75; 
+                let left = coord.left  - 530;
+                let fsize = 24   //font-size of the text
+                let tlength = (text[i].innerText||text[i].textContent).length
+              
+                this.fig.canvas.append("rect").style("visibility", "hidden")
+                        .attr("id", "textbox"+i)
+                        .attr("height", fsize)
+                        .attr("width", fsize*(2/3)*(tlength))
+                        .attr("x", left)
+                        .attr("y", top-fsize/2-fsize/4)
+                        .attr("stroke", "lightgrey")
+                        .attr("fill", "lightgrey");
                 
-                this.fig.canvas.append("text").text(text[i].innerHTML).style("font-size", 24)
+                this.fig.canvas.append("text").text(text[i].innerText||text[i].textContent).style("font-size", fsize)
                         .style("visibility", "hidden")
                         .attr("id", i)
                         .attr("x", left)
                         .attr("y", top);
                 
                 text[i].addEventListener("mouseover", function(event){
-                    document.getElementById(i).style.visibility = "visible";   
+                    document.getElementById(i).style.visibility = "visible";
+                    document.getElementById('textbox'+i).style.visibility = "visible";
                 })
 
                 text[i].addEventListener("mouseleave", function(event){
                     document.getElementById(i).style.visibility = "hidden";
-                    
+                    document.getElementById('textbox'+i).style.visibility = "hidden";
                 })
+                
                 
 
             }
