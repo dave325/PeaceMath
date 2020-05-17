@@ -30,10 +30,12 @@ def mainViewEnterButton(request):
 
     body = json.loads(request.body)
 
+    '''
     if 'initialParamValue' in request.session:
         initialParamValue = str(request.session['initialParamValue'])
     else:
-        initialParamValue = "8"
+    '''
+    initialParamValue = "111"
 
     if request.method == "POST":
         temp = json.loads(SessionStore(session_key=body['key'])['data'])
@@ -60,10 +62,12 @@ def mainViewEnterButton(request):
     return JsonResponse({ 'graph':graph, 'data': data['b']})
 
 def mainView(request):
+    '''
     if 'initialParamValue' in request.session:
         initialParamValue = str(request.session['initialParamValue'])
     else:
-        initialParamValue = "8"
+    '''
+    initialParamValue = "111"
 
     box_graph, box_colors, data,labels = getFig(initialParamValue)
 
