@@ -3,6 +3,7 @@
 
 <head>
 	<title>Peace Math</title>
+	
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -18,13 +19,15 @@
 			/*background: red;*/
 			position: absolute;
 			top: 0;
+			height: 1000px;
 			min-height: 700px;
-			width: 500px;
+			overflow-y: scroll;
+			width: 700px;
 			/* 0 width - change this with JavaScript */
 			z-index: 1;
-			/* Stay on top */
-			margin-top: 50px;
+	
 			text-align: cener;
+			background-color: #6495ED;
 
 		}
 
@@ -34,15 +37,15 @@
 
 
 		html {
-			overflow-x: hidden;
+			max-height: 100vh !important;
 		}
 
 		/*
 		   by default have menu hidden (pushed left)
 		*/
 		.menu-left-hide {
-			left: -240px;
-			opacity: 0.7;
+			left: -583px;
+			opacity: 0.5;
 		}
 
 		/*
@@ -53,21 +56,15 @@
 			opacity: 1;
 		}
 
-		/*
-
-			when the left menu is moved, also move the main content right
-		*/
+	
 		#main {
-			/*
-			overflow-x: hidden;
-			position: relative;
-			left: 0px;
-			*/
+			overflow-y: hidden;
+			
 		}
 
 
 		.main-push-right {
-			left: 240px !important;
+			left: 583px !important;
 		}
 
 		#b {
@@ -75,7 +72,8 @@
 			display: block;
 			margin-left: auto;
 			margin-right: auto;
-			margin-top: -75px;
+			margin-top: -100px;
+	
 
 		}
 
@@ -84,6 +82,9 @@
 			-webkit-transition: 200ms ease-in-out;
 			transition: 200ms ease-in-out;
 		}
+
+	
+
 	</style>
 
 
@@ -91,37 +92,38 @@
 
 <body>
 
-
+	<h1 class="text-center">Sustainable Peace Project</h1>
 
 	<div id="sidebar" class="menu-left-hide">
+
+		<div class="row">
+			<div class="col-12">
+				<input class="btn btn-light btn-outline-info" type="submit" value="Reset Values" name="original"
+				id="btn_original" />
+			</div>
+			<div class="col-12">
+				<input class="btn btn-light btn-outline-info" type="submit" value="Enter" name="enter"
+				id="btn_enter" />
+
+			</div>
+
+			<div class="col-12">
+				<button name="calculate" class="btn btn-light btn-outline-info" id="btn_calculate">Calculate</button>
+
+			</div>
+
+		</div>
 
 
 		<div class="row">
 
-			<div class="col-6">
+			<div class="col-10">
 
 
-				<div>
-					Input Value: {{ initialParamValue }}
+				<div class="col-2">
+
 				</div>
-				<form id="initialParamValue" method="post" action="/physics/sendInitialParameterValue/?id={{uuid}}">
-					{% csrf_token %}
-	
-					<select name="initialParamValue" form="initialParamValue" id="mySelect">
-						{% for option in select_options %}
-						<option value="{{option}}" {% if option == initialParamValue %}selected="selected" {% endif %}>
-							{{option}}
-						</option>
-						{% endfor %}
-					</select>
-	
-					<input type="submit" class="btn btn-light btn-outline-info">
-				</form>
-	
-	
-				<hr>
-				<button name="calculate" class="btn btn-light btn-outline-info" id="btn_calculate">Calculate</button>
-				<div class="input-menu">
+				<div class="input-menu col-10">
 					{% csrf_token %}
 	
 	
@@ -135,21 +137,14 @@
 	
 	
 					<hr>
-					<div>
-						Initial Conditions
-					</div>
-					<div class="submit_buttons">
-						<input class="btn btn-light btn-outline-info" type="submit" value="Original" name="original"
-							id="btn_original" />
-						<input class="btn btn-light btn-outline-info" type="submit" value="Enter" name="enter"
-							id="btn_enter" />
-					</div>
+
+
 				</div>
 
 			</div>
 
-			<div class="col-6">
-				<button class="btn btn-large btn-primary" id="toggleMenu">Modify</button>
+			<div class="col-2">
+				<button class="btn btn-large btn-primary" id="toggleMenu">EDIT</button>
 
 			</div>
 
