@@ -91,7 +91,6 @@ window.onload = function () {
 		}
 
 
-		console.log(inputBVals);
 
 		if (!sessionStorage.getItem('windowCounter')) {
 			sessionStorage.setItem('windowCounter', 1);
@@ -125,8 +124,10 @@ window.onload = function () {
 		}).then((res) => {
 			res.json().then(
 
-
 				(i) => {
+
+					document.getElementById("b").style.display = "block";
+
 
 					console.log(i)
 					//console.log(i.data.b)
