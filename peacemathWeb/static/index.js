@@ -3,6 +3,7 @@
 
 window.onload = function () {
 
+	/*
 	document.getElementById('btn_original').addEventListener('click', () => {
 
 		let inputVals = document.getElementsByClassName('b_values')
@@ -12,6 +13,7 @@ window.onload = function () {
 		}
 
 	});
+	
 
 	document.getElementById('btn_enter').addEventListener('click', () => {
 
@@ -29,6 +31,7 @@ window.onload = function () {
 			}
 		}
 
+		
 
 		let body = {}
 		body['key'] = window.sessionStorage.getItem('key')
@@ -65,12 +68,15 @@ window.onload = function () {
 		});
 	});
 
+	*/
+
 	document.getElementById('btn_calculate').addEventListener('click', () => {
 
 
 
 		let inputBVals = []
 		let inputVals = document.getElementsByClassName('b_values')
+
 
 
 		for (let j = 0; j < inputVals.length; j++) {
@@ -85,6 +91,8 @@ window.onload = function () {
 		}
 
 
+		console.log(inputBVals);
+
 		if (!sessionStorage.getItem('windowCounter')) {
 			sessionStorage.setItem('windowCounter', 1);
 		}
@@ -92,6 +100,8 @@ window.onload = function () {
 		let body = {}
 		body['key'] = window.sessionStorage.getItem('key')
 		body['b_vals'] = inputBVals
+
+
 
 
 
@@ -122,7 +132,8 @@ window.onload = function () {
 					//console.log(i.data.b)
 					let b_values = document.getElementsByClassName('b_values');
 					for (let j = 0; j < b_values.length; j++) {
-						b_values[j].value = i.data[j];
+						//NOTE, removed from this version of application
+						//b_values[j].value = i.data[j];
 					}
 					d3.select("#b").selectAll("*").remove();
 					mpld3.draw_figure("b", i.graph[0]);
