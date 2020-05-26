@@ -307,18 +307,24 @@ class GetTextBoxPlugin(plugins.PluginBase):
 				        )
 			        }).catch(err=>{})
 		        })
-                let coord = text[i].getBoundingClientRect();
-                let top = coord.top  + 75; 
-                let left = coord.left  - 530;
                 let fsize = 24   //font-size of the text
                 let tlength = (text[i].innerText||text[i].textContent).length
-              
+
+                let parentCoord = mainGraph.getBoundingClientRect();
+                let parentY = parentCoord.y;
+                let parentX = parentCoord.x;
+                let coord = text[i].getBoundingClientRect();
+                
+                let top = coord.top + parentY;
+                let left = coord.left - parentX;  
+                
+                
                 this.fig.canvas.append("rect").style("visibility", "hidden")
                         .attr("id", "textbox"+i)
                         .attr("height", fsize)
-                        .attr("width", fsize*(2/3)*(tlength))
-                        .attr("x", left)
-                        .attr("y", top-fsize/2-fsize/4)
+                        .attr("width", (0.62)*fsize*(tlength))
+                        .attr("x", left - fsize/2)    
+                        .attr("y", top - 3*fsize/4)  
                         .attr("stroke", "lightgrey")
                         .attr("fill", "lightgrey");
                 
