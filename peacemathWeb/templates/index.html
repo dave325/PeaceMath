@@ -4,9 +4,6 @@
 <head>
 	<title>Peace Math</title>
 
-	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-
-
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -18,8 +15,6 @@
 
 	{% load staticfiles %}
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
-		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 
 	<style>
@@ -80,7 +75,6 @@
 			margin-left: auto;
 			margin-right: auto;
 			margin-top: -100px;
-			display: none;
 
 		}
 
@@ -197,13 +191,16 @@
 		-->
 
 
+	
+
+
 		<div id="b">
 			{{box_graph | safe}}
 		</div>
 
 	</div>
 
-	
+
 
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -217,13 +214,17 @@
 		crossorigin="anonymous"></script>
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script id="lzutf8" src="https://cdn.jsdelivr.net/npm/lzutf8/build/production/lzutf8.js"></script>
-	<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.js"
+		integrity="sha256-zUQGihTEkA4nkrgfbbAM1f3pxvnWiznBND+TuJoUv3M=" crossorigin="anonymous"></script>
 </body>
 
 <!-- ASYNC SCRIPT LOADERS -->
 <script type="text/javascript" async src="{% static 'index.js' %}"></script>
 
 <script type="text/javascript">
+
 
 
 	function hideMenu() {
