@@ -13,6 +13,7 @@
 		type='text/css'>
 
 
+
 	{% load staticfiles %}
 
 
@@ -36,6 +37,10 @@
 
 		#openMenu {
 			text-align: center;
+			position: fixed;
+			top:10px;
+			left:10px;
+
 		}
 
 
@@ -65,6 +70,10 @@
 
 		}
 
+		#title {
+			color: darkblue;
+		}
+
 
 		.main-push-right {
 			left: 700px !important;
@@ -75,13 +84,31 @@
 			margin-left: auto;
 			margin-right: auto;
 			margin-top: -100px;
-			
+
 		}
 
 		.menu-left-hide,
 		.menu-left-open {
 			-webkit-transition: 200ms ease-in-out;
 			transition: 200ms ease-in-out;
+		}
+
+		.tab {
+			display: none;
+		}
+
+		.tab p {
+			font-size: 1.5em;
+			text-align: center;
+		}
+
+		#toggleBar {
+			background-color: lightgray;
+			min-height: 100vh;
+			overflow-y: hidden;
+			position: absolute;
+			top: 0;
+			width: 50px;
 		}
 	</style>
 
@@ -90,9 +117,81 @@
 
 <body>
 
-	<h1 class="text-center">Sustainable Peace Project</h1>
 
-	
+	<div class="container">
+
+		<div class="row">
+			<div class="col-2">
+
+			</div>
+			<div class="col-8">
+				<form id="regForm" onsubmit="">
+					<h1 id="title" class="mb-5 text-center">Sustainable Peace Project</h1>
+
+					<div class="tab col-12">
+						<h2 class="text-center">How do different conditions and processes in your society interact to
+							influence peace?</h2>
+						</br>
+						<p>
+							This interactive model can be used to visualize how different factors interact to produce
+							different
+							levels of peacefulness of entire societies.
+							To begin, please respond to a series of questions about the society you are interested in.
+							Then
+							click “Calculate”
+						</p>
+					</div>
+
+					<div class="tab col-12">
+						<h2 class="text-center">How would you describe your society?</h2>
+						</br>
+						<p>
+							Please respond to these questions with reference to the specific intergroup relations you
+							see as
+							most influential to the state of peace in your society.
+					</div>
+
+
+
+
+					<div class="tab col-12">
+						<p>
+							To what degree do you believe Positive Intergroup Reciprocity, or positive
+							interactions between members of different identity groups, is prevalent in your society?
+						</p>
+
+						<div class="col-12">
+							<input type="range" class="rangeInput" name="rangeInput" step="1" min="1" max="4">
+							<label class="rangeText" />
+						</div>
+
+
+
+					</div>
+
+
+					<div class="text-center">
+						<button class="btn btn-outline-primary" type="button" id="prevBtn"
+							onclick="nextPrev(-1)">Previous</button>
+						<button class="btn btn-outline-primary" type="button" id="nextBtn"
+							onclick="nextPrev(1)">Next</button>
+					</div>
+
+
+
+				</form>
+			</div>
+
+			<div class="col-2">
+
+			</div>
+		</div>
+
+
+	</div>
+
+
+
 
 
 
@@ -181,22 +280,15 @@
 
 
 
-	<button class="btn btn-large btn-primary" id="openMenu">EDIT</button>
+	<button class="btn btn-large btn-primary" id="openMenu">
+		<i class="fas fa-bars fa-2x"></i>
+	</button>
 
 
 
 
 
 	<div id="main">
-
-
-		<!--
-			
-		-->
-
-
-
-
 
 		<div id="b">
 			{{box_graph | safe}}
@@ -219,16 +311,80 @@
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script id="lzutf8" src="https://cdn.jsdelivr.net/npm/lzutf8/build/production/lzutf8.js"></script>
 
-	<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.js"
-		integrity="sha256-zUQGihTEkA4nkrgfbbAM1f3pxvnWiznBND+TuJoUv3M=" crossorigin="anonymous"></script>
 </body>
 
 <!-- ASYNC SCRIPT LOADERS -->
 <script type="text/javascript" async src="{% static 'index.js' %}"></script>
 
+<script>
+
+	// Multi-Step Form
+	var currentTab = 0; // Current tab is set to be the first tab (0)
+	showTab(currentTab); // Display the crurrent tab
+
+	function showTab(n) {
+		// This function will display the specified tab of the form...
+		var x = document.getElementsByClassName("tab");
+		x[n].style.display = "block";
+		//... and fix the Previous/Next buttons:
+		if (n == 0) {
+			document.getElementById("prevBtn").style.display = "none";
+		} else {
+			document.getElementById("prevBtn").style.display = "inline";
+		}
+		if (n == (x.length - 1)) {
+			document.getElementById("nextBtn").innerHTML = "Calculate";
+		} else {
+			document.getElementById("nextBtn").innerHTML = "Next";
+		}
+
+	}
+
+	function nextPrev(n) {
+		// This function will figure out which tab to display
+		var x = document.getElementsByClassName("tab");
+		// Exit the function if any field in the current tab is invalid:
+		if (n == 1 && !validateForm()) return false;
+		// Hide the current tab:
+		x[currentTab].style.display = "none";
+		// Increase or decrease the current tab by 1:
+		currentTab = currentTab + n;
+		// if you have reached the end of the form...
+		if (currentTab >= x.length) {
+			// ... the form gets submitted:
+			document.getElementById("regForm").submit();
+			return false;
+		}
+		// Otherwise, display the correct tab:
+		showTab(currentTab);
+	}
+
+	function validateForm() {
+		return true;
+	}
+
+
+</script>
+
 <script type="text/javascript">
 
+	$(function () {
+
+		var rangeValues =
+		{
+			"1": "Not at all",
+			"2": "Very little",
+			"3": "Somewhat",
+			"4": "To a great extent"
+		};
+
+		$('.rangeText').text(rangeValues[$('.rangeInput').val()]);
+
+		$('.rangeInput').on('input change', function () {
+			$('.rangeText').text(rangeValues[$(this).val()]);
+		});
+
+	});
 
 
 	function hideMenu() {

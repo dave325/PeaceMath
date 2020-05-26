@@ -70,6 +70,7 @@ window.onload = function () {
 
 	*/
 
+
 	document.getElementById('btn_calculate').addEventListener('click', () => {
 
 
