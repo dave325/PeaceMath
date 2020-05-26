@@ -71,6 +71,13 @@ window.onload = function () {
 	*/
 
 
+	function submitCalculate(){
+
+		
+
+	}
+
+
 	document.getElementById('btn_calculate').addEventListener('click', () => {
 
 
