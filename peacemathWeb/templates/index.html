@@ -132,7 +132,7 @@
 			</div>
 			<div class="col-8">
 				<form id="regForm" onsubmit="">
-					<h1 id="title" class="mb-5 text-center">Sustainable Peace Project</h1>
+					<h1 id="title" class="mb-5 text-center">PeaceMath Model</h1>
 
 					<div class="tab col-12">
 						<h2 class="text-center">How do different conditions and processes in your society interact to
@@ -675,13 +675,26 @@
 			"4": "To a great extent"
 		};
 
-
-
 		$('.rangeText').text(rangeValues[$('.rangeInput').val()]);
 
-		$('.rangeInput').on('input change', function () {
-			$('.rangeText').text(rangeValues[$(this).val()]);
+		var all = $(".rangeInput").each(function (index) {
+
+			var input = this;
+			input.addEventListener('change', function () {
+
+
+				$($('.rangeText').get(index)).text(rangeValues[$(this).val()]);
+
+			});
 		});
+
+		//this.text(rangeValues[$(this).val()]);
+
+
+
+
+
+
 
 	});
 

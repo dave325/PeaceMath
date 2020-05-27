@@ -73,7 +73,12 @@ window.onload = function () {
 
 	function submitCalculate(){
 
-		
+		let tabs = document.getElementsByClassName(".tab");
+		for(let tab of tabs){
+
+			
+
+		}
 
 	}
 
@@ -107,9 +112,6 @@ window.onload = function () {
 		let body = {}
 		body['key'] = window.sessionStorage.getItem('key')
 		body['b_vals'] = inputBVals
-
-
-
 
 
 		const windowCounter = Number(sessionStorage.getItem('windowCounter'));
