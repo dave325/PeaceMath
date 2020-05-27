@@ -19,6 +19,15 @@
 
 
 	<style>
+
+		#annot{
+			visibility: hidden;
+			position: absolute;
+			text-decoration: underline;
+			z-index: 5000;
+			font-size: 1.8em;
+		}
+
 		#loader {
 			border: 16px solid #f3f3f3;
 			/* Light grey */
@@ -155,6 +164,7 @@
 <body>
 
 	<div id="loader"></div>
+	<p id="annot"></p>
 
 	<div class="container" id="questions">
 

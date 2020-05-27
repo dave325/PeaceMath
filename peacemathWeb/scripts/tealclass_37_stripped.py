@@ -334,12 +334,31 @@ class GetTextBoxPlugin(plugins.PluginBase):
                         .attr("x", left)
                         .attr("y", top);
                 
-                text[i].addEventListener("mouseover", function(event){
-                    document.getElementById(i).style.visibility = "visible";
-                    document.getElementById('textbox'+i).style.visibility = "visible";
+                text[i].addEventListener("mouseover", (event)=>{
+
+                    let x = event.pageX;
+                    let y = event.pageY;
+
+
+                    let txtVal = document.getElementById(i).innerHTML;
+                    let annot = document.getElementById("annot");
+
+                    annot.innerHTML = txtVal;
+                    annot.style.visibility = "visible";
+                    annot.style.left = x+'px';
+                    annot.style.top = y+'px';
+                    
+  
+                    
                 })
 
                 text[i].addEventListener("mouseleave", function(event){
+
+
+                    let annot = document.getElementById("annot");
+                    annot.style.visibility = "hidden";
+
+
                     document.getElementById(i).style.visibility = "hidden";
                     document.getElementById('textbox'+i).style.visibility = "hidden";
                 })
@@ -420,6 +439,33 @@ class App:
                     id=id+1
         #plt.show(block=False)
         plugins.connect(f, GetTextBoxPlugin())
+
+        css = """
+                table
+                {
+                border-collapse: collapse;
+                }
+                th
+                {
+                color: #ffffff;
+                background-color: #000000;
+                }
+                td
+                {
+                background-color: #cccccc;
+                }
+                table, th, td
+                {
+                font-family:Arial, Helvetica, sans-serif;
+                border: 1px solid black;
+                text-align: right;
+                }
+                """     
+        
+
+        #tooltip = plugins.PointHTMLTooltip(a.collections[0], self.data['labels'],voffset=10, hoffset=10, css=css)
+        #plugins.connect(f, tooltip)
+
         fig = fig_to_html(f)
         return (fig,colorDictionary,self.data['labels'])
         #coding trick to close extra figures accidentally created in canvas----
