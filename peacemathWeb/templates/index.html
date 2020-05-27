@@ -19,13 +19,41 @@
 
 
 	<style>
+		#loader {
+			border: 16px solid #f3f3f3;
+			/* Light grey */
+			border-top: 16px solid #3498db;
+			/* Blue */
+			border-radius: 50%;
+			width: 120px;
+			height: 120px;
+			animation: spin 2s linear infinite;
+			display: block;
+
+			margin-left: auto;
+			margin-right: auto;
+			margin-top: 200px;
+			display: none;
+		}
+
+		@keyframes spin {
+			0% {
+				transform: rotate(0deg);
+			}
+
+			100% {
+				transform: rotate(360deg);
+			}
+		}
+
 		#sidebar {
 			/*background: red;*/
 			position: absolute;
 			top: 0;
 			height: 1000px;
-			min-height: 700px;
+			max-height: 100vh;
 			overflow-y: scroll;
+			overflow-x: hidden;
 			width: 500px;
 			/* 0 width - change this with JavaScript */
 			z-index: 1;
@@ -84,6 +112,7 @@
 			margin-left: auto;
 			margin-right: auto;
 			margin-top: -100px;
+			display: none;
 
 		}
 
@@ -116,6 +145,8 @@
 			font-size: 1.2em;
 
 		}
+
+		#questions {}
 	</style>
 
 
@@ -123,15 +154,18 @@
 
 <body>
 
+	<div id="loader"></div>
 
-	<div class="container">
+	<div class="container" id="questions">
+
+
 
 		<div class="row">
 			<div class="col-2">
 
 			</div>
 			<div class="col-8">
-				<form id="regForm" onsubmit="">
+				<form id="regForm">
 					<h1 id="title" class="mb-5 text-center">PeaceMath Model</h1>
 
 					<div class="tab col-12">
@@ -681,7 +715,6 @@
 
 			var input = this;
 			input.addEventListener('change', function () {
-
 
 				$($('.rangeText').get(index)).text(rangeValues[$(this).val()]);
 
