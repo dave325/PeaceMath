@@ -203,7 +203,12 @@ window.onload = function () {
 
 	document.getElementById('btn_calculate').addEventListener('click', () => {
 
-
+		document.getElementById('questions').style.display = "none";
+		document.getElementById("prevBtn").style.display = "none";
+		document.getElementById("nextBtn").style.display = "none";
+		document.getElementById("nextBtn").style.display = "none";
+		document.getElementById("openMenu").disabled = true;
+		document.getElementById("loader").style.display = "block";
 
 		let inputBVals = []
 		let inputVals = document.getElementsByClassName('b_values')
@@ -282,6 +287,11 @@ window.onload = function () {
 					myWindow.document.write(i.chart);
 					myWindow.document.title = "Figure " + windowCounter;
 					sessionStorage.setItem('windowCounter', windowCounter + 1);
+
+
+					document.getElementById('b').style.display = 'block';
+					document.getElementById("loader").style.display = "none";
+					document.getElementById("openMenu").disabled = false;
 
 				}
 			)
