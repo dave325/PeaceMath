@@ -108,7 +108,7 @@
 		}
 
 		#title {
-			color: darkblue;
+			color: #5bc0de;
 		}
 
 
@@ -576,11 +576,11 @@
 
 				<div class="row">
 
-					<div class="btn-group col-3" role="group">
-						<button type="button" class="btn btn-outline-dark">
+					<div class="PositiveNegative btn-group col-3" role="group">
+						<button type="button" class=" btn active btn-outline-primary">
 							<i class="fa fas fa-plus"></i>
 						</button>
-						<button type="button" class="btn btn-outline-dark">
+						<button type="button" class=" btn  btn-outline-danger">
 							<i class="fa fas fa-minus"></i>
 						</button>
 					</div>
@@ -711,6 +711,28 @@
 
 	$(function () {
 
+		$('.PositiveNegative').each(function(index){
+
+
+			let group = $(this);
+
+			let children = group.children()
+			let positiveButton = $(children[0])
+			let negativeButton = $(children[1])
+
+
+
+			negativeButton.click(()=>{
+				$(this).toggleClass("active");
+			})
+
+			positiveButton.click(()=>{
+				$(this).toggleClass("active");
+			})
+
+			
+		});
+
 		var rangeValues =
 		{
 			"1": "Not at all",
@@ -732,12 +754,6 @@
 		});
 
 		//this.text(rangeValues[$(this).val()]);
-
-
-
-
-
-
 
 	});
 
