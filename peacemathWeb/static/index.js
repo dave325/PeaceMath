@@ -203,6 +203,8 @@ window.onload = function () {
 
 	document.getElementById('btn_calculate').addEventListener('click', () => {
 
+		hideMenu();
+
 		document.getElementById('questions').style.display = "none";
 		document.getElementById("prevBtn").style.display = "none";
 		document.getElementById("nextBtn").style.display = "none";
