@@ -19,8 +19,7 @@
 
 
 	<style>
-
-		#annot{
+		#annot {
 			visibility: hidden;
 			position: absolute;
 			text-decoration: underline;
@@ -57,10 +56,9 @@
 
 		#sidebar {
 			/*background: red;*/
-			position: absolute;
+			position: fixed;
 			top: 0;
-			height: 1000px;
-			max-height: 100vh;
+			height: 100vh;
 			overflow-y: scroll;
 			overflow-x: hidden;
 			width: 500px;
@@ -155,7 +153,9 @@
 
 		}
 
-		#questions {}
+		#questionContainer{
+			height: 294px;
+		}
 	</style>
 
 
@@ -163,8 +163,10 @@
 
 <body>
 
-	<div id="loader"></div>
 	<p id="annot"></p>
+	<h1 id="title" class="mb-5 text-center">PeaceMath Model</h1>
+	<div id="loader"></div>
+
 
 	<div class="container" id="questions">
 
@@ -176,338 +178,352 @@
 			</div>
 			<div class="col-8">
 				<form id="regForm">
-					<h1 id="title" class="mb-5 text-center">PeaceMath Model</h1>
+					<div id="questionContainer">
 
-					<div class="tab col-12">
-						<h2 class="text-center">How do different conditions and processes in your society interact to
-							influence peace?</h2>
-						</br>
-						<p>
-							This interactive model can be used to visualize how different factors interact to produce
-							different
-							levels of peacefulness of entire societies.
-							To begin, please respond to a series of questions about the society you are interested in.
-							Then
-							click “Calculate”
-						</p>
-					</div>
-
-					<div class="tab col-12">
-						<h2 class="text-center">How would you describe your society?</h2>
-						</br>
-						<p>
-							Please respond to these questions with reference to the specific intergroup relations you
-							see as
-							most influential to the state of peace in your society.
-					</div>
-
-
-
-
-					<div class="tab col-12">
-						<p>
-							To what degree do you believe Positive Intergroup Reciprocity, or positive
-							interactions between members of different identity groups, is prevalent in your society?
-						</p>
-
-						<div class="col-12">
-							<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
-							<label class="w-100 text-center rangeText" />
+						<div class="tab col-12">
+							<h2 class="text-center">How do different conditions and processes in your society interact
+								to
+								influence peace?</h2>
+							</br>
+							<p>
+								This interactive model can be used to visualize how different factors interact to
+								produce
+								different
+								levels of peacefulness of entire societies.
+								To begin, please respond to a series of questions about the society you are interested
+								in.
+								Then
+								click “Calculate”
+							</p>
 						</div>
-					</div>
 
-					<div class="tab col-12">
-						<p>
-							To what degree do you believe Negative Intergroup Reciprocity, or negative
-							interactions between members of different identity groups, is prevalent in your society?
-						</p>
-
-						<div class="col-12">
-							<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
-							<label class="w-100 text-center rangeText" />
+						<div class="tab col-12">
+							<h2 class="text-center">How would you describe your society?</h2>
+							</br>
+							<p>
+								Please respond to these questions with reference to the specific intergroup relations
+								you
+								see as
+								most influential to the state of peace in your society.
 						</div>
-					</div>
 
 
 
-					<div class="tab col-12">
-						<p>
-							To what degree do you believe Positive Norms, or those which promote positive
-							interactions between members of different identity groups, are prevalent in your society?
-						</p>
 
-						<div class="col-12">
-							<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
-							<label class="w-100 text-center rangeText" />
+						<div class="tab col-12">
+							<p>
+								To what degree do you believe Positive Intergroup Reciprocity, or positive
+								interactions between members of different identity groups, is prevalent in your society?
+							</p>
+
+							<div class="col-12">
+								<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
+								<label class="w-100 text-center rangeText" />
+							</div>
 						</div>
-					</div>
 
-					<div class="tab col-12">
-						<p>
-							To what degree do you believe Preventative Norms, or those which prevent negative
-							interactions between members of different identity groups, are prevalent in your society?
-						</p>
+						<div class="tab col-12">
+							<p>
+								To what degree do you believe Negative Intergroup Reciprocity, or negative
+								interactions between members of different identity groups, is prevalent in your society?
+							</p>
 
-						<div class="col-12">
-							<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
-							<label class="w-100 text-center rangeText" />
+							<div class="col-12">
+								<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
+								<label class="w-100 text-center rangeText" />
+							</div>
 						</div>
-					</div>
 
-					<div class="tab col-12">
-						<p>
-							To what degree do you believe Positive Intergroup History, or positive accounts of
-							past intergroup relations, are prevalent in your society today?
-						</p>
 
-						<div class="col-12">
-							<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
-							<label class="w-100 text-center rangeText" />
+
+						<div class="tab col-12">
+							<p>
+								To what degree do you believe Positive Norms, or those which promote positive
+								interactions between members of different identity groups, are prevalent in your
+								society?
+							</p>
+
+							<div class="col-12">
+								<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
+								<label class="w-100 text-center rangeText" />
+							</div>
 						</div>
-					</div>
 
-					<div class="tab col-12">
-						<p>
-							To what degree do you believe Negative Intergroup History, or negative accounts of
-							past intergroup relations, are prevalent in your society today?
-						</p>
+						<div class="tab col-12">
+							<p>
+								To what degree do you believe Preventative Norms, or those which prevent negative
+								interactions between members of different identity groups, are prevalent in your
+								society?
+							</p>
 
-						<div class="col-12">
-							<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
-							<label class="w-100 text-center rangeText" />
+							<div class="col-12">
+								<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
+								<label class="w-100 text-center rangeText" />
+							</div>
 						</div>
-					</div>
 
-					<div class="tab col-12">
-						<p>
-							To what degree are Positive Intergroup Goals, or positive expectations regarding
-							future intergroup relations, prevalent in your society today?
-						</p>
+						<div class="tab col-12">
+							<p>
+								To what degree do you believe Positive Intergroup History, or positive accounts of
+								past intergroup relations, are prevalent in your society today?
+							</p>
 
-						<div class="col-12">
-							<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
-							<label class="w-100 text-center rangeText" />
+							<div class="col-12">
+								<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
+								<label class="w-100 text-center rangeText" />
+							</div>
 						</div>
-					</div>
 
+						<div class="tab col-12">
+							<p>
+								To what degree do you believe Negative Intergroup History, or negative accounts of
+								past intergroup relations, are prevalent in your society today?
+							</p>
 
-
-					<div class="tab col-12">
-						<p>
-							To what degree are Negative Intergroup Goals, or negative expectations regarding
-							future intergroup relations, prevalent in your society today?
-						</p>
-
-						<div class="col-12">
-							<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
-							<label class="w-100 text-center rangeText" />
+							<div class="col-12">
+								<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
+								<label class="w-100 text-center rangeText" />
+							</div>
 						</div>
-					</div>
 
-					<div class="tab col-12">
-						<p>
-							To what degree do you see Symbols of Peacefulness (e.g. ceremonies, monuments,
-							parks, songs, artwork celebrating peacefulness) prevalent in your society today?
-						</p>
+						<div class="tab col-12">
+							<p>
+								To what degree are Positive Intergroup Goals, or positive expectations regarding
+								future intergroup relations, prevalent in your society today?
+							</p>
 
-						<div class="col-12">
-							<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
-							<label class="w-100 text-center rangeText" />
+							<div class="col-12">
+								<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
+								<label class="w-100 text-center rangeText" />
+							</div>
 						</div>
-					</div>
 
-					<div class="tab col-12">
-						<p>
-							To what degree do you believe Cross-cutting Structures, or groups, teams, or
-							organizations that bring members of different identity groups together in cooperation,
-							prevalent in your society today?
-						</p>
 
-						<div class="col-12">
-							<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
-							<label class="w-100 text-center rangeText" />
+
+						<div class="tab col-12">
+							<p>
+								To what degree are Negative Intergroup Goals, or negative expectations regarding
+								future intergroup relations, prevalent in your society today?
+							</p>
+
+							<div class="col-12">
+								<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
+								<label class="w-100 text-center rangeText" />
+							</div>
 						</div>
-					</div>
 
-					<div class="tab col-12">
-						<p>
-							To what degree do you believe Good Governance serves to unite groups across
-							identity differences in your society today?
-						</p>
+						<div class="tab col-12">
+							<p>
+								To what degree do you see Symbols of Peacefulness (e.g. ceremonies, monuments,
+								parks, songs, artwork celebrating peacefulness) prevalent in your society today?
+							</p>
 
-						<div class="col-12">
-							<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
-							<label class="w-100 text-center rangeText" />
+							<div class="col-12">
+								<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
+								<label class="w-100 text-center rangeText" />
+							</div>
 						</div>
-					</div>
 
-					<div class="tab col-12">
-						<p>
-							To what degree do you believe ready access to formal and informal mechanisms for
-							Constructive Conflict Resolution are prevalent in your society today?
-						</p>
+						<div class="tab col-12">
+							<p>
+								To what degree do you believe Cross-cutting Structures, or groups, teams, or
+								organizations that bring members of different identity groups together in cooperation,
+								prevalent in your society today?
+							</p>
 
-						<div class="col-12">
-							<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
-							<label class="w-100 text-center rangeText" />
+							<div class="col-12">
+								<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
+								<label class="w-100 text-center rangeText" />
+							</div>
 						</div>
-					</div>
 
-					<div class="tab col-12">
-						<p>
-							To what degree do you believe fair and effective mechanisms for Justice serve to reduce
-							destructive intergroup conflict in your society today?
-						</p>
+						<div class="tab col-12">
+							<p>
+								To what degree do you believe Good Governance serves to unite groups across
+								identity differences in your society today?
+							</p>
 
-						<div class="col-12">
-							<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
-							<label class="w-100 text-center rangeText" />
+							<div class="col-12">
+								<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
+								<label class="w-100 text-center rangeText" />
+							</div>
 						</div>
-					</div>
 
-					<div class="tab col-12">
-						<p>
-							To what degree to you feel that sufficient levels of Safety and Security in local
-							communities contribute to reducing destructive intergroup conflict in your society today?
-						</p>
+						<div class="tab col-12">
+							<p>
+								To what degree do you believe ready access to formal and informal mechanisms for
+								Constructive Conflict Resolution are prevalent in your society today?
+							</p>
 
-						<div class="col-12">
-							<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
-							<label class="w-100 text-center rangeText" />
+							<div class="col-12">
+								<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
+								<label class="w-100 text-center rangeText" />
+							</div>
 						</div>
-					</div>
 
-					<div class="tab col-12">
-						<p>
-							To what degree do you believe Leaders and other high-status members of society model
-							peaceful values and constructive conflict resolution in your society today?
-						</p>
+						<div class="tab col-12">
+							<p>
+								To what degree do you believe fair and effective mechanisms for Justice serve to reduce
+								destructive intergroup conflict in your society today?
+							</p>
 
-						<div class="col-12">
-							<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
-							<label class="w-100 text-center rangeText" />
+							<div class="col-12">
+								<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
+								<label class="w-100 text-center rangeText" />
+							</div>
 						</div>
-					</div>
 
-					<div class="tab col-12">
-						<p>
-							To what degree do you believe commitment to fair and Sustainable Development policies
-							and practices are prevalent in your society today?
-						</p>
+						<div class="tab col-12">
+							<p>
+								To what degree to you feel that sufficient levels of Safety and Security in local
+								communities contribute to reducing destructive intergroup conflict in your society
+								today?
+							</p>
 
-						<div class="col-12">
-							<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
-							<label class="w-100 text-center rangeText" />
+							<div class="col-12">
+								<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
+								<label class="w-100 text-center rangeText" />
+							</div>
 						</div>
-					</div>
 
-					<div class="tab col-12">
-						<p>
-							To what degree do you believe people in your society hold Values and Beliefs that prioritize
-							respecting the universe, humanity, family and friends, more than one’s own personal goals,
-							wealth, or power today?
-						</p>
+						<div class="tab col-12">
+							<p>
+								To what degree do you believe Leaders and other high-status members of society model
+								peaceful values and constructive conflict resolution in your society today?
+							</p>
 
-						<div class="col-12">
-							<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
-							<label class="w-100 text-center rangeText" />
+							<div class="col-12">
+								<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
+								<label class="w-100 text-center rangeText" />
+							</div>
 						</div>
-					</div>
 
-					<div class="tab col-12">
-						<p>
-							To what degree do you believe early access to Education that emphasizes tolerance,
-							multiculturalism and constructive conflict resolution prevalent in your society today?
-						</p>
+						<div class="tab col-12">
+							<p>
+								To what degree do you believe commitment to fair and Sustainable Development policies
+								and practices are prevalent in your society today?
+							</p>
 
-						<div class="col-12">
-							<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
-							<label class="w-100 text-center rangeText" />
+							<div class="col-12">
+								<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
+								<label class="w-100 text-center rangeText" />
+							</div>
 						</div>
-					</div>
 
-					<div class="tab col-12">
-						<p>
-							To what degree do you believe a Shared Overarching Identity (e.g. a strong uniting
-							national, geographic or cultural identity) exists across groups in your society today?
-						</p>
+						<div class="tab col-12">
+							<p>
+								To what degree do you believe people in your society hold Values and Beliefs that
+								prioritize
+								respecting the universe, humanity, family and friends, more than one’s own personal
+								goals,
+								wealth, or power today?
+							</p>
 
-						<div class="col-12">
-							<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
-							<label class="w-100 text-center rangeText" />
+							<div class="col-12">
+								<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
+								<label class="w-100 text-center rangeText" />
+							</div>
 						</div>
-					</div>
 
-					<div class="tab col-12">
-						<p>
-							To what degree do you believe a clear Vision and understanding of what it takes to live in
-							peace are prevalent in your society today?
-						</p>
+						<div class="tab col-12">
+							<p>
+								To what degree do you believe early access to Education that emphasizes tolerance,
+								multiculturalism and constructive conflict resolution prevalent in your society today?
+							</p>
 
-						<div class="col-12">
-							<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
-							<label class="w-100 text-center rangeText" />
+							<div class="col-12">
+								<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
+								<label class="w-100 text-center rangeText" />
+							</div>
 						</div>
-					</div>
 
-					<div class="tab col-12">
-						<p>
-							To what degree do you believe an Equitable Distribution of Resources and
-							opportunities are prevalent in your society today?
-						</p>
+						<div class="tab col-12">
+							<p>
+								To what degree do you believe a Shared Overarching Identity (e.g. a strong uniting
+								national, geographic or cultural identity) exists across groups in your society today?
+							</p>
 
-						<div class="col-12">
-							<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
-							<label class="w-100 text-center rangeText" />
+							<div class="col-12">
+								<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
+								<label class="w-100 text-center rangeText" />
+							</div>
 						</div>
-					</div>
 
-					<div class="tab col-12">
-						<p>
-							To what degree do you believe Information Flows freely and openly for members of all
-							groups in your society today?
-						</p>
+						<div class="tab col-12">
+							<p>
+								To what degree do you believe a clear Vision and understanding of what it takes to live
+								in
+								peace are prevalent in your society today?
+							</p>
 
-						<div class="col-12">
-							<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
-							<label class="w-100 text-center rangeText" />
+							<div class="col-12">
+								<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
+								<label class="w-100 text-center rangeText" />
+							</div>
 						</div>
-					</div>
 
-					<div class="tab col-12">
-						<p>
-							To what degree do you believe Basic Needs such as food, water, and shelter are sufficiently
-							satisfied across all identity groups in your society today?
-						</p>
+						<div class="tab col-12">
+							<p>
+								To what degree do you believe an Equitable Distribution of Resources and
+								opportunities are prevalent in your society today?
+							</p>
 
-						<div class="col-12">
-							<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
-							<label class="w-100 text-center rangeText" />
+							<div class="col-12">
+								<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
+								<label class="w-100 text-center rangeText" />
+							</div>
 						</div>
-					</div>
 
-					<div class="tab col-12">
-						<p>
-							To what degree do you believe people in your society hold Non-violent Values and
-							Attitudes today?
-						</p>
+						<div class="tab col-12">
+							<p>
+								To what degree do you believe Information Flows freely and openly for members of all
+								groups in your society today?
+							</p>
 
-						<div class="col-12">
-							<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
-							<label class="w-100 text-center rangeText" />
+							<div class="col-12">
+								<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
+								<label class="w-100 text-center rangeText" />
+							</div>
 						</div>
-					</div>
 
-					<div class="tab col-12">
-						<p>
-							To what degree do you believe the Rule of Law functions sufficiently to guarantee safety and
-							security for members of all groups prevalent in your society today?
-						</p>
+						<div class="tab col-12">
+							<p>
+								To what degree do you believe Basic Needs such as food, water, and shelter are
+								sufficiently
+								satisfied across all identity groups in your society today?
+							</p>
 
-						<div class="col-12">
-							<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
-							<label class="w-100 text-center rangeText" />
+							<div class="col-12">
+								<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
+								<label class="w-100 text-center rangeText" />
+							</div>
 						</div>
+
+						<div class="tab col-12">
+							<p>
+								To what degree do you believe people in your society hold Non-violent Values and
+								Attitudes today?
+							</p>
+
+							<div class="col-12">
+								<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
+								<label class="w-100 text-center rangeText" />
+							</div>
+						</div>
+
+						<div class="tab col-12">
+							<p>
+								To what degree do you believe the Rule of Law functions sufficiently to guarantee safety
+								and
+								security for members of all groups prevalent in your society today?
+							</p>
+
+							<div class="col-12">
+								<input type="range" class="w-100 rangeInput" name="rangeInput" step="1" min="1" max="4">
+								<label class="w-100 text-center rangeText" />
+							</div>
+						</div>
+
 					</div>
 
 
@@ -657,7 +673,7 @@
 <!-- ASYNC SCRIPT LOADERS -->
 <script type="text/javascript" async src="{% static 'index.js' %}"></script>
 
-<script >
+<script>
 
 	// Multi-Step Form
 	var currentTab = 0; // Current tab is set to be the first tab (0)
@@ -711,7 +727,7 @@
 
 	$(function () {
 
-		$('.PositiveNegative').each(function(index){
+		$('.PositiveNegative').each(function (index) {
 
 
 			let group = $(this);
@@ -722,15 +738,15 @@
 
 
 
-			negativeButton.click(()=>{
+			negativeButton.click(() => {
 				$(this).toggleClass("active");
 			})
 
-			positiveButton.click(()=>{
+			positiveButton.click(() => {
 				$(this).toggleClass("active");
 			})
 
-			
+
 		});
 
 		var rangeValues =
