@@ -22,7 +22,6 @@ import time
 
 
 
-
 @csrf_exempt
 def mainViewEnterButton(request):
 
@@ -151,10 +150,7 @@ def getFig(initialParamValue):
 
 
 def getChart(request, data):
-    if 'initialParamValue' in request.session:
-        initialParamValue = str(request.session['initialParamValue'])
-    else:
-        initialParamValue = "8"
+    initialParamValue = "111"
     zzz = tc.App(initialParamValue)
     box = zzz.recalculate(data)
     return (box)
