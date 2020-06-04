@@ -25,8 +25,8 @@ SECRET_KEY = 'bfko*f^gpzw&#g6*95-mh19a2i1bm3x&ts6i!_6$&be$tm7su%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['http://sustainingpeaceproject.com']
 
+ALLOWED_HOSTS = []
 
 # Application definition
 

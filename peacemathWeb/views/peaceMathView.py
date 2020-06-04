@@ -4,6 +4,7 @@ from django.template import Template
 from django.shortcuts import render, render_to_response, get_object_or_404, redirect
 from django.views.decorators.csrf import csrf_exempt
 import hashlib
+from django.views.decorators.clickjacking import xframe_options_exempt
 
 
 import peacemathWeb.scripts.tealclass_37_stripped as tc 
@@ -21,7 +22,7 @@ SessionStore = import_module(settings.SESSION_ENGINE).SessionStore
 import time
 
 
-
+@xframe_options_exempt
 @csrf_exempt
 def mainViewEnterButton(request):
 
@@ -60,6 +61,7 @@ def mainViewEnterButton(request):
         s.save()
     return JsonResponse({ 'graph':graph, 'data': data['b']})
 
+@xframe_options_exempt
 def mainView(request):
     '''
     if 'initialParamValue' in request.session:
@@ -94,6 +96,7 @@ def mainView(request):
     return response
 
 @csrf_exempt
+@xframe_options_exempt
 def btnClick(request):
     temp = json.loads(request.body)
     s = json.loads(SessionStore(session_key=temp['key'])['data'])
@@ -105,6 +108,7 @@ def btnClick(request):
     return JsonResponse({"temp": arr, 'graph':graph }) 
 
 @csrf_exempt
+@xframe_options_exempt
 def chartView(request):
     if request.method == "POST":
         body = json.loads(request.body)
@@ -125,7 +129,7 @@ def chartView(request):
         return JsonResponse({'chart': chart, 'graph':graph, 'data': data['b']})
 
 
-
+@xframe_options_exempt
 def sendInitialParameterValue(request):
     if request.method == "POST":
         if 'initialParamValue' in request.POST:
@@ -133,22 +137,24 @@ def sendInitialParameterValue(request):
                 request.POST['initialParamValue'])
         return redirect('/')
     return HttpResponseNotFound('Wrong hitpoint')
-
+@xframe_options_exempt
 def getValuesByLabels(data,id):
     zzz = tc.App(data)
     arr,graph = zzz.btn_on_click(id,data)
     return (arr,graph)
 
+@xframe_options_exempt
 def getEnterButtonFig(initialParamValue,data):
     zzz = tc.App(initialParamValue)
     return zzz.recalculateEnter(data),data
 
+@xframe_options_exempt
 def getFig(initialParamValue):
     zzz = tc.App(initialParamValue)
     box, box_colors,labels = zzz.createBoxGraph()
     return (box, box_colors, getVariables(initialParamValue),labels)
 
-
+@xframe_options_exempt
 def getChart(request, data):
     initialParamValue = "111"
     zzz = tc.App(initialParamValue)

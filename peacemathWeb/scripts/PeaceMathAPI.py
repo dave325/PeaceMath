@@ -2,6 +2,7 @@
 from peacemathWeb.scripts.tealclass_37_stripped import *
 from peacemathWeb.scripts.teal_37_stripped import getVariables
 
+
 def getFig(num):
     zzz=App(str(num))
     box,box_colors,inputFields = zzz.createBoxGraph()
