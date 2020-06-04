@@ -138,20 +138,17 @@ def sendInitialParameterValue(request):
         return redirect('/')
     return HttpResponseNotFound('Wrong hitpoint')
 
-@xframe_options_exempt
 @csrf_exempt
 def getValuesByLabels(data,id):
     zzz = tc.App(data)
     arr,graph = zzz.btn_on_click(id,data)
     return (arr,graph)
 
-@xframe_options_exempt
 @csrf_exempt
 def getEnterButtonFig(initialParamValue,data):
     zzz = tc.App(initialParamValue)
     return zzz.recalculateEnter(data),data
 
-@xframe_options_exempt
 @csrf_exempt
 def getFig(initialParamValue):
     zzz = tc.App(initialParamValue)
