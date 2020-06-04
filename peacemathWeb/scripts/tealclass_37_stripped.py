@@ -165,6 +165,7 @@ class RectangleObject:
         self.from_box = f
         self.id = id
 
+
         paddingX = 0.010 * fontSize
         paddingY = 0.010 * fontSize
         scaledLetterSize = 0.01 * fontSize
@@ -183,8 +184,8 @@ class RectangleObject:
         yPos = f[1] - (scaledLetterSize + paddingY/2)
 
         self.arrow=plt.Rectangle(
-            [xPos,yPos],
-            width + paddingX,height + paddingY)
+            [xPos-width/2,yPos-height/2],
+            width*2 + paddingX,height*2 + paddingY)
         self.visible_arrow.append(self)
         self.arrow.set_alpha(0.50)
         self.arrow.set_color(color)
@@ -399,7 +400,6 @@ class App:
         a = f.add_subplot(111)
         a.axis('off')
         colorDictionary = []
-        print(self.data['b'])
 
         for index in range(len(self.data['b'])):
             xy=self.data['bxy'][index]

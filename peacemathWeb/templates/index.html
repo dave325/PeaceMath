@@ -153,8 +153,7 @@
 
 		}
 
-		#questionContainer{
-			height: 294px;
+		#questionContainer {
 		}
 	</style>
 
@@ -526,6 +525,7 @@
 
 					</div>
 
+					<br>
 
 					<div class="text-center">
 						<button class="btn btn-outline-secondary" type="button" id="prevBtn"
@@ -559,14 +559,27 @@
 		<div class="row px-5">
 
 
-			<div class="col-3">
-				<button name="calculate" class="btn btn-light btn-outline-dark" id="btn_enter">ENTER</button>
-				<button name="calculate" class="btn btn-light btn-outline-dark" id="btn_calculate">CALCULATE</button>
+			<div class="col-6">
+
+
+				<div class="row">
+					<div class="col-6">
+						<button name="enter" class="btn btn-light btn-outline-dark" id="btn_enter">ENTER</button>
+
+					</div>
+					<div class="col-6">
+						<button name="calculate" class="btn btn-light btn-outline-dark"
+							id="btn_calculate">CALCULATE</button>
+
+					</div>
+
+				</div>
+
 
 
 			</div>
 
-			<div class="col-6"></div>
+			<div class="col-3"></div>
 
 			<div class="col-3">
 				<button class="btn btn-large ml-5" id="closeMenu">
@@ -738,14 +751,22 @@
 			let positiveButton = $(children[0])
 			let negativeButton = $(children[1])
 
-
+			let isPositive = true;
 
 			negativeButton.click(() => {
-				$(this).toggleClass("active");
+				if(isPositive){
+					positiveButton.removeClass("active")
+					negativeButton.addClass("active")
+					isPositive = false;
+				}
 			})
 
 			positiveButton.click(() => {
-				$(this).toggleClass("active");
+				if(!isPositive){
+					positiveButton.addClass("active")
+					negativeButton.removeClass("active")
+					isPositive = true
+				}
 			})
 
 

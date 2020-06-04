@@ -15,5 +15,7 @@ mpld3 = "*"
 jinja2 = "*"
 django_heroku = "*"
 gunicorn = "*"
+django-cors-headers = "*"
+
 [requires]
 python_version = "3.7"
