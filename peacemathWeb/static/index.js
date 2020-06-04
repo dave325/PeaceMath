@@ -76,19 +76,10 @@ window.onload = function () {
 	nxtButton.addEventListener("click", function () {
 
 		if (nxtButton.textContent == "Calculate") {
-
-			submitCalculate();
-
+			document.getElementById('btn_enter').click()
 		}
 	});
-	function submitCalculate() {
-
-
 	
-
-	}
-
-
 
 
 
