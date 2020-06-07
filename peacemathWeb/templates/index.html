@@ -22,10 +22,24 @@
 		#annot {
 			visibility: hidden;
 			position: absolute;
-			text-decoration: underline;
 			z-index: 5000;
-			font-size: 1.8em;
+			border:2px solid  black;
+			background-color: white;
+			padding: 5px;
 		}
+
+		#annot #annotTitle{
+		
+			font-size: 1.8em;
+			text-decoration: underline;
+
+		}
+
+		#annot #annotDescr{
+			font-size: 1.0em;
+		}
+
+
 
 		#loader {
 			border: 16px solid #f3f3f3;
@@ -153,8 +167,11 @@
 
 		}
 
-		#questionContainer {
+		.sidebarLabel{
+			font-weight: 650;
+			margin-top: 5px;
 		}
+
 	</style>
 
 
@@ -162,7 +179,10 @@
 
 <body>
 
-	<p id="annot"></p>
+	<div id="annot">
+		<p id="annotTitle"></p>
+		<p id="annotDescr"></p>
+	</div>
 	<h1 id="title" class="mb-5 text-center">PeaceMath Model</h1>
 	<div id="loader"></div>
 
@@ -568,9 +588,10 @@
 
 					</div>
 					<div class="col-6">
+						<!--
 						<button name="calculate" class="btn btn-light btn-outline-dark"
 							id="btn_calculate">CALCULATE</button>
-
+						-->
 					</div>
 
 				</div>
@@ -603,7 +624,7 @@
 
 
 
-				<label for={{label}}>{{label}}</label>
+				<label class="sidebarLabel" for={{label}}>{{label}}</label>
 
 				<div class="row">
 
@@ -754,7 +775,7 @@
 			let isPositive = true;
 
 			negativeButton.click(() => {
-				if(isPositive){
+				if (isPositive) {
 					positiveButton.removeClass("active")
 					negativeButton.addClass("active")
 					isPositive = false;
@@ -762,7 +783,7 @@
 			})
 
 			positiveButton.click(() => {
-				if(!isPositive){
+				if (!isPositive) {
 					positiveButton.addClass("active")
 					negativeButton.removeClass("active")
 					isPositive = true

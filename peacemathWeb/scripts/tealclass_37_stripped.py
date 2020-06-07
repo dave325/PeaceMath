@@ -214,11 +214,8 @@ class GetChartPlugin(plugins.PluginBase):  # inherit from PluginBase
 
             let data = this.props.lineData;
 
-            console.log(this.fig.width);
-            console.log(this.fig.height);
 
       
-            console.log(data);
             for(let i = 0; i < data.length; i++)
             {
 
@@ -262,21 +259,82 @@ class GetTextBoxPlugin(plugins.PluginBase):
         function GetTextBoxPlugin(fig, props){
             mpld3.Plugin.call(this, fig, props);
 
-            
-
-
         };
+
+        let descrStore = {
+            'PosRecip':'Positive Intergroup Reciprocity, or the likelihood that one group will respond to another in positive ways',
+            'Neg Recip':'Negative Intergroup Reciprocity, or the likelihood that one group will respond to another in negative ways',
+            'Pro Norms':'Positive Norms, or norms, policies, and structures to bolster and support positive interactions between different groups',
+            'Constrctv':'Preventative Norms, or norms, policies, and structures which inhibit and protect against negative interactions between different groups',
+            'Neg Histo':'Negative Intergroup History, or the degree to which historical memory between groups is negative',
+            'Pos Histo':'Positive Intergroup History, or the degree to which historical memory between groups is positive',
+            'Pos Goals':'Positive Intergroup Goals and Expectations, or the degree to which future group interactions can be expected to be positive',
+            'Neg Goals':'Negative Intergroup Goals and Expectations, or the degree to which future group interactions can be expected to be negative',
+            'P-Symbols':'Peace Symbols',
+            'Cross-cut':'Cross-cutting structures that incorporate members of both groups such as sports teams, schools, or neighborhood committees',
+            'Governanc':'Good governance',
+            'Conf Mgmt':'Ready access to formal and informal mechanisms for constructive conflict resolution',
+            'Proc Just':'Effective mechanisms for procedural and distributive justice',
+            'Safe &amp;sec':'Secuity',
+            'P-Leaders':'Leaders and high status members of society model peaceful values and constructive conflict resolution',
+            'Sust Deve':'Commitment to sustainable development policies and practices',
+            'Transcend':'Self-transcendent values',
+            'Peace Edu':'Early access to tolerance, multiculturalism and constructive conflict resolution education',
+            'Shared Id':'Shared overarching identity across groups (e.g. a strong uniting national identity)',
+            'P-vision':'Visions and understanding of what it takes to live in peace are shared',
+            'EqResourc':'Equitable distribution of resources and opportunity structures',
+            'Info Flow':'Information flows freely and openly for members of all groups',
+            'BasicNeed':'Basic needs such as food, water, and shelter are satisfied',
+            'Dvalu Vio':'Endorsement of non-violent values and attitudes',
+            'RuleofLaw':'Ability of the Rule of Law to guarantee safety and security for members of all groups'
+        }
+
+        let newVals = {
+            'PosRecip':'Pos Recip',
+            'NegRecip':'NegRecip',
+            'Pro Norms':'Pos Norms',
+            'Constrctv':'Prev Norms',
+            'Pos Histo':'PosHistory',
+            'Neg Histo':'NegHistory',
+            'Pos Goals':'Pos Goals',
+            'Neg Goals':'Neg Goals',
+            'P-Symbols':'P-Symbols',
+            'Cross-cut':'Cross-cut',
+            'Governanc':'Governance',
+            'Conf Mgmt':'Conf Resp',
+            'Proc Just':'Justice',
+            'Safe &amp;sec':'Security',
+            'P-Leaders':'Leaders',
+            'Sust Deve.':'Sust Dev',
+            'Peace Edu':'Education',
+            'Shared Id':'Shared Id',
+            'P-vision':'P-vision',
+            'EqResourc':'Equity',
+            'Info Flow':'Info Flow',
+            'BasicNeed':'BasicNeeds',
+            'Dvalu Vio':'DevalueVio',
+            'RuleofLaw':'RuleofLaw'
+        }
+
+        GetTextBoxPlugin.prototype.modifyTxtval = function(txt){
+            for(let i = 0; i < txt.length; i++)
+            {
+                
+                //txt[i].innerHTML = newVals[txt[i].innerHTML]
+            }
+        }
         
         GetTextBoxPlugin.prototype.draw = function(){
             let ctx = this.fig.canvas[0][0];
-            console.log(this.fig)
             var div = d3.select(".mpld3-axes");
-            console.log(ctx.getBBox())
 		    let textBoxes = ctx.getElementsByClassName("mpld3-text");
-    	    console.log("Adding text listeners")
             let text = document.getElementsByClassName('mpld3-text');
 
+            GetTextBoxPlugin.prototype.modifyTxtval(text)
+
             let mainGraph = document.getElementById('b');
+
+
 
             for(let i = 0; i < text.length; i++){
                 text[i].addEventListener("mousedown", function() {
@@ -296,8 +354,6 @@ class GetTextBoxPlugin(plugins.PluginBase):
 
 					        (i) => {
 
-                                console.log('special click');
-						        console.log(i)
                                 let b_values = document.getElementsByClassName('b_values');
                                 for (let j = 0; j < b_values.length; j++) {
                                     b_values[j].value = i.temp[j];
@@ -343,11 +399,15 @@ class GetTextBoxPlugin(plugins.PluginBase):
 
                     let txtVal = document.getElementById(i).innerHTML;
                     let annot = document.getElementById("annot");
+                    let annotTitle = annot.childNodes[1];
+                    let annotDescr = annot.childNodes[3];
 
-                    annot.innerHTML = txtVal;
                     annot.style.visibility = "visible";
                     annot.style.left = x+'px';
                     annot.style.top = y+'px';
+
+                    annotTitle.innerHTML = txtVal;
+                    annotDescr.innerHTML = descrStore[txtVal];
                     
   
                     
