@@ -1,1 +1,1 @@
-<module 'data' from 'C:\\Users\\deepakk\\Desktop\\PeaceMath\\peacemathWeb\\scripts\\data.py'>
+<module 'data' from 'C:\\Users\\deepakk\\Desktop\\work\\PeaceMath\\peacemathWeb\\scripts\\data.py'>

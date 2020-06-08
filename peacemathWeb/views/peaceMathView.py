@@ -155,7 +155,6 @@ def getFig(initialParamValue):
     box, box_colors,labels = zzz.createBoxGraph()
     return (box, box_colors, getVariables(initialParamValue),labels)
 
-@xframe_options_exempt
 @csrf_exempt
 def getChart(request, data):
     initialParamValue = "111"

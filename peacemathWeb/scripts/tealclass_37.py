@@ -229,6 +229,8 @@ class App:
     
     #used to scale the sizes of the textboxes
     def scalebox(vector):
+        print("VECTOR")
+        print(vector)
         data2=[0 for i in range(len(vector))]
         minbox,maxbox=2,30
         minb,maxb=min(vector),max(vector)
@@ -244,12 +246,12 @@ class App:
     def recalculate(self,pass_data):
         consoleOut = sys.stdout
 
-        sys.stdout = open('correctData.txt', 'w')
+        #sys.stdout = open('correctData.txt', 'w')
         print(pass_data) 
 
-        sys.stdout = consoleOut
+        #sys.stdout = consoleOut
 
-        print('write complete')  
+    
         #UGLY FIX FOR ENTRIES/ENTRIESIJ----------------------------------------
         if self.fixent==1:
             self.data.z[0]=[eval((self.entries[i][1].get())) for i in range(len(self.entries))]
@@ -277,8 +279,6 @@ class App:
         data.b=App.scalebox(vector)
         #set z[0]=z[-1] for the NEXT iteration
         pass_data.z[0]=pass_data.z[-1]
-        sys.stdout = open('incorrectData.txt','w')
-        print(pass_data)
         #CLEAR and REFRESH DATA and PIC frames
         App.ClearFrame(self.framed1)
         App.ClearFrame(self.framepic)

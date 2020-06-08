@@ -620,7 +620,7 @@ class App:
 
     
     #used to scale the sizes of the textboxes
-    def scalebox(vector):
+    def scalebox(self,vector):
         data2=[0 for i in range(len(vector))]
         minbox,maxbox=2,30
         minb,maxb=min(vector),max(vector)
@@ -663,11 +663,17 @@ class App:
             self.data.ca[:,self.box_id]=column
         #UGLY FIX FOR ENTRIES/ENTRIESIJ----------------------------------------
         '''
+
+ 
+
         self.fewarrows=0
         pass_data["tt"]=0
         #pass_data["t"]=[0. for i in range(pass_data["numdata"])] #time
         #pass_data["z"]=np.array([pass_data["ica"] for i in range (pass_data["numdata"])]) #row=variables at each time
         #print(pass_data['b'])
+
+
+
         for i in range (1,pass_data["numdata"]):
             mtanh=np.tanh(pass_data["z"][i-1])
             cterm=np.dot(pass_data["ca"],mtanh)
@@ -676,24 +682,24 @@ class App:
             pass_data["t"][i]=pass_data["tt"]
             pass_data["z"][i]=pass_data["z"][i-1]+pass_data["dx"]
             for j in range(pass_data["numc"]):
-                pass_data["z"][i][j]=max(pass_data["z"][i][j],0.) 
+                pass_data["z"][i][j]=max(pass_data["z"][i][j],0) 
         #make new plot
-        
-        
-        #scale b's from z[-1]
-        vector=pass_data["z"][-1]
-        pass_data["b"]=App.scalebox(vector)
-        #set z[0]=z[-1] for the NEXT iteration
-        pass_data["z"][0]=pass_data["z"][-1]
-        
-        pass_data["b"]=App.scalebox(vector)
-        #set z[0]=z[-1] for the NEXT iteration
-        pass_data["z"][0]=pass_data["z"][-1]
-        
+
         self.data = pass_data
 
+        
 
+        
+        #scale b's from z[-1]
+        vec=pass_data["z"][-1]
+        pass_data["b"]=App.scalebox(self,vec)
+
+        #set z[0]=z[-1] for the NEXT iteration
+        pass_data["z"][0]=pass_data["z"][-1]
+
+        
         arg1 = self.MakePlot(pass_data)
+   
         arg2 = self.createBoxGraphDict([])
         
     
