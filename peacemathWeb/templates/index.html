@@ -23,19 +23,19 @@
 			visibility: hidden;
 			position: absolute;
 			z-index: 5000;
-			border:2px solid  black;
+			border: 2px solid black;
 			background-color: white;
 			padding: 5px;
 		}
 
-		#annot #annotTitle{
-		
+		#annot #annotTitle {
+
 			font-size: 1.8em;
 			text-decoration: underline;
 
 		}
 
-		#annot #annotDescr{
+		#annot #annotDescr {
 			font-size: 1.0em;
 		}
 
@@ -167,11 +167,10 @@
 
 		}
 
-		.sidebarLabel{
+		.sidebarLabel {
 			font-weight: 650;
 			margin-top: 5px;
 		}
-
 	</style>
 
 
@@ -725,9 +724,11 @@
 		} else {
 			document.getElementById("prevBtn").style.display = "inline";
 		}
-		if (n == (x.length - 1)) {
+		if (n == 26) {
 			document.getElementById("nextBtn").innerHTML = "Calculate";
-		} else {
+
+		}
+		else {
 			document.getElementById("nextBtn").innerHTML = "Next";
 		}
 
@@ -745,7 +746,8 @@
 		// if you have reached the end of the form...
 		if (currentTab >= x.length) {
 			// ... the form gets submitted:
-			document.getElementById("regForm").submit();
+			//document.getElementById("regForm").submit();
+			submitFunction()
 			return false;
 		}
 		// Otherwise, display the correct tab:
@@ -849,7 +851,6 @@
 
 	let text = document.getElementsByClassName("mpld3-text");
 	for (let j = 0; j < text.length; j++) {
-		console.log(text[j])
 		text[j].addEventListener('click', () => {
 			data = JSON.stringify({ key: window.sessionStorage.getItem("key"), val: j })
 			fetch('/physics/btn_click/', {
@@ -869,6 +870,109 @@
 	}
 
 
+	function submitFunction() {
+		let nxtButton = document.getElementById("nextBtn")
+
+		if (nxtButton.textContent == "Calculate") {
+
+			hideMenu();
+
+			document.getElementById('questions').style.display = "none";
+			document.getElementById("prevBtn").style.display="none";
+			document.getElementById("nextBtn").style.display="none";
+			document.getElementById("openMenu").disabled = true;
+			document.getElementById("loader").style.display = "block";
+
+			let inputVals = document.getElementsByClassName("rangeInput");
+			let b_values = document.getElementsByClassName('b_values');
+
+			let inputBVals = []
+
+			for (let j = 0; j < inputVals.length; j++) {
+				let inputValue = inputVals[j].value;
+				let finalInputVal = 0;
+
+				console.log(b_values[j].value)
+
+
+				if (inputValue == 1) {
+					finalInputVal = 0;
+					b_values[j].value = 0.0;
+				}
+				else if (inputValue == 2) {
+					finalInputVal = 0.75;
+					b_values[j].value = 0.75;
+				}
+				else if (inputValue == 3) {
+					finalInputVal = 2;
+					b_values[j].value = 2.0;
+				}
+				else if (inputValue == 4) {
+					finalInputVal = 6;
+					b_values[j].value = 6.0;
+				}
+
+
+				inputBVals.push(finalInputVal)
+			}
+
+			console.log(inputBVals)
+
+
+
+			let body = {}
+			body['key'] = window.sessionStorage.getItem('key')
+			body['b_vals'] = inputBVals
+
+
+			//let myWindow = window.open("", "Figure " + windowCounter, "width=960 ,height=780");
+			//myWindow.document.write('<h1>Loading</h1>');
+
+
+
+			fetch('/physics/chart/', {
+				method: 'post', headers: {
+					'Accept': 'application/json',
+					'Content-Type': 'application/json'
+				}, body: JSON.stringify(body)
+			}).then((res) => {
+				res.json().then(
+
+					(i) => {
+
+						document.getElementById("b").style.display = "block";
+
+						//console.log(i.data.b)
+						let b_values = document.getElementsByClassName('b_values');
+						for (let j = 0; j < b_values.length; j++) {
+							//NOTE, removed from this version of application
+							//b_values[j].value = i.data[j];
+						}
+						d3.select("#b").selectAll("*").remove();
+						mpld3.draw_figure("b", i.graph[0]);
+						let text = document.getElementsByClassName("mpld3-text");
+
+						for (let j = 0; j < b_values.length; j++) {
+							///console.log(i.data[j])
+							//console.log(Math.max(...i.data))
+							//console.log((i.data[j] / Math.max(...i.data)))
+							text[j].style.fontSize = ((i.data[j] / Math.max(...i.data) + 0.3) * 28) + "px";
+						}
+
+
+
+						document.getElementById('b').style.display = 'block';
+						document.getElementById("loader").style.display = "none";
+						document.getElementById("openMenu").disabled = false;
+
+					}
+				).catch((err) => {
+					console.log(err);
+				})
+			});
+
+		}
+	}
 
 
 
