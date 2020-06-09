@@ -290,6 +290,9 @@ window.onload = function () {
 
 			inputBVals.push(parseFloat(input.value) * multiplier)
 
+
+
+
 		}
 
 		console.log(inputBVals)

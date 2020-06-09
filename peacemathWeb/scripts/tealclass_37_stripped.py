@@ -551,7 +551,6 @@ class App:
         
         colorDictionary = []
         print("Dict call")
-        print(self.data['b'])
         
         
         for index in range(len(self.data['b'])):
@@ -653,25 +652,21 @@ class App:
 
         #pass_data = self.data
 
+        print("Incoming")
+   
         pass_data = data
-        '''
-        #UGLY FIX FOR ENTRIES/ENTRIESIJ----------------------------------------
-        if self.fixent==1:
-            self.data.z[0]=[eval((self.entries[i][1].get())) for i in range(len(self.entries))]
-        if self.fixent==2:
-            column=[eval((self.entriesIJ[i][1].get())) for i in range(len(self.entriesIJ))]
-            self.data.ca[:,self.box_id]=column
-        #UGLY FIX FOR ENTRIES/ENTRIESIJ----------------------------------------
-        '''
-
- 
+        pass_data["z"][0] = pass_data["b"]
+        
+        for v in range (0,len(pass_data["z"][1])):
+            pass_data["z"][1][v] = 0.1
+        
+        #print(pass_data["z"][0])
+        #print(pass_data["z"][1])
 
         self.fewarrows=0
         pass_data["tt"]=0
         #pass_data["t"]=[0. for i in range(pass_data["numdata"])] #time
         #pass_data["z"]=np.array([pass_data["ica"] for i in range (pass_data["numdata"])]) #row=variables at each time
-        #print(pass_data['b'])
-
 
 
         for i in range (1,pass_data["numdata"]):
@@ -685,32 +680,24 @@ class App:
                 pass_data["z"][i][j]=max(pass_data["z"][i][j],0) 
         #make new plot
 
-        self.data = pass_data
 
-        
-
-        
+    
         #scale b's from z[-1]
         vec=pass_data["z"][-1]
         pass_data["b"]=App.scalebox(self,vec)
 
         #set z[0]=z[-1] for the NEXT iteration
-        pass_data["z"][0]=pass_data["z"][-1]
+        #pass_data["z"][0]=pass_data["z"][-1]
 
         
         arg1 = self.MakePlot(pass_data)
-   
         arg2 = self.createBoxGraphDict([])
         
     
+        #print(pass_data["z"][0])
 
         return (arg1,arg2, pass_data)
-        '''
-        #CLEAR and REFRESH DATA and PIC frames
-        App.ClearFrame(self.framed1)
-        App.ClearFrame(self.framepic)
-        #self.refreshDataFrame()
-        self.refreshPicFrame()      '''
+
      
         
     #makes plot of x(i) vs. time

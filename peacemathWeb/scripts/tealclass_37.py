@@ -196,7 +196,7 @@ class App:
         f.set_size_inches(8,10)
         a = f.add_subplot(111)
         a.axis('off')
-        print('B VALUES')
+
         for index in range(len(data.b)):
             xy=data.bxy[index]
             TextBox(a,xy[0],xy[1],data.b[index],index,data.labels[index],data.boxcolor[index])
@@ -229,8 +229,6 @@ class App:
     
     #used to scale the sizes of the textboxes
     def scalebox(vector):
-        print("VECTOR")
-        print(vector)
         data2=[0 for i in range(len(vector))]
         minbox,maxbox=2,30
         minb,maxb=min(vector),max(vector)
@@ -246,10 +244,13 @@ class App:
     def recalculate(self,pass_data):
         consoleOut = sys.stdout
 
+
         #sys.stdout = open('correctData.txt', 'w')
-        print(pass_data) 
+
 
         #sys.stdout = consoleOut
+
+   
 
     
         #UGLY FIX FOR ENTRIES/ENTRIESIJ----------------------------------------
@@ -261,8 +262,12 @@ class App:
         #UGLY FIX FOR ENTRIES/ENTRIESIJ----------------------------------------
         self.fewarrows=0
         pass_data.tt=0
-        print('b val')
-        print(pass_data.b)
+
+        print('INPUT DATA')
+        print(self.data.z)
+
+
+
         for i in range (1,pass_data.numdata):
             mtanh=np.tanh(pass_data.z[i-1])
             cterm=np.dot(pass_data.ca,mtanh)
@@ -283,7 +288,10 @@ class App:
         App.ClearFrame(self.framed1)
         App.ClearFrame(self.framepic)
         self.refreshDataFrame()
-        self.refreshPicFrame()        
+        self.refreshPicFrame()   
+
+        print('MODIFIED')
+        print(self.data.z[0])     
      
         
     #makes plot of x(i) vs. time
@@ -306,8 +314,6 @@ class App:
         param1='\n   input files= '+str(pass_data.fnamec)+'    '    +str(pass_data.fnameb)+'    '+str(pass_data.fnamem) +'    '+str(pass_data.fnamebtextbxy) + '     dt='+str(pass_data.dt)
         start=App.displayinput(pass_data.z[0],75)
         finish=App.displayinput(pass_data.z[-1],75)
-        print('call')
-        print(finish)
         param2='\nstart=  ' + start + '\nfinish=  ' + finish
         titlelsl=programname+param1 + param2
         plt.title(titlelsl, fontsize=8)
@@ -437,8 +443,10 @@ class App:
         self.canvas.create_window((0,0), window=self.frame, anchor='nw')
         # creating the cij adjacency matrix entry widgets
         fields=self.data.labels
+        print('INPUTS')
+        print(self.entriesIJ)
+
         entriesIJ = []     
-        print("Self.data check")                                                    
         for field in fields:
             row = tk.Frame(self.frame)
             lab = tk.Label(row, width=15, text=field, anchor='w',bg='thistle1')
@@ -447,7 +455,6 @@ class App:
             lab.pack(side=tk.LEFT,expand=1)
             entIJ.pack(side=tk.RIGHT, expand=tk.YES, fill=tk.Y)
             entIJ.insert(10,self.data.ca[fields.index(field)][self.box_id])
-            print(self.data.ca[fields.index(field)][self.box_id])
             entriesIJ.append((field, entIJ))
             self.entriesIJ=entriesIJ
         #TRANSFORM ALL ENTRIES INTO STARTING VALUES FOR COMPUTATION
