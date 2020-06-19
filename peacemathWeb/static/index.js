@@ -39,6 +39,11 @@ window.onload = function () {
 	}
 
 
+	Array.prototype.forEach.call(document.getElementsByClassName("b_values"), function(el) {
+		let random = Math.floor(Math.random() * 4);
+		el.children.item(random).selected = true;
+	});
+
 
 
 	/*
